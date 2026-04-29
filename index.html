@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FastFounder Analyzer — Стартапы</title>
+<style>
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+    background: #fafafa;
+    color: #1a1a1a;
+    font-size: 15px;
+    line-height: 1.6;
+}
+a { color: inherit; text-decoration: none; }
+a:hover { opacity: 0.75; }
+
+/* NAV */
+nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #ebebeb;
+    padding: 0 32px;
+    display: flex; align-items: center; gap: 32px;
+    height: 56px;
+}
+.nav-brand {
+    font-weight: 700; font-size: 16px; letter-spacing: -0.3px;
+    color: #000;
+}
+.nav-brand span { color: #6366f1; }
+nav a {
+    font-size: 14px; color: #555; font-weight: 500;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+}
+nav a:hover, nav a.active {
+    color: #000;
+    border-bottom-color: #6366f1;
+    opacity: 1;
+}
+.nav-count {
+    margin-left: auto;
+    font-size: 13px; color: #999;
+}
+
+/* CONTAINER */
+.container { max-width: 1120px; margin: 0 auto; padding: 40px 24px; }
+
+/* PAGE HEADER */
+.page-header { margin-bottom: 32px; }
+.page-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+.page-header p { color: #666; margin-top: 6px; font-size: 15px; }
+
+/* SEARCH + FILTER */
+.toolbar {
+    display: flex; gap: 12px; align-items: center;
+    margin-bottom: 28px; flex-wrap: wrap;
+}
+.search-box {
+    flex: 1; min-width: 220px;
+    padding: 9px 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    transition: border-color .15s;
+}
+.search-box:focus { border-color: #6366f1; }
+.filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+    padding: 5px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    background: #fff;
+    transition: all .15s;
+    white-space: nowrap;
+}
+.chip:hover, .chip.active {
+    background: #6366f1;
+    border-color: #6366f1;
+    color: #fff;
+}
+
+/* STATS ROW */
+.stats-row {
+    display: flex; gap: 20px; margin-bottom: 32px; flex-wrap: wrap;
+}
+.stat {
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+    padding: 14px 20px;
+    min-width: 120px;
+}
+.stat-value { font-size: 24px; font-weight: 700; color: #6366f1; }
+.stat-label { font-size: 12px; color: #888; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+}
+
+/* CARD */
+.card {
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 12px;
+    padding: 20px;
+    transition: box-shadow .15s, transform .15s;
+    display: flex; flex-direction: column; gap: 12px;
+}
+.card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    transform: translateY(-1px);
+}
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.card-title { font-weight: 600; font-size: 15px; line-height: 1.4; flex: 1; }
+.badge {
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.round-badge {
+    background: #f0fdf4;
+    color: #16a34a;
+    font-size: 12px;
+    font-weight: 600;
+}
+.niche-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #444;
+}
+.card-problem {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+}
+.card-insight {
+    font-size: 13px;
+    color: #333;
+    background: #fafafa;
+    border-left: 3px solid #6366f1;
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    line-height: 1.5;
+}
+.card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid #f0f0f0;
+}
+.card-date { font-size: 12px; color: #aaa; }
+.card-link {
+    font-size: 12px;
+    color: #6366f1;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 4px;
+}
+.card-link:hover { opacity: 0.8; }
+
+/* HIDDEN */
+.card.hidden { display: none; }
+
+/* INSIGHTS PAGE */
+.insights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 800px;
+}
+.insight-card {
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.insight-header {
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.insight-title { font-size: 17px; font-weight: 700; }
+.insight-date { font-size: 12px; color: #aaa; }
+.insight-body {
+    padding: 20px 24px;
+}
+.insight-body p { margin-bottom: 10px; color: #444; font-size: 14px; line-height: 1.65; }
+.insight-body p:last-child { margin-bottom: 0; }
+.insight-body .section-head {
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 18px;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+.insight-body .section-head:first-child { margin-top: 0; }
+.insight-body .numbered { padding-left: 4px; }
+.insight-body br { display: block; margin: 4px 0; }
+
+/* EMPTY STATE */
+.empty { text-align: center; color: #aaa; padding: 60px 0; font-size: 15px; }
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 32px 0 40px;
+    color: #bbb;
+    font-size: 13px;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-brand">Fast<span>Founder</span> Analyzer</div>
+    <a href="index.html" class="active">Стартапы</a>
+    <a href="insights.html">Инсайты</a>
+    <span class="nav-count">74 обзоров</span>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>База стартапов</h1>
+        <p>Структурированные выжимки из обзоров FastFounder.ru</p>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat">
+            <div class="stat-value">74</div>
+            <div class="stat-label">Стартапов</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">70</div>
+            <div class="stat-label">Ниш</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">73</div>
+            <div class="stat-label">С раундом</div>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <input class="search-box" type="text" placeholder="Поиск по названию, проблеме, инсайту…" oninput="search(this.value)">
+    </div>
+    <div class="filter-chips" style="margin-bottom:24px">
+        <button class="chip active" onclick="filterNiche('all', this)">Все</button>
+<button class="chip" onclick="filterNiche('B2B SaaS / operations', this)">B2B SaaS / operations</button>
+<button class="chip" onclick="filterNiche('B2B SaaS / операционная эффективность', this)">B2B SaaS / операционная эффективность</button>
+<button class="chip" onclick="filterNiche('B2B SaaS / партнёрские экосистемы', this)">B2B SaaS / партнёрские экосистемы</button>
+<button class="chip" onclick="filterNiche('B2B SaaS для розничных поставок', this)">B2B SaaS для розничных поставок</button>
+<button class="chip" onclick="filterNiche('B2B sales intelligence', this)">B2B sales intelligence</button>
+<button class="chip" onclick="filterNiche('B2B закупки', this)">B2B закупки</button>
+<button class="chip" onclick="filterNiche('DevTools / ИИ-инфраструктура', this)">DevTools / ИИ-инфраструктура</button>
+<button class="chip" onclick="filterNiche('DevTools / продукт', this)">DevTools / продукт</button>
+<button class="chip" onclick="filterNiche('EdTech / AI-инструменты для разработки', this)">EdTech / AI-инструменты для разработки</button>
+<button class="chip" onclick="filterNiche('EdTech / ИИ-образование', this)">EdTech / ИИ-образование</button>
+<button class="chip" onclick="filterNiche('EdTech / книги', this)">EdTech / книги</button>
+<button class="chip" onclick="filterNiche('HR', this)">HR</button>
+<button class="chip" onclick="filterNiche('HR / EdTech', this)">HR / EdTech</button>
+<button class="chip" onclick="filterNiche('HR Tech', this)">HR Tech</button>
+<button class="chip" onclick="filterNiche('HR Tech / Найм разработчиков', this)">HR Tech / Найм разработчиков</button>
+<button class="chip" onclick="filterNiche('HR-tech', this)">HR-tech</button>
+<button class="chip" onclick="filterNiche('LegalTech / ИИ', this)">LegalTech / ИИ</button>
+<button class="chip" onclick="filterNiche('M&amp;A / продажа бизнеса', this)">M&amp;A / продажа бизнеса</button>
+<button class="chip" onclick="filterNiche('Marketplace / консалтинг', this)">Marketplace / консалтинг</button>
+<button class="chip" onclick="filterNiche('SMB / M&amp;A / автоматизация', this)">SMB / M&amp;A / автоматизация</button>
+<button class="chip" onclick="filterNiche('SaaS для бизнесов с записью', this)">SaaS для бизнесов с записью</button>
+<button class="chip" onclick="filterNiche('Social / anti-loneliness', this)">Social / anti-loneliness</button>
+<button class="chip" onclick="filterNiche('Trust / media', this)">Trust / media</button>
+<button class="chip" onclick="filterNiche('Автоматизация / продуктивность', this)">Автоматизация / продуктивность</button>
+<button class="chip" onclick="filterNiche('Геймификация / маркетинг', this)">Геймификация / маркетинг</button>
+<button class="chip" onclick="filterNiche('Здоровье / Эстетическая медицина', this)">Здоровье / Эстетическая медицина</button>
+<button class="chip" onclick="filterNiche('ИИ / клиентский сервис', this)">ИИ / клиентский сервис</button>
+<button class="chip" onclick="filterNiche('ИИ / промышленные инспекции', this)">ИИ / промышленные инспекции</button>
+<button class="chip" onclick="filterNiche('ИИ для домашнего ремонта', this)">ИИ для домашнего ремонта</button>
+<button class="chip" onclick="filterNiche('ИИ для промышленности и сервисного обслуживания', this)">ИИ для промышленности и сервисного обслуживания</button>
+<button class="chip" onclick="filterNiche('ИИ-автоматизация бизнес-процессов', this)">ИИ-автоматизация бизнес-процессов</button>
+<button class="chip" onclick="filterNiche('ИИ-агентства', this)">ИИ-агентства</button>
+<button class="chip" onclick="filterNiche('ИИ-агенты', this)">ИИ-агенты</button>
+<button class="chip" onclick="filterNiche('ИИ-агенты / marketplace', this)">ИИ-агенты / marketplace</button>
+<button class="chip" onclick="filterNiche('ИИ-агенты / proptech', this)">ИИ-агенты / proptech</button>
+<button class="chip" onclick="filterNiche('ИИ-ассистенты', this)">ИИ-ассистенты</button>
+<button class="chip" onclick="filterNiche('ИИ-данные', this)">ИИ-данные</button>
+<button class="chip" onclick="filterNiche('ИИ-инструменты для креативных агентств', this)">ИИ-инструменты для креативных агентств</button>
+<button class="chip" onclick="filterNiche('ИИ-инструменты для разработчиков', this)">ИИ-инструменты для разработчиков</button>
+<button class="chip" onclick="filterNiche('ИИ-инфраструктура', this)">ИИ-инфраструктура</button>
+<button class="chip" onclick="filterNiche('ИИ-контент для детей', this)">ИИ-контент для детей</button>
+<button class="chip" onclick="filterNiche('ИИ-контент и маркетинг', this)">ИИ-контент и маркетинг</button>
+<button class="chip" onclick="filterNiche('ИИ-маркетинг', this)">ИИ-маркетинг</button>
+<button class="chip" onclick="filterNiche('Маркетинг / ИИ', this)">Маркетинг / ИИ</button>
+<button class="chip" onclick="filterNiche('Маркетинговые исследования', this)">Маркетинговые исследования</button>
+<button class="chip" onclick="filterNiche('ПО для ИИ-агентов', this)">ПО для ИИ-агентов</button>
+<button class="chip" onclick="filterNiche('Регтех / глобализация', this)">Регтех / глобализация</button>
+<button class="chip" onclick="filterNiche('Финтех / luxury', this)">Финтех / luxury</button>
+<button class="chip" onclick="filterNiche('Финтех / голосовые ИИ', this)">Финтех / голосовые ИИ</button>
+<button class="chip" onclick="filterNiche('Финтех / маркетинг', this)">Финтех / маркетинг</button>
+<button class="chip" onclick="filterNiche('Финтех / медиа', this)">Финтех / медиа</button>
+<button class="chip" onclick="filterNiche('Финтех / проф. услуги', this)">Финтех / проф. услуги</button>
+<button class="chip" onclick="filterNiche('ХелсТех / медэстетика', this)">ХелсТех / медэстетика</button>
+<button class="chip" onclick="filterNiche('ХелсТех / превентивная медицина', this)">ХелсТех / превентивная медицина</button>
+<button class="chip" onclick="filterNiche('ЮрТех / ИИ-маркетинг', this)">ЮрТех / ИИ-маркетинг</button>
+<button class="chip" onclick="filterNiche('домашний декор', this)">домашний декор</button>
+<button class="chip" onclick="filterNiche('е-коммерс / персонализация', this)">е-коммерс / персонализация</button>
+<button class="chip" onclick="filterNiche('еда и рестораны', this)">еда и рестораны</button>
+<button class="chip" onclick="filterNiche('екоммерс / подержанная одежда', this)">екоммерс / подержанная одежда</button>
+<button class="chip" onclick="filterNiche('здоровье', this)">здоровье</button>
+<button class="chip" onclick="filterNiche('знакомства', this)">знакомства</button>
+<button class="chip" onclick="filterNiche('локальная реклама и открытие мест', this)">локальная реклама и открытие мест</button>
+<button class="chip" onclick="filterNiche('программы лояльности и путешествия', this)">программы лояльности и путешествия</button>
+<button class="chip" onclick="filterNiche('продуктивность', this)">продуктивность</button>
+<button class="chip" onclick="filterNiche('профессиональный нетворкинг', this)">профессиональный нетворкинг</button>
+<button class="chip" onclick="filterNiche('разработка ПО / вайбкодинг', this)">разработка ПО / вайбкодинг</button>
+<button class="chip" onclick="filterNiche('ресейл одежды', this)">ресейл одежды</button>
+<button class="chip" onclick="filterNiche('соцсети / UGC', this)">соцсети / UGC</button>
+<button class="chip" onclick="filterNiche('страхование', this)">страхование</button>
+<button class="chip" onclick="filterNiche('финтех / HR-tech', this)">финтех / HR-tech</button>
+
+    </div>
+
+    <div class="grid" id="grid">
+        
+<div class="card" data-niche="ИИ / промышленные инспекции" data-title="Лучше идти туда — где много денег и мало конкурентов!" data-text="Физические инспекции (вышки, ЛЭП, промоборудование) требуют дорогих опытных экспертов — долго обучать, дорого держать, сложно масштабировать Физический мир — самая незатронутая ИИ вертикаль. Cloneable клонирует голову эксперта в телефон — без документации, только из видео. x100 ARR за год говорит само за себя">
+    <div class="card-top">
+        <div class="card-title">Лучше идти туда — где много денег и мало конкурентов!</div>
+        <div class="badge round-badge">$4.6M (апрель 2026), рост выручки x100 за год</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ / промышленные инспекции</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Клонирование экспертных знаний для полевых сотрудников</span>
+    </div>
+    <div class="card-problem">🎯 Физические инспекции (вышки, ЛЭП, промоборудование) требуют дорогих опытных экспертов — долго обучать, дорого держать, сложно масштабировать</div>
+    <div class="card-insight">Физический мир — самая незатронутая ИИ вертикаль. Cloneable клонирует голову эксперта в телефон — без документации, только из видео. x100 ARR за год говорит само за себя</div>
+    <div class="card-footer">
+        <span class="card-date">25.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/mnogo-deneg-i-malo-konkurentov/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="B2B SaaS / операционная эффективность" data-title="Как исправить ситуацию, когда все вкалывают… а результата нет?" data-text="Компании ставят цели но не видят в реальном времени движется ли каждый сотрудник/команда к ним — отчёты запаздывают, связь между действиями и целями непрозрачна Цели без ежедневной видимости — мёртвые цели. Brev замыкает петлю: цель → ежедневные действия → измеримый прогресс. Модель оплаты за токены а не подписка снижает барьер входа">
+    <div class="card-top">
+        <div class="card-title">Как исправить ситуацию, когда все вкалывают… а результата нет?</div>
+        <div class="badge round-badge">$3.3M pre-seed (апрель 2026, ранее $1M)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f0f4ff">B2B SaaS / операционная эффективность</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-мониторинг движения компании к целям</span>
+    </div>
+    <div class="card-problem">🎯 Компании ставят цели но не видят в реальном времени движется ли каждый сотрудник/команда к ним — отчёты запаздывают, связь между действиями и целями непрозрачна</div>
+    <div class="card-insight">Цели без ежедневной видимости — мёртвые цели. Brev замыкает петлю: цель → ежедневные действия → измеримый прогресс. Модель оплаты за токены а не подписка снижает барьер входа</div>
+    <div class="card-footer">
+        <span class="card-date">26.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/vse-vkalyvajut-a-rezultata-net/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Геймификация / маркетинг" data-title="Азарт — отличный инструмент для привлечения и удержания покупателей!" data-text="Брендам сложно вовлекать и удерживать аудиторию — программы лояльности с баллами не работают, нужен инструмент с азартом и реальными деньгами Азарт и реальные деньги как инструмент лояльности — бренд превращает программу лояльности из центра затрат в источник дохода. Lucra берёт на себя регуляторный риск — получение лицензий в 44 штатах">
+    <div class="card-top">
+        <div class="card-title">Азарт — отличный инструмент для привлечения и удержания покупателей!</div>
+        <div class="badge round-badge">$20M (апрель 2026)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">Геймификация / маркетинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Платформа спортивных игр на деньги для брендов</span>
+    </div>
+    <div class="card-problem">🎯 Брендам сложно вовлекать и удерживать аудиторию — программы лояльности с баллами не работают, нужен инструмент с азартом и реальными деньгами</div>
+    <div class="card-insight">Азарт и реальные деньги как инструмент лояльности — бренд превращает программу лояльности из центра затрат в источник дохода. Lucra берёт на себя регуляторный риск — получение лицензий в 44 штатах</div>
+    <div class="card-footer">
+        <span class="card-date">27.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/azart-dlja-privlechenija-i-uderzhanija/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ХелсТех / превентивная медицина" data-title="Ты делаешь сервис «для всех»… или хочешь денег заработать?" data-text="Качественная персональная медицина стоит £5K — недоступна большинству здоровых людей, которые хотят превентивно следить за здоровьем Атака на рынок не через больных а через здоровых — огромный незакрытый сегмент превентивной медицины. В 70x дешевле аналога при сопоставимом наборе услуг — ИИ делает элитную медицину массовой">
+    <div class="card-top">
+        <div class="card-title">Ты делаешь сервис «для всех»… или хочешь денег заработать?</div>
+        <div class="badge round-badge">£2.5M pre-seed (апрель 2026)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">ХелсТех / превентивная медицина</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-команда здоровья для здоровых</span>
+    </div>
+    <div class="card-problem">🎯 Качественная персональная медицина стоит £5K — недоступна большинству здоровых людей, которые хотят превентивно следить за здоровьем</div>
+    <div class="card-insight">Атака на рынок не через больных а через здоровых — огромный незакрытый сегмент превентивной медицины. В 70x дешевле аналога при сопоставимом наборе услуг — ИИ делает элитную медицину массовой</div>
+    <div class="card-footer">
+        <span class="card-date">28.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/dlja-vseh-ili-zarabotat/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="SaaS для бизнесов с записью" data-title="Зарабатывай, как Убер. Не на том же, а так же!" data-text="Бизнесы с расписанием (клиники, фитнес, репетиторы) теряют выручку в часы низкого спроса — слоты пустуют Динамическое ценообразование (как у Убера, но в сторону скидок) превращает пустые слоты в реальную выручку; ИИ делает это автоматически и персонализированно для каждого бизнеса">
+    <div class="card-top">
+        <div class="card-title">Зарабатывай, как Убер. Не на том же, а так же!</div>
+        <div class="badge round-badge">$500K (15.01.2026)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f0f4ff">SaaS для бизнесов с записью</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Динамическое ценообразование / управление спросом</span>
+    </div>
+    <div class="card-problem">🎯 Бизнесы с расписанием (клиники, фитнес, репетиторы) теряют выручку в часы низкого спроса — слоты пустуют</div>
+    <div class="card-insight">Динамическое ценообразование (как у Убера, но в сторону скидок) превращает пустые слоты в реальную выручку; ИИ делает это автоматически и персонализированно для каждого бизнеса</div>
+    <div class="card-footer">
+        <span class="card-date">14.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/zarabatyvaj-kak-uber/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-агенты" data-title="Ты хочешь зарабатывать 100 миллионов долларов в год?" data-text="Запуск стартапов требует много времени и ресурсов; ИИ умеет создавать продукты, но не умеет находить product-market fit и конкурировать на рынке Главная задача ИИ-фаундеров — не создавать лучшие продукты, а сражаться за долю рынка; модель делегатора (как Убер) позволяет ИИ нанимать людей там где они эффективнее, делая систему масштабируемой">
+    <div class="card-top">
+        <div class="card-title">Ты хочешь зарабатывать 100 миллионов долларов в год?</div>
+        <div class="badge round-badge">$5.1M seed (февраль 2026)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-агенты</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Автономные ИИ-фаундеры</span>
+    </div>
+    <div class="card-problem">🎯 Запуск стартапов требует много времени и ресурсов; ИИ умеет создавать продукты, но не умеет находить product-market fit и конкурировать на рынке</div>
+    <div class="card-insight">Главная задача ИИ-фаундеров — не создавать лучшие продукты, а сражаться за долю рынка; модель делегатора (как Убер) позволяет ИИ нанимать людей там где они эффективнее, делая систему масштабируемой</div>
+    <div class="card-footer">
+        <span class="card-date">15.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/zarabatyvat-100-millionov-dollarov-v-god/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="знакомства" data-title="Что важнее — любовь или деньги? А зачем выбирать что-то одно 😉" data-text="финансовый стресс — причина №1-2 разводов и разрывов, люди избегают разговоров о финансах на старте отношений самоотбор по кредитному рейтингу решает проблему финансовой несовместимости пар ещё до начала отношений — превращая табуированную тему денег в условие входа в сервис">
+    <div class="card-top">
+        <div class="card-title">Что важнее — любовь или деньги? А зачем выбирать что-то одно 😉</div>
+        <div class="badge round-badge">$10M (поднят ранее на финтех-карту, сейчас полный пивот в дейтинг)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">знакомства</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">дейтинг с фильтром по финансовой ответственности</span>
+    </div>
+    <div class="card-problem">🎯 финансовый стресс — причина №1-2 разводов и разрывов, люди избегают разговоров о финансах на старте отношений</div>
+    <div class="card-insight">самоотбор по кредитному рейтингу решает проблему финансовой несовместимости пар ещё до начала отношений — превращая табуированную тему денег в условие входа в сервис</div>
+    <div class="card-footer">
+        <span class="card-date">16.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/chto-vazhnee-ljubov-ili-dengi/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ для домашнего ремонта" data-title="Простые вещи + огромный рынок = большие деньги!" data-text="Мастера теряют выручку из-за повторных выездов, забывают предложить допуслуги и не передают информацию в офис ИИ-ассистент для мастеров добавляет $135K выручки на мастера в год и снижает повторные выезды на 15% — огромный рынок с низкой автоматизацией">
+    <div class="card-top">
+        <div class="card-title">Простые вещи + огромный рынок = большие деньги!</div>
+        <div class="badge round-badge">$500K</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ для домашнего ремонта</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-ассистент для выездных мастеров</span>
+    </div>
+    <div class="card-problem">🎯 Мастера теряют выручку из-за повторных выездов, забывают предложить допуслуги и не передают информацию в офис</div>
+    <div class="card-insight">ИИ-ассистент для мастеров добавляет $135K выручки на мастера в год и снижает повторные выезды на 15% — огромный рынок с низкой автоматизацией</div>
+    <div class="card-footer">
+        <span class="card-date">17.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/prostye-veshhi-ogromnyj-rynok-bolshie-dengi/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="финтех / HR-tech" data-title="Сотрудникам скоро придётся платить по-другому… но это и к лучшему!" data-text="нет автоматизированного ПО для выплат по результатам — компании ведут учёт вручную в таблицах или строят собственные системы появление ИИ-агентов с переменной себестоимостью сделало performance-based payments остро актуальными: ни фиксированная подписка, ни pay-per-resource не решают задачу — нужен новый слой инфраструктуры для оплаты за результат">
+    <div class="card-top">
+        <div class="card-title">Сотрудникам скоро придётся платить по-другому… но это и к лучшему!</div>
+        <div class="badge round-badge">$500K (январь 2026, YC W2026)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef3e8">финтех / HR-tech</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">выплаты за результаты (performance-based payments) для инфлюенсеров</span>
+    </div>
+    <div class="card-problem">🎯 нет автоматизированного ПО для выплат по результатам — компании ведут учёт вручную в таблицах или строят собственные системы</div>
+    <div class="card-insight">появление ИИ-агентов с переменной себестоимостью сделало performance-based payments остро актуальными: ни фиксированная подписка, ни pay-per-resource не решают задачу — нужен новый слой инфраструктуры для оплаты за результат</div>
+    <div class="card-footer">
+        <span class="card-date">18.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/sotrudnikam-pridjotsja-platit-po-drugomu/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-маркетинг" data-title="Разработал приложение — заработал денег! Безо всяких промежуточных этапов 🤣" data-text="Разработчики не имеют времени и компетенций для маркетинга своих приложений Достаточно подключить GitHub-репозиторий — ИИ-агенты берут на себя весь цикл маркетинга: от анализа рынка до публикации контента и управления рекламой, превращая код в пользователей без участия разработчика">
+    <div class="card-top">
+        <div class="card-title">Разработал приложение — заработал денег! Безо всяких промежуточных этапов 🤣</div>
+        <div class="badge round-badge">не указан</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-маркетинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Агентский маркетинг для разработчиков приложений</span>
+    </div>
+    <div class="card-problem">🎯 Разработчики не имеют времени и компетенций для маркетинга своих приложений</div>
+    <div class="card-insight">Достаточно подключить GitHub-репозиторий — ИИ-агенты берут на себя весь цикл маркетинга: от анализа рынка до публикации контента и управления рекламой, превращая код в пользователей без участия разработчика</div>
+    <div class="card-footer">
+        <span class="card-date">19.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/razrabotal-prilozhenie-zarabotal-deneg/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ для промышленности и сервисного обслуживания" data-title="ИИ, умеющий отвечать на вопросы, больше не нужен! А какой тогда нужен?" data-text="Техническая экспертиза недоступна рядовым сотрудникам; медленная диагностика оборудования и составление КП требуют привлечения дефицитных экспертов Промышленность — заброшенная вертикаль для ИИ; специализированный продукт побеждает универсальные решения, так как знает контекст конкретной отрасли">
+    <div class="card-top">
+        <div class="card-title">ИИ, умеющий отвечать на вопросы, больше не нужен! А какой тогда нужен?</div>
+        <div class="badge round-badge">$30M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ для промышленности и сервисного обслуживания</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-ассистент для производственных и сервисных компаний (HVAC, сантехника, электрика)</span>
+    </div>
+    <div class="card-problem">🎯 Техническая экспертиза недоступна рядовым сотрудникам; медленная диагностика оборудования и составление КП требуют привлечения дефицитных экспертов</div>
+    <div class="card-insight">Промышленность — заброшенная вертикаль для ИИ; специализированный продукт побеждает универсальные решения, так как знает контекст конкретной отрасли</div>
+    <div class="card-footer">
+        <span class="card-date">20.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/ii-umejushhij-otvechat-na-voprosy-bolshe-ne-nuzhen/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-ассистенты" data-title="Пора делать не просто умный ИИ — а ещё и адекватный!" data-text="Существующие ИИ-ассистенты для встреч — пассивные стенографы, не дают подсказки в реальном времени Ключевая технология — ИИ, способный проактивно реагировать на аудио/видео-потоки в нужный момент без явного запроса, что открывает путь к реальным ИИ-помощникам в жизни">
+    <div class="card-top">
+        <div class="card-title">Пора делать не просто умный ИИ — а ещё и адекватный!</div>
+        <div class="badge round-badge">$500K</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-ассистенты</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-ассистент для встреч</span>
+    </div>
+    <div class="card-problem">🎯 Существующие ИИ-ассистенты для встреч — пассивные стенографы, не дают подсказки в реальном времени</div>
+    <div class="card-insight">Ключевая технология — ИИ, способный проактивно реагировать на аудио/видео-потоки в нужный момент без явного запроса, что открывает путь к реальным ИИ-помощникам в жизни</div>
+    <div class="card-footer">
+        <span class="card-date">21.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/moment-perehoda-ot-umnogo-ii-k-adekvatnomu/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-контент и маркетинг" data-title="Разрабатывай то же самое… но продавай в 100 раз дороже!" data-text="Масштабирование контента через всю команду требует координации: агентства стоят $150k+, обычный ИИ генерирует нечитаемый контент, а ручная работа занимает 8+ часов Оптимизация не охватов и лайков, а реальных входящих бизнес-запросов; скоординированные посты разных сотрудников об одной теме с разных углов дают охват в разы больше при затрате всего 2-4 часов в месяц вручную">
+    <div class="card-top">
+        <div class="card-title">Разрабатывай то же самое… но продавай в 100 раз дороже!</div>
+        <div class="badge round-badge">не указан</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-контент и маркетинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Экспертный контент в LinkedIn для B2B-стартапов</span>
+    </div>
+    <div class="card-problem">🎯 Масштабирование контента через всю команду требует координации: агентства стоят $150k+, обычный ИИ генерирует нечитаемый контент, а ручная работа занимает 8+ часов</div>
+    <div class="card-insight">Оптимизация не охватов и лайков, а реальных входящих бизнес-запросов; скоординированные посты разных сотрудников об одной теме с разных углов дают охват в разы больше при затрате всего 2-4 часов в месяц вручную</div>
+    <div class="card-footer">
+        <span class="card-date">22.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/to-zhe-samoe-no-v-100-raz-dorozhe/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="B2B sales intelligence" data-title="Уже выгоднее продавать не программы — а данные!" data-text="Продажникам сложно продавать отелям без глубокого понимания специфики каждого объекта Узкая ниша снижает CAC через точечный outreach, а глубокая верификация данных из тысяч источников создаёт труднокопируемое конкурентное преимущество">
+    <div class="card-top">
+        <div class="card-title">Уже выгоднее продавать не программы — а данные!</div>
+        <div class="badge round-badge">YC Accelerator (pre-seed)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">B2B sales intelligence</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">база данных отелей Карибский бассейн и Латинская Америка</span>
+    </div>
+    <div class="card-problem">🎯 Продажникам сложно продавать отелям без глубокого понимания специфики каждого объекта</div>
+    <div class="card-insight">Узкая ниша снижает CAC через точечный outreach, а глубокая верификация данных из тысяч источников создаёт труднокопируемое конкурентное преимущество</div>
+    <div class="card-footer">
+        <span class="card-date">23.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/vygodnee-prodavat-ne-programmy-a-dannye/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="программы лояльности и путешествия" data-title="Неочевидный способ заработать самому — это помочь заработать другим!" data-text="Программы лояльности с конвертацией баллов в скидки снижают прибыль компаний; запуск собственного travel-маркетплейса занимает 18 месяцев и дорого стоит Когда пользователь тратит баллы на путешествия вместо скидок, компания зарабатывает комиссии от авиакомпаний и отелей — программа лояльности превращается из центра затрат в источник дохода">
+    <div class="card-top">
+        <div class="card-title">Неочевидный способ заработать самому — это помочь заработать другим!</div>
+        <div class="badge round-badge">$9.5M (февраль 2026, ранее $2.5M в 2024 и ангельские раунды в 2023)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">программы лояльности и путешествия</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">B2B API-маркетплейс путешествий для программ лояльности</span>
+    </div>
+    <div class="card-problem">🎯 Программы лояльности с конвертацией баллов в скидки снижают прибыль компаний; запуск собственного travel-маркетплейса занимает 18 месяцев и дорого стоит</div>
+    <div class="card-insight">Когда пользователь тратит баллы на путешествия вместо скидок, компания зарабатывает комиссии от авиакомпаний и отелей — программа лояльности превращается из центра затрат в источник дохода</div>
+    <div class="card-footer">
+        <span class="card-date">24.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/zarabotat-samomu-jeto-pomoch-zarabotat-drugim/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-контент для детей" data-title="Что делать, когда слова не помогают?" data-text="Дети плохо усваивают образовательный контент из-за отсутствия персонализации в традиционных мультиках Когда ребёнок сам становится героем мультика — вовлечённость и обучаемость резко растут; основатель повторил свой паттерн: решать острую личную проблему (как с поиском жилья в Apartment List)">
+    <div class="card-top">
+        <div class="card-title">Что делать, когда слова не помогают?</div>
+        <div class="badge round-badge">$8M (Series A, февраль 2026) + нераскрытый seed декабрь 2025</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-контент для детей</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Персонализованные образовательные мультсериалы</span>
+    </div>
+    <div class="card-problem">🎯 Дети плохо усваивают образовательный контент из-за отсутствия персонализации в традиционных мультиках</div>
+    <div class="card-insight">Когда ребёнок сам становится героем мультика — вовлечённость и обучаемость резко растут; основатель повторил свой паттерн: решать острую личную проблему (как с поиском жилья в Apartment List)</div>
+    <div class="card-footer">
+        <span class="card-date">25.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/kogda-slova-ne-pomogajut/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="еда и рестораны" data-title="Чем чаще их меняешь — тем больше зарабатываешь!" data-text="Рестораны теряют выручку в часы низкой загрузки — до 80-90% месячной выручки приходится на выходные, внутридневные колебания не монетизируются Динамическое снижение цен только в периоды низкого спроса (без повышения в пиковые часы) увеличивает выручку ресторана до $10K/мес дополнительно и удваивает оценку стартапа менее чем за год">
+    <div class="card-top">
+        <div class="card-title">Чем чаще их меняешь — тем больше зарабатываешь!</div>
+        <div class="badge round-badge">$27M (оценка $200M)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">еда и рестораны</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">динамическое ценообразование для ресторанов</span>
+    </div>
+    <div class="card-problem">🎯 Рестораны теряют выручку в часы низкой загрузки — до 80-90% месячной выручки приходится на выходные, внутридневные колебания не монетизируются</div>
+    <div class="card-insight">Динамическое снижение цен только в периоды низкого спроса (без повышения в пиковые часы) увеличивает выручку ресторана до $10K/мес дополнительно и удваивает оценку стартапа менее чем за год</div>
+    <div class="card-footer">
+        <span class="card-date">26.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/chem-chashhe-ih-menjaesh-tem-bolshe-zarabatyvaesh/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-инструменты для разработчиков" data-title="Не нужно ничего придумывать — нужно просто начать это собирать!" data-text="Поиск и тестирование современных алгоритмов для сложных задач требует ручного труда; обычные ИИ-платформы работают с устаревшими данными и путают новые подходы со старыми Узкое место в поиске оптимальных решений — человек; автоматизация итеративного перебора и тестирования SOTA-алгоритмов снимает это ограничение и делает оптимизацию кода масштабируемой">
+    <div class="card-top">
+        <div class="card-title">Не нужно ничего придумывать — нужно просто начать это собирать!</div>
+        <div class="badge round-badge">$500K</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-инструменты для разработчиков</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Автоматическая оптимизация алгоритмов / SOTA-решения</span>
+    </div>
+    <div class="card-problem">🎯 Поиск и тестирование современных алгоритмов для сложных задач требует ручного труда; обычные ИИ-платформы работают с устаревшими данными и путают новые подходы со старыми</div>
+    <div class="card-insight">Узкое место в поиске оптимальных решений — человек; автоматизация итеративного перебора и тестирования SOTA-алгоритмов снимает это ограничение и делает оптимизацию кода масштабируемой</div>
+    <div class="card-footer">
+        <span class="card-date">27.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/nuzhno-prosto-nachat-jeto-sobirat/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-агенты" data-title="$15 миллионов в месяц — и ни одного наёмного сотрудника? Уже реально!" data-text="Компании тратят много ресурсов на ручные GTM-процессы: поиск клиентов, анализ сделок, подготовку к встречам 3 фаундера без сотрудников достигли 200 клиентов и $1.5M ежемесячной воронки, используя собственный продукт — живое доказательство ценности автономных GTM-агентов">
+    <div class="card-top">
+        <div class="card-title">$15 миллионов в месяц — и ни одного наёмного сотрудника? Уже реально!</div>
+        <div class="badge round-badge">$6M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-агенты</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">GTM-автоматизация и продажи</span>
+    </div>
+    <div class="card-problem">🎯 Компании тратят много ресурсов на ручные GTM-процессы: поиск клиентов, анализ сделок, подготовку к встречам</div>
+    <div class="card-insight">3 фаундера без сотрудников достигли 200 клиентов и $1.5M ежемесячной воронки, используя собственный продукт — живое доказательство ценности автономных GTM-агентов</div>
+    <div class="card-footer">
+        <span class="card-date">28.02.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/ni-odnogo-najomnogo-sotrudnika/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ресейл одежды" data-title="Тупо делать обычный магазин или маркетплейс… А вот такое — очень умно!" data-text="Люди накапливают ненужные вещи, а продавать их сложно; покупатели хотят брендовые вещи по доступным ценам Встраиваясь между покупкой и продажей одежды, стартап создаёт замкнутую экосистему, удерживающую пользователя в бесконечном цикле и монетизируя каждый шаг">
+    <div class="card-top">
+        <div class="card-title">Тупо делать обычный магазин или маркетплейс… А вот такое — очень умно!</div>
+        <div class="badge round-badge">$28M (Series B, февраль 2026; ранее $24M в 2023)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">ресейл одежды</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">подержанная брендовая одежда и аксессуары</span>
+    </div>
+    <div class="card-problem">🎯 Люди накапливают ненужные вещи, а продавать их сложно; покупатели хотят брендовые вещи по доступным ценам</div>
+    <div class="card-insight">Встраиваясь между покупкой и продажей одежды, стартап создаёт замкнутую экосистему, удерживающую пользователя в бесконечном цикле и монетизируя каждый шаг</div>
+    <div class="card-footer">
+        <span class="card-date">01.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/tupo-delat-obychnyj-magazin/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="B2B SaaS / партнёрские экосистемы" data-title="Было полезным, но необязательным — а станет необходимым!" data-text="B2B-партнёрства ведутся вручную и интуитивно — без отслеживания эффективности, решения принимаются раз в год Сигнальный проспектинг для партнёрств: ИИ находит потенциальных партнёров по сигналам (найм, инвестиции, запуски продуктов) раньше конкурентов — та же логика, что меняет прямые продажи, применённая к партнёрским экосистемам">
+    <div class="card-top">
+        <div class="card-title">Было полезным, но необязательным — а станет необходимым!</div>
+        <div class="badge round-badge">$500K</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f0f4ff">B2B SaaS / партнёрские экосистемы</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-платформа управления партнёрствами</span>
+    </div>
+    <div class="card-problem">🎯 B2B-партнёрства ведутся вручную и интуитивно — без отслеживания эффективности, решения принимаются раз в год</div>
+    <div class="card-insight">Сигнальный проспектинг для партнёрств: ИИ находит потенциальных партнёров по сигналам (найм, инвестиции, запуски продуктов) раньше конкурентов — та же логика, что меняет прямые продажи, применённая к партнёрским экосистемам</div>
+    <div class="card-footer">
+        <span class="card-date">02.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/bylo-neobjazatelnym-stanet-neobhodimym/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="страхование" data-title="Их геморрой — это твои деньги. Только брать их нужно вот так!" data-text="95% времени брокера при оформлении сложных страховок уходит на бумажную/организационную работу (~50 шагов за 2 недели), поэтому большинство брокеров избегает таких случаев автоматизация 95% рутинной работы не даёт маржи как инструмент для брокера, но позволяет стать самостоятельным ИИ-брокером без потолка по числу клиентов — ценность не в ускорении человека, а в замене узкого горлышка">
+    <div class="card-top">
+        <div class="card-title">Их геморрой — это твои деньги. Только брать их нужно вот так!</div>
+        <div class="badge round-badge">$500K</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">страхование</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">страхование специфических и сверхнормативных рисков (E&amp;S market)</span>
+    </div>
+    <div class="card-problem">🎯 95% времени брокера при оформлении сложных страховок уходит на бумажную/организационную работу (~50 шагов за 2 недели), поэтому большинство брокеров избегает таких случаев</div>
+    <div class="card-insight">автоматизация 95% рутинной работы не даёт маржи как инструмент для брокера, но позволяет стать самостоятельным ИИ-брокером без потолка по числу клиентов — ценность не в ускорении человека, а в замене узкого горлышка</div>
+    <div class="card-footer">
+        <span class="card-date">03.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/ih-gemorroj-tvoi-dengi/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ / клиентский сервис" data-title="Так можно заработать намного больше, чем на обычной разработке!" data-text="Службы поддержки компаний низкого качества и дорогостоящие; аутсорс в другие страны снижает качество ещё больше Прямой конкурент офшорным колл-центрам (Филиппины, Индия): предлагает выше качество за сопоставимую цену и при этом закрывает пресейл, онбординг, допродажи и удержание клиентов">
+    <div class="card-top">
+        <div class="card-title">Так можно заработать намного больше, чем на обычной разработке!</div>
+        <div class="badge round-badge">$3M post-YC (YC Winter 2024)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ / клиентский сервис</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">аутсорсинг поддержки клиентов</span>
+    </div>
+    <div class="card-problem">🎯 Службы поддержки компаний низкого качества и дорогостоящие; аутсорс в другие страны снижает качество ещё больше</div>
+    <div class="card-insight">Прямой конкурент офшорным колл-центрам (Филиппины, Индия): предлагает выше качество за сопоставимую цену и при этом закрывает пресейл, онбординг, допродажи и удержание клиентов</div>
+    <div class="card-footer">
+        <span class="card-date">04.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/zarabotat-bolshe-chem-na-razrabotke/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ЮрТех / ИИ-маркетинг" data-title="Появился новый критерий выбора хорошей ниши!" data-text="Малые юридические фирмы не имеют времени и компетенций для интернет-продвижения — все ресурсы уходят на работу с клиентами Вертикальные ИИ-SaaS для узких ниш из сотен тысяч малых компаний (юристы, HVAC и др.) — масштабируемый паттерн: клиенты не могут заниматься маркетингом сами, платят высокие чеки и хорошо считают ROI по лидам">
+    <div class="card-top">
+        <div class="card-title">Появился новый критерий выбора хорошей ниши!</div>
+        <div class="badge round-badge">$22M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ЮрТех / ИИ-маркетинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-платформа для онлайн-продвижения юридических фирм</span>
+    </div>
+    <div class="card-problem">🎯 Малые юридические фирмы не имеют времени и компетенций для интернет-продвижения — все ресурсы уходят на работу с клиентами</div>
+    <div class="card-insight">Вертикальные ИИ-SaaS для узких ниш из сотен тысяч малых компаний (юристы, HVAC и др.) — масштабируемый паттерн: клиенты не могут заниматься маркетингом сами, платят высокие чеки и хорошо считают ROI по лидам</div>
+    <div class="card-footer">
+        <span class="card-date">05.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/novyj-kriterij-vybora-horoshej-nishi/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="HR Tech / Найм разработчиков" data-title="Хочешь поменьше конкурентов? Займись тогда этой неочевидной задачей!" data-text="Компании не могут эффективно оценить, насколько хорошо кандидаты-разработчики умеют работать с ИИ-инструментами для программирования ИИ не снижает спрос на разработчиков — он смещает его в сторону сеньоров, способных управлять ИИ и рефакторить его код; компаниям нужен новый инструмент для проверки именно этого навыка">
+    <div class="card-top">
+        <div class="card-title">Хочешь поменьше конкурентов? Займись тогда этой неочевидной задачей!</div>
+        <div class="badge round-badge">YC Winter 2025 (раунд не указан)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef3e8">HR Tech / Найм разработчиков</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Оценка навыков работы с ИИ-инструментами при найме</span>
+    </div>
+    <div class="card-problem">🎯 Компании не могут эффективно оценить, насколько хорошо кандидаты-разработчики умеют работать с ИИ-инструментами для программирования</div>
+    <div class="card-insight">ИИ не снижает спрос на разработчиков — он смещает его в сторону сеньоров, способных управлять ИИ и рефакторить его код; компаниям нужен новый инструмент для проверки именно этого навыка</div>
+    <div class="card-footer">
+        <span class="card-date">06.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/zajmis-neochevidnoj-zadachej/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="HR / EdTech" data-title="А сейчас, чтобы взлететь — нужно сузиться, а не расшириться!" data-text="60% рабочих мест и 70% навыков исчезнут из-за ИИ, люди и компании не успевают адаптироваться Стартап резко сменил позиционирование с помощи мамочкам вернуться на работу на AI-upskilling для всех — тренд реален, но пивот вызывает вопросы о глубине продуктовой стратегии">
+    <div class="card-top">
+        <div class="card-title">А сейчас, чтобы взлететь — нужно сузиться, а не расшириться!</div>
+        <div class="badge round-badge">$1M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef3e8">HR / EdTech</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">AI-обучение для трудоустройства</span>
+    </div>
+    <div class="card-problem">🎯 60% рабочих мест и 70% навыков исчезнут из-за ИИ, люди и компании не успевают адаптироваться</div>
+    <div class="card-insight">Стартап резко сменил позиционирование с помощи мамочкам вернуться на работу на AI-upskilling для всех — тренд реален, но пивот вызывает вопросы о глубине продуктовой стратегии</div>
+    <div class="card-footer">
+        <span class="card-date">07.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/chtoby-vzletet-nuzhno-suzitsja/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="EdTech / ИИ-образование" data-title="Как продать себя… не умея этого делать?" data-text="Технари умеют делать, но не умеют себя продавать — сложно создать убедительное портфолио для работодателей Автоматическая генерация портфолио в процессе обучения системно решает проблему самопрезентации технарей — им не нужно тратить отдельное время на оформление">
+    <div class="card-top">
+        <div class="card-title">Как продать себя… не умея этого делать?</div>
+        <div class="badge round-badge">$4.5M (seed, 04.03.2026); ранее $2.3M pre-seed в 2024</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">EdTech / ИИ-образование</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Портфолио и карьера для технарей</span>
+    </div>
+    <div class="card-problem">🎯 Технари умеют делать, но не умеют себя продавать — сложно создать убедительное портфолио для работодателей</div>
+    <div class="card-insight">Автоматическая генерация портфолио в процессе обучения системно решает проблему самопрезентации технарей — им не нужно тратить отдельное время на оформление</div>
+    <div class="card-footer">
+        <span class="card-date">08.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/glavnoe-umet-sebja-prodavat/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-маркетинг" data-title="Современная конкуренция — это уже не борьба продуктов! А что тогда?" data-text="Малый бизнес не может поддерживать качественные персональные отношения с клиентами — нет времени и инструментов CRM для малого бизнеса должен делать упор на качество отношений, а не количество контактов — ИИ-персонализация поднимает open rate с 20% до 60%">
+    <div class="card-top">
+        <div class="card-title">Современная конкуренция — это уже не борьба продуктов! А что тогда?</div>
+        <div class="badge round-badge">$16M (Series ?, всего $71M)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-маркетинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">маркетинг отношений / CRM для малого бизнеса</span>
+    </div>
+    <div class="card-problem">🎯 Малый бизнес не может поддерживать качественные персональные отношения с клиентами — нет времени и инструментов</div>
+    <div class="card-insight">CRM для малого бизнеса должен делать упор на качество отношений, а не количество контактов — ИИ-персонализация поднимает open rate с 20% до 60%</div>
+    <div class="card-footer">
+        <span class="card-date">09.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/konkurencija-uzhe-ne-borba-produktov/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="M&amp;A / продажа бизнеса" data-title="Хочешь заработать на глобальном переделе собственности?" data-text="Владельцы МСБ продают бизнес медленно (6–12 мес.) и дёшево — посредники берут фиксированную плату и процент, а самостоятельная продажа не даёт конкуренции между покупателями Широкий охват покупателей через ИИ создаёт конкуренцию между ними — это главный рычаг роста цены сделки; модель масштабируется без пропорционального роста команды экспертов">
+    <div class="card-top">
+        <div class="card-title">Хочешь заработать на глобальном переделе собственности?</div>
+        <div class="badge round-badge">$750K (2026), ранее £1.3M seed (2022)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">M&amp;A / продажа бизнеса</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-брокер для продажи малого и среднего бизнеса</span>
+    </div>
+    <div class="card-problem">🎯 Владельцы МСБ продают бизнес медленно (6–12 мес.) и дёшево — посредники берут фиксированную плату и процент, а самостоятельная продажа не даёт конкуренции между покупателями</div>
+    <div class="card-insight">Широкий охват покупателей через ИИ создаёт конкуренцию между ними — это главный рычаг роста цены сделки; модель масштабируется без пропорционального роста команды экспертов</div>
+    <div class="card-footer">
+        <span class="card-date">10.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/zarabotat-na-globalnom-peredele-sobstvennosti/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Маркетинговые исследования" data-title="Ты можешь продавать то же самое — но за $10,000 в месяц вместо $99!" data-text="Традиционные исследования бренда проводятся редко, стоят от $150k/год и не дают непрерывной картины Сервис в 5x дешевле традиционных агентств ($30k vs $150k+), использует чужую панель респондентов через партнёрство с audience-research платформами — минимальные операционные расходы при масштабировании">
+    <div class="card-top">
+        <div class="card-title">Ты можешь продавать то же самое — но за $10,000 в месяц вместо $99!</div>
+        <div class="badge round-badge">Не раскрыт</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">Маркетинговые исследования</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Трекинг здоровья бренда</span>
+    </div>
+    <div class="card-problem">🎯 Традиционные исследования бренда проводятся редко, стоят от $150k/год и не дают непрерывной картины</div>
+    <div class="card-insight">Сервис в 5x дешевле традиционных агентств ($30k vs $150k+), использует чужую панель респондентов через партнёрство с audience-research платформами — минимальные операционные расходы при масштабировании</div>
+    <div class="card-footer">
+        <span class="card-date">11.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/prodavat-to-zhe-samoe-za-10-000-vmesto-99/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="разработка ПО / вайбкодинг" data-title="Самый выгодный для стартапа момент — между смертью старого и рождением нового!" data-text="Вайбкодеры (непрофессиональные разработчики, использующие ИИ) сталкиваются с техническими ошибками и тупиками, которые ИИ не может решить самостоятельно Смена парадигмы: ИИ генерирует код, но живые разработчики нужны для отладки и решения нестандартных проблем — фактически новое поколение Stack Overflow с гарантированным рабочим решением вместо советов">
+    <div class="card-top">
+        <div class="card-title">Самый выгодный для стартапа момент — между смертью старого и рождением нового!</div>
+        <div class="badge round-badge">не указан</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">разработка ПО / вайбкодинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">маркетплейс услуг для ИИ-программистов</span>
+    </div>
+    <div class="card-problem">🎯 Вайбкодеры (непрофессиональные разработчики, использующие ИИ) сталкиваются с техническими ошибками и тупиками, которые ИИ не может решить самостоятельно</div>
+    <div class="card-insight">Смена парадигмы: ИИ генерирует код, но живые разработчики нужны для отладки и решения нестандартных проблем — фактически новое поколение Stack Overflow с гарантированным рабочим решением вместо советов</div>
+    <div class="card-footer">
+        <span class="card-date">12.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/samyj-vygodnyj-dlja-startapa-moment/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Здоровье / Эстетическая медицина" data-title="Гораздо выгоднее помогать не стартаперам — а профессионалам 🤣" data-text="Владельцы клиник — специалисты в медицине, но не в бизнесе; 30% закрываются в первые 18–24 месяца из-за низкой маржи и отсутствия бизнес-процессов Крупные сети успешны благодаря строгим бизнес-процессам — Moxie упаковывает эту же операционную экспертизу в продукт для независимых клиник, зарабатывая на их росте">
+    <div class="card-top">
+        <div class="card-title">Гораздо выгоднее помогать не стартаперам — а профессионалам 🤣</div>
+        <div class="badge round-badge">$25M (суммарно $50.7M)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef0f0">Здоровье / Эстетическая медицина</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Управление клиниками эстетической медицины</span>
+    </div>
+    <div class="card-problem">🎯 Владельцы клиник — специалисты в медицине, но не в бизнесе; 30% закрываются в первые 18–24 месяца из-за низкой маржи и отсутствия бизнес-процессов</div>
+    <div class="card-insight">Крупные сети успешны благодаря строгим бизнес-процессам — Moxie упаковывает эту же операционную экспертизу в продукт для независимых клиник, зарабатывая на их росте</div>
+    <div class="card-footer">
+        <span class="card-date">13.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/vygodnee-pomogat-professionalam/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="здоровье" data-title="А у твоего ИИ-агента уже есть сертификат?" data-text="Клиникам нужны надёжные ИИ-агенты с доказуемым уровнем качества — просто создать агента недостаточно, нужно обеспечить доверие к нему Пивот от цифровых двойников инфлюенсеров к медицине выявил ключевой инсайт: доверие — главный барьер. Amigo позиционирует себя как Waymo для здравоохранения — фокус не на создании агентов, а на их верифицированной надёжности">
+    <div class="card-top">
+        <div class="card-title">А у твоего ИИ-агента уже есть сертификат?</div>
+        <div class="badge round-badge">$11M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef0f0">здоровье</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-агенты для медицинских клиник</span>
+    </div>
+    <div class="card-problem">🎯 Клиникам нужны надёжные ИИ-агенты с доказуемым уровнем качества — просто создать агента недостаточно, нужно обеспечить доверие к нему</div>
+    <div class="card-insight">Пивот от цифровых двойников инфлюенсеров к медицине выявил ключевой инсайт: доверие — главный барьер. Amigo позиционирует себя как Waymo для здравоохранения — фокус не на создании агентов, а на их верифицированной надёжности</div>
+    <div class="card-footer">
+        <span class="card-date">14.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/u-tvoego-ii-agenta-est-sertifikat/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="HR Tech" data-title="Чтобы стартап стал успешным — выверни правило Парето наизнанку!" data-text="Компании тратят много времени и ресурсов на поиск подходящих кандидатов и не могут эффективно до них достучаться Команда из 4 человек дошла до $1M ARR — экстремальная эффективность; отклик на письма ИИ-агента в 3x выше чем у обычных рекрутёров">
+    <div class="card-top">
+        <div class="card-title">Чтобы стартап стал успешным — выверни правило Парето наизнанку!</div>
+        <div class="badge round-badge">$80M (DST Global, оценка $850M); ранее: $30M Sequoia, $5M, $1M YC</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef3e8">HR Tech</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-рекрутинг</span>
+    </div>
+    <div class="card-problem">🎯 Компании тратят много времени и ресурсов на поиск подходящих кандидатов и не могут эффективно до них достучаться</div>
+    <div class="card-insight">Команда из 4 человек дошла до $1M ARR — экстремальная эффективность; отклик на письма ИИ-агента в 3x выше чем у обычных рекрутёров</div>
+    <div class="card-footer">
+        <span class="card-date">15.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/vyverni-pravilo-pareto-naiznanku/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="домашний декор" data-title="Вот они какие — нынешние «голубые океаны»!" data-text="фрагментированный рынок ковров в США — сложно найти ковёр нужного размера дизайнерского качества фаундеры Peloton нашли огромный но незаметный фрагментированный рынок; позиция крупнейшего ритейлера кастомных ковров в США достижима без доминирующего конкурента">
+    <div class="card-top">
+        <div class="card-title">Вот они какие — нынешние «голубые океаны»!</div>
+        <div class="badge round-badge">$20M (март 2026), всего поднято ~$57.5M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">домашний декор</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ковры и ковровые покрытия кастомного размера</span>
+    </div>
+    <div class="card-problem">🎯 фрагментированный рынок ковров в США — сложно найти ковёр нужного размера дизайнерского качества</div>
+    <div class="card-insight">фаундеры Peloton нашли огромный но незаметный фрагментированный рынок; позиция крупнейшего ритейлера кастомных ковров в США достижима без доминирующего конкурента</div>
+    <div class="card-footer">
+        <span class="card-date">16.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/goluboj-okean-eto-rynok-melkih-rybjoshek/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="HR" data-title="Оказывается, индивидуальный подход тоже можно масштабировать!" data-text="70-80% лучших технических вакансий закрываются по знакомству до публикации; компании без связей не могут найти топ-кандидатов, а кандидаты — хорошие позиции Маркетплейсы работают для массового найма, но для топ-позиций ключевы личные связи — ИИ-агент может масштабировать сетевой эффект рекрутингового агентства, заменяя человеческие связи алгоритмическим матчингом">
+    <div class="card-top">
+        <div class="card-title">Оказывается, индивидуальный подход тоже можно масштабировать!</div>
+        <div class="badge round-badge">$500K</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef3e8">HR</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-рекрутинг</span>
+    </div>
+    <div class="card-problem">🎯 70-80% лучших технических вакансий закрываются по знакомству до публикации; компании без связей не могут найти топ-кандидатов, а кандидаты — хорошие позиции</div>
+    <div class="card-insight">Маркетплейсы работают для массового найма, но для топ-позиций ключевы личные связи — ИИ-агент может масштабировать сетевой эффект рекрутингового агентства, заменяя человеческие связи алгоритмическим матчингом</div>
+    <div class="card-footer">
+        <span class="card-date">17.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/individualnyj-podhod-mozhno-masshtabirovat/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-инфраструктура" data-title="Разрабатывать ИИ-платформы становится невыгодно. А вот это — наоборот, выгодно!" data-text="Универсальные ИИ-модели дают ненадёжные результаты в нишевых областях — выглядят профессионально, но не проходят проверку экспертами Узкое горлышко сместилось с создания ИИ-контента на его верификацию: ИИ генерирует убедительно выглядящие результаты, но без экспертной проверки они ненадёжны — это новая рыночная ниша">
+    <div class="card-top">
+        <div class="card-title">Разрабатывать ИИ-платформы становится невыгодно. А вот это — наоборот, выгодно!</div>
+        <div class="badge round-badge">$500K (YC)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-инфраструктура</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">оценка и верификация ИИ-результатов</span>
+    </div>
+    <div class="card-problem">🎯 Универсальные ИИ-модели дают ненадёжные результаты в нишевых областях — выглядят профессионально, но не проходят проверку экспертами</div>
+    <div class="card-insight">Узкое горлышко сместилось с создания ИИ-контента на его верификацию: ИИ генерирует убедительно выглядящие результаты, но без экспертной проверки они ненадёжны — это новая рыночная ниша</div>
+    <div class="card-footer">
+        <span class="card-date">18.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/razrabatyvat-ii-platformy-uzhe-ne-tak-vygodno/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ПО для ИИ-агентов" data-title="Ты делаешь то, чем люди захотят пользоваться? Тогда ты уже опоздал!" data-text="ИИ-агенты не могут удобно открывать и оценивать подходящий им софт, а разработчики не получают обратную связь от агентов Парадигма разработки ПО меняется с make what people want на make what agents want — любой продукт должен стать API-first, включая административные функции">
+    <div class="card-top">
+        <div class="card-title">Ты делаешь то, чем люди захотят пользоваться? Тогда ты уже опоздал!</div>
+        <div class="badge round-badge">Не указан</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ПО для ИИ-агентов</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Платформа для обзоров и обсуждений продуктов ИИ-агентами</span>
+    </div>
+    <div class="card-problem">🎯 ИИ-агенты не могут удобно открывать и оценивать подходящий им софт, а разработчики не получают обратную связь от агентов</div>
+    <div class="card-insight">Парадигма разработки ПО меняется с make what people want на make what agents want — любой продукт должен стать API-first, включая административные функции</div>
+    <div class="card-footer">
+        <span class="card-date">19.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/esli-ljudi-zahotjat-ty-opozdal/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-автоматизация бизнес-процессов" data-title="Правильный способ съесть бутерброд с большими деньгами!" data-text="Внедрение автоматизации требует ручного извлечения знаний о бизнес-процессах из сотрудников — это сложно, дорого и не масштабируется Узкое место внедрения ИИ в enterprise — не технология, а извлечение бизнес-знаний; фаундеры из Palantir автоматизировали именно эту боль Forward Deployed Engineers, превратив её в масштабируемый продукт">
+    <div class="card-top">
+        <div class="card-title">Правильный способ съесть бутерброд с большими деньгами!</div>
+        <div class="badge round-badge">$30M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-автоматизация бизнес-процессов</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Корпоративные ИИ-агенты и управление знаниями</span>
+    </div>
+    <div class="card-problem">🎯 Внедрение автоматизации требует ручного извлечения знаний о бизнес-процессах из сотрудников — это сложно, дорого и не масштабируется</div>
+    <div class="card-insight">Узкое место внедрения ИИ в enterprise — не технология, а извлечение бизнес-знаний; фаундеры из Palantir автоматизировали именно эту боль Forward Deployed Engineers, превратив её в масштабируемый продукт</div>
+    <div class="card-footer">
+        <span class="card-date">20.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/buterbrod-s-bolshimi-dengami/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="HR" data-title="Прозрачность — способ привлечь миллионы пользователей!" data-text="Сотрудники не имеют честной информации об условиях труда, зарплатах и культуре компаний — только рекламные материалы работодателей Поколение Z ставит прозрачность рабочих отношений во главу угла (50% готовы делиться зарплатой), и это поколение становится главной рабочей силой — анонимные профессиональные сообщества закрывают эту потребность и позволяют монетизировать её через карьерные инструменты">
+    <div class="card-top">
+        <div class="card-title">Прозрачность — способ привлечь миллионы пользователей!</div>
+        <div class="badge round-badge">$4.1M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef3e8">HR</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Профессиональные сообщества / прозрачность рынка труда</span>
+    </div>
+    <div class="card-problem">🎯 Сотрудники не имеют честной информации об условиях труда, зарплатах и культуре компаний — только рекламные материалы работодателей</div>
+    <div class="card-insight">Поколение Z ставит прозрачность рабочих отношений во главу угла (50% готовы делиться зарплатой), и это поколение становится главной рабочей силой — анонимные профессиональные сообщества закрывают эту потребность и позволяют монетизировать её через карьерные инструменты</div>
+    <div class="card-footer">
+        <span class="card-date">21.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/prozrachnost-sposob-privlech-milliony-polzovatelej/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-инструменты для креативных агентств" data-title="Для больших продаж нужно много «неполноценных» продуктов!" data-text="Подготовка одного питча обходится агентству до $250K и нескольких недель; при 10 питчах в месяц стоимость привлечения клиентов становится запредельной Вместо того чтобы конкурировать с агентствами, First Concepts делает ставку на их рост — платформа выигрывает от тренда на увеличение числа малых ИИ-агентств, ставших возможными благодаря ИИ">
+    <div class="card-top">
+        <div class="card-title">Для больших продаж нужно много «неполноценных» продуктов!</div>
+        <div class="badge round-badge">$1M (pre-seed $200K в июле 2025, seed $1M в марте 2026)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-инструменты для креативных агентств</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Платформа для создания питчей и концепций видеороликов</span>
+    </div>
+    <div class="card-problem">🎯 Подготовка одного питча обходится агентству до $250K и нескольких недель; при 10 питчах в месяц стоимость привлечения клиентов становится запредельной</div>
+    <div class="card-insight">Вместо того чтобы конкурировать с агентствами, First Concepts делает ставку на их рост — платформа выигрывает от тренда на увеличение числа малых ИИ-агентств, ставших возможными благодаря ИИ</div>
+    <div class="card-footer">
+        <span class="card-date">22.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/dlja-prodazh-nuzhny-nepolnocennye-produkty/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-агентства" data-title="Самое выгодное сейчас — вот так разделить стратегию и тактику!" data-text="Рекламные кампании со временем &quot;выгорают&quot; и теряют эффективность ИИ-агентства зарабатывают в 100x больше, чем SaaS-модель с той же платформой — YC уже включил модель в wish list">
+    <div class="card-top">
+        <div class="card-title">Самое выгодное сейчас — вот так разделить стратегию и тактику!</div>
+        <div class="badge round-badge">$9.5M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-агентства</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">B2B рекламный маркетинг</span>
+    </div>
+    <div class="card-problem">🎯 Рекламные кампании со временем &quot;выгорают&quot; и теряют эффективность</div>
+    <div class="card-insight">ИИ-агентства зарабатывают в 100x больше, чем SaaS-модель с той же платформой — YC уже включил модель в wish list</div>
+    <div class="card-footer">
+        <span class="card-date">23.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/razdelit-strategiju-i-taktiku/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="HR-tech" data-title="Новый рецепт успеха — «сжатие» вместо «расширения»!" data-text="Компаниям сложно быстро закрывать критичные вакансии на топ-таланты; рынок труда смещается к найму лучших, а не многих Рынок труда схлопывается вверх: ИИ сокращает потребность в рядовых сотрудниках, но резко увеличивает спрос и зарплаты топ-10% талантов — Paraform занимает именно эту нишу">
+    <div class="card-top">
+        <div class="card-title">Новый рецепт успеха — «сжатие» вместо «расширения»!</div>
+        <div class="badge round-badge">$40M (март 2026, всего ~$65M)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fef3e8">HR-tech</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Рекрутинговый маркетплейс</span>
+    </div>
+    <div class="card-problem">🎯 Компаниям сложно быстро закрывать критичные вакансии на топ-таланты; рынок труда смещается к найму лучших, а не многих</div>
+    <div class="card-insight">Рынок труда схлопывается вверх: ИИ сокращает потребность в рядовых сотрудниках, но резко увеличивает спрос и зарплаты топ-10% талантов — Paraform занимает именно эту нишу</div>
+    <div class="card-footer">
+        <span class="card-date">24.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/szhatie-vmesto-rasshirenija/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="EdTech / AI-инструменты для разработки" data-title="Обезьяна с гранатой денег не заработает 😉" data-text="Вайбкодеры пишут код с ИИ, но не понимают его — не могут принимать архитектурные решения и отлаживать продукт Обучение наиболее эффективно в процессе реальной работы; после появления ИИ-кодирования вырос спрос не на кодировщиков, а на архитекторов и тех, кто умеет проверять и рефакторить ИИ-код — именно этот навык и развивает Contral">
+    <div class="card-top">
+        <div class="card-title">Обезьяна с гранатой денег не заработает 😉</div>
+        <div class="badge round-badge">не указан (ранняя стадия, Product Hunt запуск)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fff8e8">EdTech / AI-инструменты для разработки</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Вайбкодинг с обучением</span>
+    </div>
+    <div class="card-problem">🎯 Вайбкодеры пишут код с ИИ, но не понимают его — не могут принимать архитектурные решения и отлаживать продукт</div>
+    <div class="card-insight">Обучение наиболее эффективно в процессе реальной работы; после появления ИИ-кодирования вырос спрос не на кодировщиков, а на архитекторов и тех, кто умеет проверять и рефакторить ИИ-код — именно этот навык и развивает Contral</div>
+    <div class="card-footer">
+        <span class="card-date">25.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/obezjana-s-granatoj-deneg-ne-zarabotaet/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="профессиональный нетворкинг" data-title="Они будут делать это к твоей пользе и выгоде!" data-text="холодные сообщения в LinkedIn игнорируются, нетворкинг требует времени и нервов, сложно найти нужных людей без общих знакомых ИИ-агенты берут на себя холодный нетворкинг: масштабируют охват и фильтруют входящие, выдавая людям только взаимно интересные совпадения — без спама и отлупов">
+    <div class="card-top">
+        <div class="card-title">Они будут делать это к твоей пользе и выгоде!</div>
+        <div class="badge round-badge">не раскрыт</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">профессиональный нетворкинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-агенты для B2B-знакомств</span>
+    </div>
+    <div class="card-problem">🎯 холодные сообщения в LinkedIn игнорируются, нетворкинг требует времени и нервов, сложно найти нужных людей без общих знакомых</div>
+    <div class="card-insight">ИИ-агенты берут на себя холодный нетворкинг: масштабируют охват и фильтруют входящие, выдавая людям только взаимно интересные совпадения — без спама и отлупов</div>
+    <div class="card-footer">
+        <span class="card-date">26.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/k-tvoej-polze-i-vygode/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="B2B SaaS для розничных поставок" data-title="Треть прибыли сейчас можно уже не терять!" data-text="Розничные сети (Walmart, Amazon, Kroger) автоматически вычитают 2–10% из платежей поставщикам за порчу, недостачу, нарушения — поставщики теряют 2–5 млн $ в год с каждых $50 млн поставок, ручная проверка возвращает &lt;50% и занимает 3+ месяца Вычеты розничных сетей — системная проблема, уносящая треть прибыли поставщиков, но рынок не автоматизирован; ИИ-агенты впервые закрывают весь цикл от обнаружения до возврата, делая экономически доступным то, что раньше требовало дорогой команды финансистов">
+    <div class="card-top">
+        <div class="card-title">Треть прибыли сейчас можно уже не терять!</div>
+        <div class="badge round-badge">$35M (март 2026)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f0f4ff">B2B SaaS для розничных поставок</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Управление вычетами (deduction management) для поставщиков в ритейл</span>
+    </div>
+    <div class="card-problem">🎯 Розничные сети (Walmart, Amazon, Kroger) автоматически вычитают 2–10% из платежей поставщикам за порчу, недостачу, нарушения — поставщики теряют 2–5 млн $ в год с каждых $50 млн поставок, ручная проверка возвращает &lt;50% и занимает 3+ месяца</div>
+    <div class="card-insight">Вычеты розничных сетей — системная проблема, уносящая треть прибыли поставщиков, но рынок не автоматизирован; ИИ-агенты впервые закрывают весь цикл от обнаружения до возврата, делая экономически доступным то, что раньше требовало дорогой команды финансистов</div>
+    <div class="card-footer">
+        <span class="card-date">27.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/tret-pribyli-mozhno-ne-terjat/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="локальная реклама и открытие мест" data-title="Тут до сих пор можно зарабатывать приличные деньги на простых механиках!" data-text="локальным заведениям сложно привлекать реальных покупателей, а существующая реклама не подтверждает факт покупки верификация через чек создаёт уникальный сигнал реального покупательского трафика, а не просто посещаемости — это ценнее любых отзывов и рейтингов для заведений и рекламодателей">
+    <div class="card-top">
+        <div class="card-title">Тут до сих пор можно зарабатывать приличные деньги на простых механиках!</div>
+        <div class="badge round-badge">$3.25M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">локальная реклама и открытие мест</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">приложения с вознаграждением за посещение локальных заведений</span>
+    </div>
+    <div class="card-problem">🎯 локальным заведениям сложно привлекать реальных покупателей, а существующая реклама не подтверждает факт покупки</div>
+    <div class="card-insight">верификация через чек создаёт уникальный сигнал реального покупательского трафика, а не просто посещаемости — это ценнее любых отзывов и рейтингов для заведений и рекламодателей</div>
+    <div class="card-footer">
+        <span class="card-date">28.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/prilichnye-dengi-na-prostyh-mehanikah/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="екоммерс / подержанная одежда" data-title="Но ведь гораздо проще растить предложение, чем спрос!" data-text="93% подержанной одежды не появляется в онлайне из-за сложности оцифровки товаров для продавцов 93% секонд-хенда в комиссионках никогда не попадает в онлайн не из-за отсутствия товара, а из-за трудоёмкости оцифровки — ИИ убирает этот барьер и разблокирует гигантское скрытое предложение">
+    <div class="card-top">
+        <div class="card-title">Но ведь гораздо проще растить предложение, чем спрос!</div>
+        <div class="badge round-badge">€1M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">екоммерс / подержанная одежда</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-инструменты для ресейлеров секонд-хенда</span>
+    </div>
+    <div class="card-problem">🎯 93% подержанной одежды не появляется в онлайне из-за сложности оцифровки товаров для продавцов</div>
+    <div class="card-insight">93% секонд-хенда в комиссионках никогда не попадает в онлайн не из-за отсутствия товара, а из-за трудоёмкости оцифровки — ИИ убирает этот барьер и разблокирует гигантское скрытое предложение</div>
+    <div class="card-footer">
+        <span class="card-date">29.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/proshhe-rastit-predlozhenie-chem-spros/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-данные" data-title="На ИИ главные деньги заработают только два типа компаний!" data-text="ИИ-компаниям не хватает качественных реальных голосовых данных для обучения моделей и агентов Дефицит качественных голосовых данных для ИИ создаёт новую категорию data-брокеров, монетизирующих бытовые разговоры">
+    <div class="card-top">
+        <div class="card-title">На ИИ главные деньги заработают только два типа компаний!</div>
+        <div class="badge round-badge">$25M+</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-данные</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Сбор и продажа голосовых данных для обучения ИИ</span>
+    </div>
+    <div class="card-problem">🎯 ИИ-компаниям не хватает качественных реальных голосовых данных для обучения моделей и агентов</div>
+    <div class="card-insight">Дефицит качественных голосовых данных для ИИ создаёт новую категорию data-брокеров, монетизирующих бытовые разговоры</div>
+    <div class="card-footer">
+        <span class="card-date">30.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/glavnye-dengi-budut-zarabatyvat-ne-razrabotchiki/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="продуктивность" data-title="Чтобы достичь цели… достаточно выполнять всего одну задачу в день!" data-text="Приложения для продуктивности перегружают пользователя задачами вместо фокуса на главном Антитренд перегруженных таск-менеджеров: ИИ разбивает цель на одну задачу в день, что снижает когнитивную нагрузку и повышает вероятность достижения цели">
+    <div class="card-top">
+        <div class="card-title">Чтобы достичь цели… достаточно выполнять всего одну задачу в день!</div>
+        <div class="badge round-badge">не указан</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">продуктивность</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-планировщик достижения целей</span>
+    </div>
+    <div class="card-problem">🎯 Приложения для продуктивности перегружают пользователя задачами вместо фокуса на главном</div>
+    <div class="card-insight">Антитренд перегруженных таск-менеджеров: ИИ разбивает цель на одну задачу в день, что снижает когнитивную нагрузку и повышает вероятность достижения цели</div>
+    <div class="card-footer">
+        <span class="card-date">31.03.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/dostatochno-odnoj-zadachi-v-den/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-инфраструктура" data-title="Ну и кто будет трахаться с введением в курс дела ИИ-агентов?" data-text="Каждый новый ИИ-агент требует ручного онбординга: объяснения бизнес-процессов, структуры данных и правил работы — это трудоёмко и непонятно кто должен этим заниматься Существующие решения дают ИИ-агентам доступ к данным, но не к пониманию контекста бизнеса — Pensieve заполняет этот пробел, создавая структурированное знание о компании, а не просто набор фактов">
+    <div class="card-top">
+        <div class="card-title">Ну и кто будет трахаться с введением в курс дела ИИ-агентов?</div>
+        <div class="badge round-badge">не указан</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-инфраструктура</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">онбординг ИИ-агентов</span>
+    </div>
+    <div class="card-problem">🎯 Каждый новый ИИ-агент требует ручного онбординга: объяснения бизнес-процессов, структуры данных и правил работы — это трудоёмко и непонятно кто должен этим заниматься</div>
+    <div class="card-insight">Существующие решения дают ИИ-агентам доступ к данным, но не к пониманию контекста бизнеса — Pensieve заполняет этот пробел, создавая структурированное знание о компании, а не просто набор фактов</div>
+    <div class="card-footer">
+        <span class="card-date">01.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/kto-budet-onbordit-ii-agentov/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="B2B закупки" data-title="Очень выгодная тема для очень простых платформ!" data-text="Малый бизнес тратит недели на поиск поставщиков оборудования и запчастей, контактируя вручную с сотнями компаний ИИ превращает арбитраж поставщиков из ручного в масштабируемый — охватывая 500K+ поставщиков там, где раньше человек просматривал 3–4 варианта">
+    <div class="card-top">
+        <div class="card-title">Очень выгодная тема для очень простых платформ!</div>
+        <div class="badge round-badge">$500K</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">B2B закупки</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Поиск промышленных поставщиков</span>
+    </div>
+    <div class="card-problem">🎯 Малый бизнес тратит недели на поиск поставщиков оборудования и запчастей, контактируя вручную с сотнями компаний</div>
+    <div class="card-insight">ИИ превращает арбитраж поставщиков из ручного в масштабируемый — охватывая 500K+ поставщиков там, где раньше человек просматривал 3–4 варианта</div>
+    <div class="card-footer">
+        <span class="card-date">02.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/vygodnaja-tema-dlja-prostyh-platform/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="SMB / M&amp;A / автоматизация" data-title="Автоматизацию малому бизнесу нужно продавать совсем под другим соусом!" data-text="80% выставленных на продажу малых бизнесов не продаётся — хаос в процессах, данных, финансах Упаковка ИИ-автоматизации в «подготовку к продаже» — мощный GTM. Покупают не автоматизацию, а стоимость бизнеса при продаже. Глобальный передел собственности $85T идёт">
+    <div class="card-top">
+        <div class="card-title">Автоматизацию малому бизнесу нужно продавать совсем под другим соусом!</div>
+        <div class="badge round-badge">$3.3M seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">SMB / M&amp;A / автоматизация</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Подготовка малого бизнеса к продаже</span>
+    </div>
+    <div class="card-problem">🎯 80% выставленных на продажу малых бизнесов не продаётся — хаос в процессах, данных, финансах</div>
+    <div class="card-insight">Упаковка ИИ-автоматизации в «подготовку к продаже» — мощный GTM. Покупают не автоматизацию, а стоимость бизнеса при продаже. Глобальный передел собственности $85T идёт</div>
+    <div class="card-footer">
+        <span class="card-date">03.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/avtomatizaciju-nuzhno-prodavat-pod-drugim-sousom/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Финтех / медиа" data-title="Два пока ещё «нелегальных» рынка — на которых поэтому можно успеть заработать!" data-text="Финансовые новости создаются людьми — медленно, задержка минуты/часы. На рынках задержка = потеря денег ИИ-журналистика — новый рынок где ИИ = конкурентное преимущество, не костыль. Применимо везде где скорость публикации критична: legal filings, FDA, earnings reports">
+    <div class="card-top">
+        <div class="card-title">Два пока ещё «нелегальных» рынка — на которых поэтому можно успеть заработать!</div>
+        <div class="badge round-badge">€1.5M seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fdf3fb">Финтех / медиа</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-журналистика для финансовых рынков</span>
+    </div>
+    <div class="card-problem">🎯 Финансовые новости создаются людьми — медленно, задержка минуты/часы. На рынках задержка = потеря денег</div>
+    <div class="card-insight">ИИ-журналистика — новый рынок где ИИ = конкурентное преимущество, не костыль. Применимо везде где скорость публикации критична: legal filings, FDA, earnings reports</div>
+    <div class="card-footer">
+        <span class="card-date">04.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/dva-poka-eshhjo-nelegalnyh-rynka/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="LegalTech / ИИ" data-title="Два критерия выбора темы — чтобы за 283 дня вырасти до $400 миллионов!" data-text="Юридические фирмы берут деньги за часы — что противоречит интересам клиента, чем дольше тем дороже Фиксированное ценообразование выравнивает интересы клиента и фирмы — революция в любой профессиональной услуге с почасовой оплатой. 286 дней → $400M оценка">
+    <div class="card-top">
+        <div class="card-title">Два критерия выбора темы — чтобы за 283 дня вырасти до $400 миллионов!</div>
+        <div class="badge round-badge">$60M total, $400M valuation (286 дней от запуска)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">LegalTech / ИИ</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Проверка договоров с фиксированной ценой</span>
+    </div>
+    <div class="card-problem">🎯 Юридические фирмы берут деньги за часы — что противоречит интересам клиента, чем дольше тем дороже</div>
+    <div class="card-insight">Фиксированное ценообразование выравнивает интересы клиента и фирмы — революция в любой профессиональной услуге с почасовой оплатой. 286 дней → $400M оценка</div>
+    <div class="card-footer">
+        <span class="card-date">05.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/za-283-dnja-do-400-millionov/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Регтех / глобализация" data-title="Проще заплатить ТЕБЕ — чем делать это самому 😉" data-text="Выход на международные рынки тормозится регуляторными требованиями — сложно, долго, дорого для каждой страны +45% выручки в месяц говорит само за себя. Регуляторный комплаенс для международных продаж — огромный тормоз для любого бизнеса с физическими товарами">
+    <div class="card-top">
+        <div class="card-title">Проще заплатить ТЕБЕ — чем делать это самому 😉</div>
+        <div class="badge round-badge">€1.7M + YC</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">Регтех / глобализация</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Автоматическая сертификация товаров для международных рынков</span>
+    </div>
+    <div class="card-problem">🎯 Выход на международные рынки тормозится регуляторными требованиями — сложно, долго, дорого для каждой страны</div>
+    <div class="card-insight">+45% выручки в месяц говорит само за себя. Регуляторный комплаенс для международных продаж — огромный тормоз для любого бизнеса с физическими товарами</div>
+    <div class="card-footer">
+        <span class="card-date">06.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/proshhe-zaplatit-chem-delat-samomu/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Автоматизация / продуктивность" data-title="Как перестать заниматься скучными вещами?" data-text="Большинство инструментов автоматизации требуют чтобы пользователь сам знал что автоматизировать — а это уже половина работы Знание что автоматизировать — уже половина работы. Автоматизация должна сама находить что автоматизировать. Паттерн совпадает с Edra ($30M) — это мощный тренд 2026">
+    <div class="card-top">
+        <div class="card-title">Как перестать заниматься скучными вещами?</div>
+        <div class="badge round-badge">P</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">Автоматизация / продуктивность</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Автообнаружение рутин для автоматизации</span>
+    </div>
+    <div class="card-problem">🎯 Большинство инструментов автоматизации требуют чтобы пользователь сам знал что автоматизировать — а это уже половина работы</div>
+    <div class="card-insight">Знание что автоматизировать — уже половина работы. Автоматизация должна сама находить что автоматизировать. Паттерн совпадает с Edra ($30M) — это мощный тренд 2026</div>
+    <div class="card-footer">
+        <span class="card-date">07.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/perestat-zanimatsja-skuchnymi-delami/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="DevTools / ИИ-инфраструктура" data-title="ИИ-агентам, как и золотоискателям, тоже можно продавать лопаты 😉" data-text="ИИ-агенты галлюцинируют при работе с большими кодовыми базами — не могут понять архитектуру из 20M строк Основными пользователями ПО скоро станут ИИ-агенты, не люди. Нужны лопаты для золотоискателей: -90% ручной работы, x5 эффективность агентов">
+    <div class="card-top">
+        <div class="card-title">ИИ-агентам, как и золотоискателям, тоже можно продавать лопаты 😉</div>
+        <div class="badge round-badge">$8M Google Ventures (YC S24)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">DevTools / ИИ-инфраструктура</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Контекст кодовой базы для ИИ-агентов</span>
+    </div>
+    <div class="card-problem">🎯 ИИ-агенты галлюцинируют при работе с большими кодовыми базами — не могут понять архитектуру из 20M строк</div>
+    <div class="card-insight">Основными пользователями ПО скоро станут ИИ-агенты, не люди. Нужны лопаты для золотоискателей: -90% ручной работы, x5 эффективность агентов</div>
+    <div class="card-footer">
+        <span class="card-date">08.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/ii-agentam-mozhno-prodavat-lopaty/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Финтех / проф. услуги" data-title="Софт нужно продавать не за деньги… а за долю!" data-text="Продавать новые технологии консервативным бухгалтерским фирмам очень сложно — они не покупают SaaS Стать акционером вместо продавца — революционный GTM для консервативных рынков (юрфирмы, медклиники, архбюро). Применимо везде где сложно продать SaaS традиционным игрокам">
+    <div class="card-top">
+        <div class="card-title">Софт нужно продавать не за деньги… а за долю!</div>
+        <div class="badge round-badge">$85M</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fdf3fb">Финтех / проф. услуги</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-трансформация бухфирм через инвестиции</span>
+    </div>
+    <div class="card-problem">🎯 Продавать новые технологии консервативным бухгалтерским фирмам очень сложно — они не покупают SaaS</div>
+    <div class="card-insight">Стать акционером вместо продавца — революционный GTM для консервативных рынков (юрфирмы, медклиники, архбюро). Применимо везде где сложно продать SaaS традиционным игрокам</div>
+    <div class="card-footer">
+        <span class="card-date">09.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/svoj-ne-za-dengi-a-za-dolju/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="DevTools / продукт" data-title="Ценность ИИ-платформ теперь не в ИИ 😱" data-text="ИИ-инструменты помогают быстрее строить, но не говорят что строить и как победить на рынке Размытие границы между консалтингом и разработкой. Кто даёт суждение (что строить) + исполнение (как строить) в одном = следующий уровень DevTools">
+    <div class="card-top">
+        <div class="card-title">Ценность ИИ-платформ теперь не в ИИ 😱</div>
+        <div class="badge round-badge">$25.8M total ($15M осень 2025)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#edfbf0">DevTools / продукт</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Вайбкодинг + стратегический ИИ-ментор</span>
+    </div>
+    <div class="card-problem">🎯 ИИ-инструменты помогают быстрее строить, но не говорят что строить и как победить на рынке</div>
+    <div class="card-insight">Размытие границы между консалтингом и разработкой. Кто даёт суждение (что строить) + исполнение (как строить) в одном = следующий уровень DevTools</div>
+    <div class="card-footer">
+        <span class="card-date">10.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/cennost-ii-platform-teper-ne-v-ii/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Финтех / голосовые ИИ" data-title="Как заставить клиента заплатить прямо во время разговора по телефону?" data-text="Голосовые ИИ-агенты не могут принять платёж прямо в разговоре — клиент обещает заплатить потом и не платит Голосовой ИИ-рынок растёт 35%/год → $47.5B к 2034. Maven = Stripe для голоса. Каждый голосовой агент рано или поздно захочет принимать платежи">
+    <div class="card-top">
+        <div class="card-title">Как заставить клиента заплатить прямо во время разговора по телефону?</div>
+        <div class="badge round-badge">$500K YC</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">Финтех / голосовые ИИ</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Платежи внутри голосового разговора</span>
+    </div>
+    <div class="card-problem">🎯 Голосовые ИИ-агенты не могут принять платёж прямо в разговоре — клиент обещает заплатить потом и не платит</div>
+    <div class="card-insight">Голосовой ИИ-рынок растёт 35%/год → $47.5B к 2034. Maven = Stripe для голоса. Каждый голосовой агент рано или поздно захочет принимать платежи</div>
+    <div class="card-footer">
+        <span class="card-date">11.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/klienta-zaplatit-vo-vremja-razgovora/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ХелсТех / медэстетика" data-title="Рынок софта для малого и среднего бизнеса скоро исчезнет!" data-text="Клиники эстетической медицины теряют $300K/год — используют ПО для косметических салонов, не для медицинских клиник Вертикальный SaaS побеждает горизонтальный когда вертикаль = медицинские требования. Конкурент Moxie уже поднял $50.7M. Рынок $18B растёт быстро">
+    <div class="card-top">
+        <div class="card-title">Рынок софта для малого и среднего бизнеса скоро исчезнет!</div>
+        <div class="badge round-badge">$500K YC</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">ХелсТех / медэстетика</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-OS для medspa клиник</span>
+    </div>
+    <div class="card-problem">🎯 Клиники эстетической медицины теряют $300K/год — используют ПО для косметических салонов, не для медицинских клиник</div>
+    <div class="card-insight">Вертикальный SaaS побеждает горизонтальный когда вертикаль = медицинские требования. Конкурент Moxie уже поднял $50.7M. Рынок $18B растёт быстро</div>
+    <div class="card-footer">
+        <span class="card-date">12.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/rynok-softa-skoro-ischeznet/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Marketplace / консалтинг" data-title="Чтобы продвинуть свой продукт — дай другим на нём заработать!" data-text="Людям иногда не хватает ответов ИИ — нужна индивидуальная консультация живого эксперта для их «уникальной» ситуации Human-in-the-loop как конкурентный ров для ИИ-маркетплейсов. Неустранимый запрос: людям нужна уверенность что их ситуация уникальна">
+    <div class="card-top">
+        <div class="card-title">Чтобы продвинуть свой продукт — дай другим на нём заработать!</div>
+        <div class="badge round-badge">P</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">Marketplace / консалтинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-агенты с человеческой поддержкой</span>
+    </div>
+    <div class="card-problem">🎯 Людям иногда не хватает ответов ИИ — нужна индивидуальная консультация живого эксперта для их «уникальной» ситуации</div>
+    <div class="card-insight">Human-in-the-loop как конкурентный ров для ИИ-маркетплейсов. Неустранимый запрос: людям нужна уверенность что их ситуация уникальна</div>
+    <div class="card-footer">
+        <span class="card-date">13.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/chtoby-prodvinut-pozvol-drugim-zarabatyvat/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Маркетинг / ИИ" data-title="Сделать можно всё… но что в твоей ситуации нужно делать?" data-text="У SMB нет маркетинговой инфраструктуры Fortune 500 — есть «judgement gap», не знают что делать в маркетинге Новое бутылочное горлышко — суждение (judgement), не продуктивность. ИИ умеет исполнять, но кто даёт SMB маркетинговое суждение что делать — выигрывает рынок">
+    <div class="card-top">
+        <div class="card-title">Сделать можно всё… но что в твоей ситуации нужно делать?</div>
+        <div class="badge round-badge">$4.5M seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">Маркетинг / ИИ</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-маркетинг для малого бизнеса</span>
+    </div>
+    <div class="card-problem">🎯 У SMB нет маркетинговой инфраструктуры Fortune 500 — есть «judgement gap», не знают что делать в маркетинге</div>
+    <div class="card-insight">Новое бутылочное горлышко — суждение (judgement), не продуктивность. ИИ умеет исполнять, но кто даёт SMB маркетинговое суждение что делать — выигрывает рынок</div>
+    <div class="card-footer">
+        <span class="card-date">14.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/chto-nuzhno-delat/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Финтех / маркетинг" data-title="Психологическое сегментирование аудитории — самый лучший способ продать!" data-text="Финансовые компании сегментируют по демографии — это плохо работает для персонализации коммуникации Психографическая сегментация бьёт демографическую в финансах. Один продукт нужно подавать по-разному для каждого психотипа. Применимо к любому B2C с высоким LTV">
+    <div class="card-top">
+        <div class="card-title">Психологическое сегментирование аудитории — самый лучший способ продать!</div>
+        <div class="badge round-badge">$1.1M seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fdf3fb">Финтех / маркетинг</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Психографическая сегментация</span>
+    </div>
+    <div class="card-problem">🎯 Финансовые компании сегментируют по демографии — это плохо работает для персонализации коммуникации</div>
+    <div class="card-insight">Психографическая сегментация бьёт демографическую в финансах. Один продукт нужно подавать по-разному для каждого психотипа. Применимо к любому B2C с высоким LTV</div>
+    <div class="card-footer">
+        <span class="card-date">15.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/psihologicheskoe-segmentirovanie-auditorii/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="е-коммерс / персонализация" data-title="Чтобы продать — нужно суметь залезть в голову покупателя. Но как?" data-text="Интернет-магазины показывают «популярные товары» вместо индивидуально релевантных — плохая конверсия и удержание Покупательское поведение — лишь внешний сигнал намерения. Следующий уровень e-commerce: моделировать намерения, не анализировать клики. Результат у клиентов: 12x конверсия, +235% повторная выручка">
+    <div class="card-top">
+        <div class="card-title">Чтобы продать — нужно суметь залезть в голову покупателя. Но как?</div>
+        <div class="badge round-badge">€2.1M pre-seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">е-коммерс / персонализация</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Когнитивная персонализация покупателей</span>
+    </div>
+    <div class="card-problem">🎯 Интернет-магазины показывают «популярные товары» вместо индивидуально релевантных — плохая конверсия и удержание</div>
+    <div class="card-insight">Покупательское поведение — лишь внешний сигнал намерения. Следующий уровень e-commerce: моделировать намерения, не анализировать клики. Результат у клиентов: 12x конверсия, +235% повторная выручка</div>
+    <div class="card-footer">
+        <span class="card-date">16.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/chtoby-prodat-nuzhno-zalezt-v-golovu/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-агенты / marketplace" data-title="Привычная картинка переворачивается вверх тормашками. Буквально!" data-text="ИИ-агенты застревают на задачах которые не могут решить сами — нет механизма быстро подключить человека Скоро ИИ-агенты будут «сверху» людей — использовать людей как инструмент. Первые востребованные платформы: внутрикорпоративный human-in-the-loop где агенты обращаются к сотрудникам">
+    <div class="card-top">
+        <div class="card-title">Привычная картинка переворачивается вверх тормашками. Буквально!</div>
+        <div class="badge round-badge">$500K YC seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-агенты / marketplace</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Human-in-the-loop для ИИ-агентов</span>
+    </div>
+    <div class="card-problem">🎯 ИИ-агенты застревают на задачах которые не могут решить сами — нет механизма быстро подключить человека</div>
+    <div class="card-insight">Скоро ИИ-агенты будут «сверху» людей — использовать людей как инструмент. Первые востребованные платформы: внутрикорпоративный human-in-the-loop где агенты обращаются к сотрудникам</div>
+    <div class="card-footer">
+        <span class="card-date">17.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/privychnaja-kartinka-vverh-tormashkami/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Финтех / luxury" data-title="Зачем тебе геморрой с кучей клиентов? Если твоя настоящая цель — это прибыль!" data-text="15% клиентов делают 90% транзакций — массовые карты убыточны, богатые клиенты хотят сервис а не кэшбеки К-экономика: 2000 клиентов → $20M ARR, 80% retention год-к-году. Обратная логика — плюнь на масштаб, возьми прибыль с малого числа богатых клиентов с высоким чеком">
+    <div class="card-top">
+        <div class="card-title">Зачем тебе геморрой с кучей клиентов? Если твоя настоящая цель — это прибыль!</div>
+        <div class="badge round-badge">$40M Series B, оценка $420M (total raised $67M)</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fdf3fb">Финтех / luxury</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Банковская карта для сверхбогатых с консьерж-сервисом</span>
+    </div>
+    <div class="card-problem">🎯 15% клиентов делают 90% транзакций — массовые карты убыточны, богатые клиенты хотят сервис а не кэшбеки</div>
+    <div class="card-insight">К-экономика: 2000 клиентов → $20M ARR, 80% retention год-к-году. Обратная логика — плюнь на масштаб, возьми прибыль с малого числа богатых клиентов с высоким чеком</div>
+    <div class="card-footer">
+        <span class="card-date">18.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/nastojashhaja-cel-jeto-pribyl/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Trust / media" data-title="Для первых инвестиций «хорошая проблема» важнее, чем «хорошее решение» 😮" data-text="В интернете нельзя доверять информации — ИИ-контент усугубил проблему, нет нейтрального фильтра достоверности Community Notes для всего интернета — понятный концепт с огромным рынком. VuMedi поднял M на верифицированном экспертном контенте для врачей — верификация везде горячая тема">
+    <div class="card-top">
+        <div class="card-title">Для первых инвестиций «хорошая проблема» важнее, чем «хорошее решение» 😮</div>
+        <div class="badge round-badge">€3.6M seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">Trust / media</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Краудсорсинговая верификация интернет-контента</span>
+    </div>
+    <div class="card-problem">🎯 В интернете нельзя доверять информации — ИИ-контент усугубил проблему, нет нейтрального фильтра достоверности</div>
+    <div class="card-insight">Community Notes для всего интернета — понятный концепт с огромным рынком. VuMedi поднял M на верифицированном экспертном контенте для врачей — верификация везде горячая тема</div>
+    <div class="card-footer">
+        <span class="card-date">19.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/horoshaja-problema-vazhnee-chem-horoshee-reshenie/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="B2B SaaS / operations" data-title="Для роста прибыли тебе не хватает вот такой обратной связи!" data-text="Руководители не знают что реально происходит в компании — разрыв между бизнес-процессами на бумаге и реальностью Двойная проблема: несоответствие бизнес-процессов реальности + невидимость проблем снизу. Кто решает оба вместе — выигрывает. Тренд: скоро все компании будут работать в режиме постоянного ИИ-мониторинга">
+    <div class="card-top">
+        <div class="card-title">Для роста прибыли тебе не хватает вот такой обратной связи!</div>
+        <div class="badge round-badge">K YC seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f0f4ff">B2B SaaS / operations</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-аудит бизнес-процессов</span>
+    </div>
+    <div class="card-problem">🎯 Руководители не знают что реально происходит в компании — разрыв между бизнес-процессами на бумаге и реальностью</div>
+    <div class="card-insight">Двойная проблема: несоответствие бизнес-процессов реальности + невидимость проблем снизу. Кто решает оба вместе — выигрывает. Тренд: скоро все компании будут работать в режиме постоянного ИИ-мониторинга</div>
+    <div class="card-footer">
+        <span class="card-date">20.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/dlja-rosta-pribyli-ne-hvataet-obratnoj-svjazi/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Social / anti-loneliness" data-title="ИИ-компаньон для общения — это как резиновая кукла для секса!" data-text="54% взрослых в США чувствуют себя изолированными — интернет и ИИ-компаньоны усугубляют одиночество вместо того чтобы решать его Атаковать рынок ИИ-компаньонов (B→B к 2035) через антитезу — не заменять людей а соединять их. Budhiam, Tobira, Boardy — разные механики одной темы">
+    <div class="card-top">
+        <div class="card-title">ИИ-компаньон для общения — это как резиновая кукла для секса!</div>
+        <div class="badge round-badge">M Benchmark lead</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">Social / anti-loneliness</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ для расширения живых социальных связей</span>
+    </div>
+    <div class="card-problem">🎯 54% взрослых в США чувствуют себя изолированными — интернет и ИИ-компаньоны усугубляют одиночество вместо того чтобы решать его</div>
+    <div class="card-insight">Атаковать рынок ИИ-компаньонов (B→B к 2035) через антитезу — не заменять людей а соединять их. Budhiam, Tobira, Boardy — разные механики одной темы</div>
+    <div class="card-footer">
+        <span class="card-date">21.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/ii-kompanon-kak-rezinovaja-kukla/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="EdTech / книги" data-title="А ты знаешь, что эта естественная вещь — на самом деле преступление?" data-text="Загрузка книг в ChatGPT нарушает авторские права; обычные ИИ плохо работают с длинными текстами Авторское право + ИИ = незакрытый рынок. Legit ИИ-обработка книг — новый revenue stream для авторов. Рынок книгоиздания B и растёт">
+    <div class="card-top">
+        <div class="card-title">А ты знаешь, что эта естественная вещь — на самом деле преступление?</div>
+        <div class="badge round-badge">.5M seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#fff8e8">EdTech / книги</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-читалка с лицензированием</span>
+    </div>
+    <div class="card-problem">🎯 Загрузка книг в ChatGPT нарушает авторские права; обычные ИИ плохо работают с длинными текстами</div>
+    <div class="card-insight">Авторское право + ИИ = незакрытый рынок. Legit ИИ-обработка книг — новый revenue stream для авторов. Рынок книгоиздания B и растёт</div>
+    <div class="card-footer">
+        <span class="card-date">22.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/takaja-veshh-jeto-prestuplenie/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="ИИ-агенты / proptech" data-title="Хочешь заработать побыстрее и побольше?" data-text="Управление многоквартирной Airbnb-арендой перегружено нештатными ситуациями — поломки, жалобы, уборки, замены ИИ-агенты эффективны только там где бизнес состоит из нештатных ситуаций — аренда, производство, уход на дому, нестандартные страховки (B). Это золотой сегмент для ИИ-автоматизации">
+    <div class="card-top">
+        <div class="card-title">Хочешь заработать побыстрее и побольше?</div>
+        <div class="badge round-badge">K YC seed</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#e8f4fd">ИИ-агенты / proptech</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Автоматизация краткосрочной аренды</span>
+    </div>
+    <div class="card-problem">🎯 Управление многоквартирной Airbnb-арендой перегружено нештатными ситуациями — поломки, жалобы, уборки, замены</div>
+    <div class="card-insight">ИИ-агенты эффективны только там где бизнес состоит из нештатных ситуаций — аренда, производство, уход на дому, нестандартные страховки (B). Это золотой сегмент для ИИ-автоматизации</div>
+    <div class="card-footer">
+        <span class="card-date">23.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/zarabotat-pobystree-i-pobolshe/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="соцсети / UGC" data-title="В социальные медиа приходят необычные форматы общения!" data-text="Соцсети стали пассивными — люди потребляют контент вместо того чтобы создавать что-то полезное друг для друга Эпоха «создателей» приходит на смену эпохе инфлюенсеров — соцсети должны не показывать контент, а давать делать вещи для других">
+    <div class="card-top">
+        <div class="card-title">В социальные медиа приходят необычные форматы общения!</div>
+        
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">соцсети / UGC</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-нативные соцсети</span>
+    </div>
+    <div class="card-problem">🎯 Соцсети стали пассивными — люди потребляют контент вместо того чтобы создавать что-то полезное друг для друга</div>
+    <div class="card-insight">Эпоха «создателей» приходит на смену эпохе инфлюенсеров — соцсети должны не показывать контент, а давать делать вещи для других</div>
+    <div class="card-footer">
+        <span class="card-date">24.04.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/neobychnye-formaty-obshhenija/" target="_blank">
+            Читать →
+        </a>
+    </div>
+</div>
+    </div>
+    <div class="empty hidden" id="empty">Ничего не найдено</div>
+</div>
+
+<footer>Обновлено 29.04.2026 · FastFounder Analyzer</footer>
+
+<script>
+let currentNiche = 'all';
+let currentSearch = '';
+
+function filterNiche(niche, btn) {
+    currentNiche = niche;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilters();
+}
+
+function search(q) {
+    currentSearch = q.toLowerCase();
+    applyFilters();
+}
+
+function applyFilters() {
+    let cards = document.querySelectorAll('.card');
+    let visible = 0;
+    cards.forEach(card => {
+        const nicheOk = currentNiche === 'all' || card.dataset.niche === currentNiche;
+        const searchOk = !currentSearch ||
+            card.dataset.title.toLowerCase().includes(currentSearch) ||
+            card.dataset.text.toLowerCase().includes(currentSearch);
+        if (nicheOk && searchOk) {
+            card.classList.remove('hidden');
+            visible++;
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+    document.getElementById('empty').classList.toggle('hidden', visible > 0);
+}
+</script>
+</body>
+</html>

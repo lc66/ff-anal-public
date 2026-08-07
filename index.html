@@ -361,7 +361,7 @@ footer {
     <a href="index.html" class="active">Пересечения</a>
     <a href="startups.html">Стартапы</a>
     <a href="insights.html">Инсайты</a>
-    <span class="nav-count">6 гипотез</span>
+    <span class="nav-count">10 гипотез</span>
 </nav>
 
 <main class="container">
@@ -372,9 +372,9 @@ footer {
     </section>
 
     <div class="stats-row">
-        <div class="stat"><div class="stat-value">6</div><div class="stat-label">Пересечений</div></div>
-        <div class="stat"><div class="stat-value">12</div><div class="stat-label">Стартапов-источников</div></div>
-        <div class="stat"><div class="stat-value">103</div><div class="stat-label">В базе</div></div>
+        <div class="stat"><div class="stat-value">10</div><div class="stat-label">Пересечений</div></div>
+        <div class="stat"><div class="stat-value">39</div><div class="stat-label">Стартапов-источников</div></div>
+        <div class="stat"><div class="stat-value">175</div><div class="stat-label">В базе</div></div>
     </div>
 
     <div class="method-note"><span class="method-mark">↗</span><span><strong>Не просто “X для рынка Y”.</strong> Каждая гипотеза связывает минимум два стартапа, называет общий механизм, объясняет неочевидность и предлагает дешёвую проверку.</span></div>
@@ -383,252 +383,533 @@ footer {
         <input class="search-box" type="search" aria-label="Поиск пересечений" placeholder="Механика, рынок или стартап…" oninput="searchIntersections(this.value)">
     </div>
     <div class="filter-chips" id="intersection-chips" style="margin-bottom:24px"><button class="chip active" onclick="filterIntersection('all', this)">Все</button>
-<button class="chip" onclick="filterIntersection('AI QA', this)">AI QA</button>
-<button class="chip" onclick="filterIntersection('DevTools', this)">DevTools</button>
-<button class="chip" onclick="filterIntersection('EdTech', this)">EdTech</button>
-<button class="chip" onclick="filterIntersection('FinTech', this)">FinTech</button>
-<button class="chip" onclick="filterIntersection('HR Tech', this)">HR Tech</button>
-<button class="chip" onclick="filterIntersection('LegalTech', this)">LegalTech</button>
-<button class="chip" onclick="filterIntersection('PropTech', this)">PropTech</button>
-<button class="chip" onclick="filterIntersection('Vertical SaaS', this)">Vertical SaaS</button>
-<button class="chip" onclick="filterIntersection('Voice AI', this)">Voice AI</button>
+<button class="chip" onclick="filterIntersection('AI franchise', this)">AI franchise</button>
+<button class="chip" onclick="filterIntersection('AI insurance', this)">AI insurance</button>
+<button class="chip" onclick="filterIntersection('agent QA', this)">agent QA</button>
+<button class="chip" onclick="filterIntersection('agent auctions', this)">agent auctions</button>
+<button class="chip" onclick="filterIntersection('agent economy', this)">agent economy</button>
+<button class="chip" onclick="filterIntersection('audience holding', this)">audience holding</button>
+<button class="chip" onclick="filterIntersection('collective intelligence', this)">collective intelligence</button>
+<button class="chip" onclick="filterIntersection('compiled AI', this)">compiled AI</button>
 <button class="chip" onclick="filterIntersection('data moat', this)">data moat</button>
-<button class="chip" onclick="filterIntersection('equity GTM', this)">equity GTM</button>
-<button class="chip" onclick="filterIntersection('vertical capital', this)">vertical capital</button>
-<button class="chip" onclick="filterIntersection('кастомизация', this)">кастомизация</button>
-<button class="chip" onclick="filterIntersection('ответственный ИИ', this)">ответственный ИИ</button>
-<button class="chip" onclick="filterIntersection('полевые работы', this)">полевые работы</button>
-<button class="chip" onclick="filterIntersection('цифровой двойник', this)">цифровой двойник</button>
-<button class="chip" onclick="filterIntersection('экспертные знания', this)">экспертные знания</button>
+<button class="chip" onclick="filterIntersection('edge cases', this)">edge cases</button>
+<button class="chip" onclick="filterIntersection('enterprise GTM', this)">enterprise GTM</button>
+<button class="chip" onclick="filterIntersection('expert verification', this)">expert verification</button>
+<button class="chip" onclick="filterIntersection('fandom', this)">fandom</button>
+<button class="chip" onclick="filterIntersection('generative IP', this)">generative IP</button>
+<button class="chip" onclick="filterIntersection('human-in-the-loop', this)">human-in-the-loop</button>
+<button class="chip" onclick="filterIntersection('industrial supply', this)">industrial supply</button>
+<button class="chip" onclick="filterIntersection('interactive media', this)">interactive media</button>
+<button class="chip" onclick="filterIntersection('labor mobility', this)">labor mobility</button>
+<button class="chip" onclick="filterIntersection('leading indicators', this)">leading indicators</button>
+<button class="chip" onclick="filterIntersection('marketplace', this)">marketplace</button>
+<button class="chip" onclick="filterIntersection('microbusiness', this)">microbusiness</button>
+<button class="chip" onclick="filterIntersection('network effects', this)">network effects</button>
+<button class="chip" onclick="filterIntersection('outcome SaaS', this)">outcome SaaS</button>
+<button class="chip" onclick="filterIntersection('outcome billing', this)">outcome billing</button>
+<button class="chip" onclick="filterIntersection('personal agent', this)">personal agent</button>
+<button class="chip" onclick="filterIntersection('personalization', this)">personalization</button>
+<button class="chip" onclick="filterIntersection('preventive AI', this)">preventive AI</button>
+<button class="chip" onclick="filterIntersection('process discovery', this)">process discovery</button>
+<button class="chip" onclick="filterIntersection('procurement', this)">procurement</button>
+<button class="chip" onclick="filterIntersection('revenue recovery', this)">revenue recovery</button>
+<button class="chip" onclick="filterIntersection('rewards', this)">rewards</button>
+<button class="chip" onclick="filterIntersection('risk pricing', this)">risk pricing</button>
+<button class="chip" onclick="filterIntersection('shared infrastructure', this)">shared infrastructure</button>
+<button class="chip" onclick="filterIntersection('skills passport', this)">skills passport</button>
+<button class="chip" onclick="filterIntersection('success fee', this)">success fee</button>
+<button class="chip" onclick="filterIntersection('synthetic users', this)">synthetic users</button>
+<button class="chip" onclick="filterIntersection('tacit knowledge', this)">tacit knowledge</button>
+<button class="chip" onclick="filterIntersection('verified data', this)">verified data</button>
+<button class="chip" onclick="filterIntersection('verified work', this)">verified work</button>
+<button class="chip" onclick="filterIntersection('vertical SaaS', this)">vertical SaaS</button>
 </div>
 
     <div class="intersection-grid">
-<article class="intersection-card" data-tags="Voice AI | полевые работы | экспертные знания" data-text="Голосовой двойник полевого эксперта Соединить автоматическую фиксацию устной работы с клонированием экспертных процедур, чтобы система не только документировала поле, но и подсказывала следующий шаг. Неявное знание извлекается прямо в момент физической работы — из голоса и видео — без отдельного заполнения форм и написания инструкций. Hardline автоматизирует отчётность прораба, а Cloneable обучает новичка. В связке возникает замкнутый цикл: эксперт выполняет работу, система учится, новичок получает подсказку, результат снова улучшает модель. Вертикальные продукты для инспекций безопасности, обслуживания медоборудования и складских обходов с отраслевой терминологией и доказуемым audit trail. Voice AI полевые работы экспертные знания Мечта стартапа — рынок побольше, конкурентов поменьше! Лучше идти туда — где много денег и мало конкурентов!">
+<article class="intersection-card" data-tags="process discovery | compiled AI | tacit knowledge | vertical SaaS" data-text="Живая спецификация, которая компилирует компанию Соединить добычу неявного знания из интервью и полевой работы с компиляцией повторяемых процессов в детерминированные программы и непрерывным обновлением по человеческим исправлениям. Система сначала наблюдает реальную работу и разрешает противоречия, затем превращает подтвержденный процесс в аудируемое исполнение, а исключения возвращает в живую спецификацию. Process mining обычно продают как документацию, field capture — как отчетность, а compiled AI — как инфраструктуру исполнения; вместе они образуют замкнутый контур без ручного написания требований. Вертикальная платформа для сервисной отрасли: покупатель описывает не процесс, а дает доступ к сотрудникам и рабочим артефактам; платформа сама строит и запускает workflow. Это сокращает дорогой consulting/discovery, токены и ошибки, а база исключений становится data moat. process discovery compiled AI tacit knowledge vertical SaaS Вот за чем клиенты и инвесторы будут приходить к тебе сами! Лучше идти туда — где много денег и мало конкурентов! В 2 раза надёжнее и в 40–50 раз дешевле! Интересные модели автоматизации того… что есть в каждой компании!">
     <div class="intersection-main">
         <div class="intersection-top">
-            <h2 class="intersection-title">Голосовой двойник полевого эксперта</h2>
+            <h2 class="intersection-title">Живая спецификация, которая компилирует компанию</h2>
             <div class="score-pair">
                 <div class="score"><strong>5/5</strong>новизна</div>
-                <div class="score"><strong>4/5</strong>опора</div>
+                <div class="score"><strong>5/5</strong>опора</div>
             </div>
         </div>
         <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/rynok-pobolshe-konkurentov-pomenshe/" target="_blank" rel="noopener">
-            <div class="source-role">сбор контекста</div>
-            <div class="source-title">Мечта стартапа — рынок побольше, конкурентов поменьше!</div>
-            <div class="source-niche">ConstructionTech / ИИ</div>
-            <div class="source-evidence">Hardline извлекает из разговоров на стройке указания, сроки и участников с отраслевой точностью.</div>
+        <a class="source-node" href="https://fastfounder.ru/klienty-i-investory-budut-prihodit-k-tebe-sami/" target="_blank" rel="noopener">
+            <div class="source-role">Добывает и постоянно обновляет реальный процесс.</div>
+            <div class="source-title">Вот за чем клиенты и инвесторы будут приходить к тебе сами!</div>
+            <div class="source-niche">Enterprise AI / process discovery</div>
+            <div class="source-evidence">Ontora интервьюирует сотрудников, разрешает противоречия и обновляет базу по действиям людей, агентов и человеческим исправлениям.</div>
         </a>
         <a class="source-node" href="https://fastfounder.ru/mnogo-deneg-i-malo-konkurentov/" target="_blank" rel="noopener">
-            <div class="source-role">передача знания</div>
+            <div class="source-role">Показывает способ извлечения полевой неявной экспертизы.</div>
             <div class="source-title">Лучше идти туда — где много денег и мало конкурентов!</div>
-            <div class="source-niche">ИИ / промышленные инспекции</div>
-            <div class="source-evidence">Cloneable извлекает процедуры из видео экспертов и ведёт сотрудника по ним в поле.</div>
+            <div class="source-niche">Промышленные инспекции</div>
+            <div class="source-evidence">Cloneable превращает видео работы специалиста в пошаговое GPS-подобное руководство.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/v-2-raza-nadjozhnee-i-v-40-50-raz-deshevle/" target="_blank" rel="noopener">
+            <div class="source-role">Дает надежный исполнительный слой.</div>
+            <div class="source-title">В 2 раза надёжнее и в 40–50 раз дешевле!</div>
+            <div class="source-niche">Enterprise automation / compiled AI</div>
+            <div class="source-evidence">INXM компилирует одобренный ИИ-план в обычный workflow и заявляет 40–50-кратное снижение стоимости повторных действий.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/nuzhno-kazhdoj-kompanii/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает ценность смены ритма работы.</div>
+            <div class="source-title">Интересные модели автоматизации того… что есть в каждой компании!</div>
+            <div class="source-niche">Accounting / autonomous workflows</div>
+            <div class="source-evidence">Kinter превращает периодический бухгалтерский аврал в непрерывный агентный процесс с очередью человеческой проверки.</div>
         </a></div>
-        <p class="intersection-thesis">Соединить автоматическую фиксацию устной работы с клонированием экспертных процедур, чтобы система не только документировала поле, но и подсказывала следующий шаг.</p>
+        <p class="intersection-thesis">Соединить добычу неявного знания из интервью и полевой работы с компиляцией повторяемых процессов в детерминированные программы и непрерывным обновлением по человеческим исправлениям.</p>
         <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Неявное знание извлекается прямо в момент физической работы — из голоса и видео — без отдельного заполнения форм и написания инструкций.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Hardline автоматизирует отчётность прораба, а Cloneable обучает новичка. В связке возникает замкнутый цикл: эксперт выполняет работу, система учится, новичок получает подсказку, результат снова улучшает модель.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Вертикальные продукты для инспекций безопасности, обслуживания медоборудования и складских обходов с отраслевой терминологией и доказуемым audit trail.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Выбрать одну процедуру с дорогой ошибкой, записать 30 экспертных обходов и сравнить время обучения и количество пропусков у новичков с обычным чек-листом.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Шумная среда, ошибки распознавания, профсоюзные ограничения и юридическая ответственность за подсказки.</p></div>
+            <div class="detail-box"><h3>Общий механизм</h3><p>Система сначала наблюдает реальную работу и разрешает противоречия, затем превращает подтвержденный процесс в аудируемое исполнение, а исключения возвращает в живую спецификацию.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Process mining обычно продают как документацию, field capture — как отчетность, а compiled AI — как инфраструктуру исполнения; вместе они образуют замкнутый контур без ручного написания требований.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Вертикальная платформа для сервисной отрасли: покупатель описывает не процесс, а дает доступ к сотрудникам и рабочим артефактам; платформа сама строит и запускает workflow. Это сокращает дорогой consulting/discovery, токены и ошибки, а база исключений становится data moat.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Выбрать один повторяемый процесс из 20–50 шагов, записать 8 интервью и 20 реальных кейсов, скомпилировать один участок и сравнить за месяц долю ручных касаний, ошибок и стоимость исполнения.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Сотрудники могут описывать работу неполно или защищать неформальные практики; неверно скомпилированное правило будет масштабировать ошибку, поэтому нужны версия, аудит и безопасный rollback.</p></div>
         </div>
     </div>
     <div class="intersection-footer">
-        <span class="tag">Voice AI</span><span class="tag">полевые работы</span><span class="tag">экспертные знания</span>
-        <span class="run-meta">2 источника · run #1</span>
+        <span class="tag">process discovery</span><span class="tag">compiled AI</span><span class="tag">tacit knowledge</span><span class="tag">vertical SaaS</span>
+        <span class="run-meta">4 источника · run #2</span>
     </div>
 </article>
-<article class="intersection-card" data-tags="LegalTech | EdTech | data moat" data-text="Обучение, которое собирает legal data moat Юридический ИИ может собирать редкие краевые случаи через платную образовательную программу, а затем использовать их для фиксированной по цене услуги проверки документов. Клиент одновременно получает ценность и производит обучающие данные; накопленное знание повышает точность сервиса и укрепляет его экономику. Rima монетизирует обучение бухгалтеров, CaseGap продаёт юридический результат. Пересечение меняет обучение из маркетинга в производственный контур юридической услуги. Сначала — академия ИИ-практики для одной категории договоров, затем — сервис с фиксированной ценой, опирающийся на размеченные участниками исключения и судебные кейсы. LegalTech EdTech data moat Очень изящная бизнес-модель — которая много для чего подойдёт! Два критерия выбора темы — чтобы за 283 дня вырасти до $400 миллионов!">
+<article class="intersection-card" data-tags="human-in-the-loop | agent economy | outcome billing | marketplace" data-text="Человеческая аварийная служба для экономики агентов Построить универсальный слой, через который агент обнаруживает, нанимает и оплачивает человека только для физического, социального или ответственного исключения, с измерением результата теми же правилами, что и для машины. Machine-first процесс автоматически маршрутизирует нерешаемый участок в проверенный human endpoint, задает scope и оплачивает подтвержденный outcome. Маркетплейсы людей, billing агентов и каталоги API развиваются отдельно, хотя для автономности агенту человек нужен как еще один динамически вызываемый сервис. API-маркетплейс для агентных компаний: вместо штата исключений они покупают верифицированное человеческое действие по SLA. Поставщик получает новый канал задач, покупатель заменяет фиксированный headcount переменными затратами. human-in-the-loop agent economy outcome billing marketplace Привычная картинка переворачивается вверх тормашками. Буквально! Самый выгодный для стартапа момент — между смертью старого и рождением нового! Сотрудникам скоро придётся платить по-другому… но это и к лучшему! А тебе разве не нужно «самое лучшее по лучшей цене»?">
     <div class="intersection-main">
         <div class="intersection-top">
-            <h2 class="intersection-title">Обучение, которое собирает legal data moat</h2>
+            <h2 class="intersection-title">Человеческая аварийная служба для экономики агентов</h2>
             <div class="score-pair">
                 <div class="score"><strong>5/5</strong>новизна</div>
-                <div class="score"><strong>4/5</strong>опора</div>
+                <div class="score"><strong>5/5</strong>опора</div>
             </div>
         </div>
         <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/izjashhnaja-biznes-model/" target="_blank" rel="noopener">
-            <div class="source-role">маховик данных</div>
-            <div class="source-title">Очень изящная бизнес-модель — которая много для чего подойдёт!</div>
-            <div class="source-niche">EdTech / FinTech-автоматизация</div>
-            <div class="source-evidence">Rima собирает бухгалтерские edge cases через обучение и community, одновременно монетизируя участие.</div>
+        <a class="source-node" href="https://fastfounder.ru/privychnaja-kartinka-vverh-tormashkami/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает новый покупательский контур.</div>
+            <div class="source-title">Привычная картинка переворачивается вверх тормашками. Буквально!</div>
+            <div class="source-niche">Инфраструктура ИИ-агентов</div>
+            <div class="source-evidence">Humwork строит рынок, где ИИ-агенты нанимают людей для исключений.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/za-283-dnja-do-400-millionov/" target="_blank" rel="noopener">
-            <div class="source-role">модель результата</div>
-            <div class="source-title">Два критерия выбора темы — чтобы за 283 дня вырасти до $400 миллионов!</div>
-            <div class="source-niche">LegalTech / ИИ</div>
-            <div class="source-evidence">CaseGap продаёт быструю проверку договора по фиксированной цене вместо почасовой работы.</div>
+        <a class="source-node" href="https://fastfounder.ru/samyj-vygodnyj-dlja-startapa-moment/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает human repair как отдельную услугу.</div>
+            <div class="source-title">Самый выгодный для стартапа момент — между смертью старого и рождением нового!</div>
+            <div class="source-niche">Маркетплейс разработчиков</div>
+            <div class="source-evidence">Humans Fix AI предлагает людей для исправления ситуаций, с которыми ИИ не справился.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/sotrudnikam-pridjotsja-platit-po-drugomu/" target="_blank" rel="noopener">
+            <div class="source-role">Дает единое измерение и оплату труда.</div>
+            <div class="source-title">Сотрудникам скоро придётся платить по-другому… но это и к лучшему!</div>
+            <div class="source-niche">Оплата за результат</div>
+            <div class="source-evidence">Grade учитывает outcome людей и агентов по совместимым принципам.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/samoe-luchshee-po-luchshei-cene/" target="_blank" rel="noopener">
+            <div class="source-role">Дает discovery, trust, access и payment слой.</div>
+            <div class="source-title">А тебе разве не нужно «самое лучшее по лучшей цене»?</div>
+            <div class="source-niche">AI agent infrastructure</div>
+            <div class="source-evidence">Orthogonal превращает поиск и оплату внешнего сервиса агентом в одну машинную транзакцию.</div>
         </a></div>
-        <p class="intersection-thesis">Юридический ИИ может собирать редкие краевые случаи через платную образовательную программу, а затем использовать их для фиксированной по цене услуги проверки документов.</p>
+        <p class="intersection-thesis">Построить универсальный слой, через который агент обнаруживает, нанимает и оплачивает человека только для физического, социального или ответственного исключения, с измерением результата теми же правилами, что и для машины.</p>
         <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Клиент одновременно получает ценность и производит обучающие данные; накопленное знание повышает точность сервиса и укрепляет его экономику.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Rima монетизирует обучение бухгалтеров, CaseGap продаёт юридический результат. Пересечение меняет обучение из маркетинга в производственный контур юридической услуги.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Сначала — академия ИИ-практики для одной категории договоров, затем — сервис с фиксированной ценой, опирающийся на размеченные участниками исключения и судебные кейсы.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Запустить cohort из 30 юристов по одному типу договора и измерить, сколько уникальных проверяемых edge cases они добавят и как это влияет на точность ревью.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Конфиденциальность документов, качество пользовательских кейсов и необходимость экспертной модерации.</p></div>
+            <div class="detail-box"><h3>Общий механизм</h3><p>Machine-first процесс автоматически маршрутизирует нерешаемый участок в проверенный human endpoint, задает scope и оплачивает подтвержденный outcome.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Маркетплейсы людей, billing агентов и каталоги API развиваются отдельно, хотя для автономности агенту человек нужен как еще один динамически вызываемый сервис.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>API-маркетплейс для агентных компаний: вместо штата исключений они покупают верифицированное человеческое действие по SLA. Поставщик получает новый канал задач, покупатель заменяет фиксированный headcount переменными затратами.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Подключить десять агентов поддержки или e-commerce к ручной диспетчеризации 3 типов исключений и проверить время закрытия, стоимость результата, повторяемость и долю задач, для которых человек действительно необходим.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Сложно стандартизировать качество и юридическую ответственность человеческого действия; слишком редкие исключения не дадут ликвидности, а слишком частые покажут слабость базового агента.</p></div>
         </div>
     </div>
     <div class="intersection-footer">
-        <span class="tag">LegalTech</span><span class="tag">EdTech</span><span class="tag">data moat</span>
-        <span class="run-meta">2 источника · run #1</span>
+        <span class="tag">human-in-the-loop</span><span class="tag">agent economy</span><span class="tag">outcome billing</span><span class="tag">marketplace</span>
+        <span class="run-meta">4 источника · run #2</span>
     </div>
 </article>
-<article class="intersection-card" data-tags="HR Tech | AI QA | ответственный ИИ" data-text="Outcome QA для ИИ-рекрутинга Оценивать ИИ-рекрутера не по качеству диалога, а по фактическому результату найма: выходу на работу, удержанию и прохождению испытательного срока. Решения агента связываются с отложенной бизнес-метрикой, поэтому контроль качества превращается из субъективной оценки в обучающий контур. Voker контролирует клиентских агентов, Saile ускоряет медицинский найм. Перенос QA в регулируемый кадровый workflow создаёт отдельный слой доверия между агентом, кандидатом и работодателем. Независимый QA-слой для AI sourcing и screening: bias-аудит, причины отклонения, корреляция с 90-дневным retention и лицензирование решений. HR Tech AI QA ответственный ИИ Ответ на этот вопрос важнее технологий! Достойная подработка за достойные деньги!">
+<article class="intersection-card" data-tags="verified data | synthetic users | rewards | data moat" data-text="Платить за правду, продавать цифровую лабораторию Субсидировать людей за подтвержденные действия и мультимодальные данные, а затем обучать на них вертикальных цифровых двойников для дешевого предварительного тестирования решений. Consumer reward покупает consent и ground truth; подтвержденные покупки, контекст и реакции калибруют симуляцию, которую B2B-клиент использует до дорогого запуска. Rewarded apps считают рекламным каналом, data marketplaces — поставщиками сырья, а synthetic research — заменой фокус-групп; объединение превращает вознаграждение в механизм постоянной проверки симуляции. Вертикальная панель, например для домашних ремонтов или pet care: участники получают деньги за чеки, фото, решения и интервью, бренды платят за тестирование офферов на моделях, связанных с реальным последующим поведением. Moat — не LLM, а продольная причинная выборка. verified data synthetic users rewards data moat Как заработать на том… что люди лгут? Вот как можно заработать… раздавая людям деньги просто так! На этот офигенный рынок сейчас можно зайти с другой стороны! Три поразительных факта — но одна неожиданно перспективная тема!">
     <div class="intersection-main">
         <div class="intersection-top">
-            <h2 class="intersection-title">Outcome QA для ИИ-рекрутинга</h2>
+            <h2 class="intersection-title">Платить за правду, продавать цифровую лабораторию</h2>
             <div class="score-pair">
                 <div class="score"><strong>5/5</strong>новизна</div>
-                <div class="score"><strong>3/5</strong>опора</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/zarabotat-na-tom-chto-ljudi-lgut/" target="_blank" rel="noopener">
+            <div class="source-role">Показывает ground truth и B2B-спрос.</div>
+            <div class="source-title">Как заработать на том… что люди лгут?</div>
+            <div class="source-niche">Consumer data / market research</div>
+            <div class="source-evidence">Pogo платит 3 млн пользователей за чеки и сигналы, а брендам дает интервью подтвержденных покупателей.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/zarabotat-razdavaja-dengi/" target="_blank" rel="noopener">
+            <div class="source-role">Добавляет игровые и транзакционные сигналы.</div>
+            <div class="source-title">Вот как можно заработать… раздавая людям деньги просто так!</div>
+            <div class="source-niche">FinTech / rewarded discovery</div>
+            <div class="source-evidence">Copper связывает вознаграждения, игровое поведение и подтвержденные покупки.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/zajti-s-drugoj-storony/" target="_blank" rel="noopener">
+            <div class="source-role">Дает рынок повторного лицензирования данных.</div>
+            <div class="source-title">На этот офигенный рынок сейчас можно зайти с другой стороны!</div>
+            <div class="source-niche">AI data marketplace</div>
+            <div class="source-evidence">Luel платит распределенным людям за запись и проверку данных и неэксклюзивно продает один датасет многим разработчикам.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/tri-porazitelnyh-fakta/" target="_blank" rel="noopener">
+            <div class="source-role">Дает конечный продукт поверх данных.</div>
+            <div class="source-title">Три поразительных факта — но одна неожиданно перспективная тема!</div>
+            <div class="source-niche">AI / market research</div>
+            <div class="source-evidence">Talp симулирует реакции персон на рекламу, прототипы и стратегические решения.</div>
+        </a></div>
+        <p class="intersection-thesis">Субсидировать людей за подтвержденные действия и мультимодальные данные, а затем обучать на них вертикальных цифровых двойников для дешевого предварительного тестирования решений.</p>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Общий механизм</h3><p>Consumer reward покупает consent и ground truth; подтвержденные покупки, контекст и реакции калибруют симуляцию, которую B2B-клиент использует до дорогого запуска.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Rewarded apps считают рекламным каналом, data marketplaces — поставщиками сырья, а synthetic research — заменой фокус-групп; объединение превращает вознаграждение в механизм постоянной проверки симуляции.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Вертикальная панель, например для домашних ремонтов или pet care: участники получают деньги за чеки, фото, решения и интервью, бренды платят за тестирование офферов на моделях, связанных с реальным последующим поведением. Moat — не LLM, а продольная причинная выборка.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Набрать 300 участников одной дорогой категории, оплатить три месяца чеков и коротких дневников, предсказать выбор между двумя офферами и сравнить симуляцию с фактической покупкой.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Вознаграждение меняет поведение и привлекает профессиональных охотников за бонусами; приватность, согласие и право повторного лицензирования должны быть частью продукта, а не юридическим приложением.</p></div>
+        </div>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">verified data</span><span class="tag">synthetic users</span><span class="tag">rewards</span><span class="tag">data moat</span>
+        <span class="run-meta">4 источника · run #2</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="agent auctions | industrial supply | procurement | network effects" data-text="Агентный аукцион промышленной мощности Соединить проверенный граф поставщиков, специализированный двусторонний аукцион и машинный слой discovery/payment, чтобы агенты заказчика и исполнителя сами уточняли, торговались и заключали стандартные сделки. Вертикальная сеть переводит неструктурированную потребность в сравнимый scope, квалифицирует supply по фактической мощности и доводит переговоры до human approval или автоматической оплаты. Supplier intelligence, bid-management, agent-to-agent finance и API routers находятся в разных категориях, но каждый закрывает одну необходимую ступень автономной закупки. Начать с перегруженного вида контрактного производства или строительства. Покупатель сокращает sourcing и получает прозрачную конкуренцию, поставщик фильтрует шум и продает свободную мощность, платформа берет транзакционную комиссию. agent auctions industrial supply procurement network effects Очень выгодная тема для очень простых платформ! Пора взрывать закупки с помощью таких вот платформ! Чтобы быстро взлететь, делай сразу СЕТЬ — вот такую! А тебе разве не нужно «самое лучшее по лучшей цене»?">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Агентный аукцион промышленной мощности</h2>
+            <div class="score-pair">
+                <div class="score"><strong>5/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/vygodnaja-tema-dlja-prostyh-platform/" target="_blank" rel="noopener">
+            <div class="source-role">Дает проверенный граф реальной мощности.</div>
+            <div class="source-title">Очень выгодная тема для очень простых платформ!</div>
+            <div class="source-niche">B2B-закупки</div>
+            <div class="source-evidence">Andustry строит supplier graph и использует ИИ для арбитража между заказом и проверенным производителем.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/pora-vzryvat-zakupki/" target="_blank" rel="noopener">
+            <div class="source-role">Дает специализированную механику RFQ.</div>
+            <div class="source-title">Пора взрывать закупки с помощью таких вот платформ!</div>
+            <div class="source-niche">Procurement / agentic auctions</div>
+            <div class="source-evidence">ConstructionBevy фильтрует, уточняет и распределяет строительные запросы и ведет партнерскую доску подрядчиков.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/delaj-srazu-set/" target="_blank" rel="noopener">
+            <div class="source-role">Показывает необходимость агентов обеих сторон.</div>
+            <div class="source-title">Чтобы быстро взлететь, делай сразу СЕТЬ — вот такую!</div>
+            <div class="source-niche">B2B FinTech / agent networks</div>
+            <div class="source-evidence">Causa Prima автоматизирует взаиморасчеты сетью buyer- и supplier-агентов, иначе человек становится bottleneck.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/samoe-luchshee-po-luchshei-cene/" target="_blank" rel="noopener">
+            <div class="source-role">Дает единые discovery, access и payment.</div>
+            <div class="source-title">А тебе разве не нужно «самое лучшее по лучшей цене»?</div>
+            <div class="source-niche">AI agent infrastructure</div>
+            <div class="source-evidence">Orthogonal нормализует поиск, вызов, credentials и оплату внешнего сервиса агентом.</div>
+        </a></div>
+        <p class="intersection-thesis">Соединить проверенный граф поставщиков, специализированный двусторонний аукцион и машинный слой discovery/payment, чтобы агенты заказчика и исполнителя сами уточняли, торговались и заключали стандартные сделки.</p>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Общий механизм</h3><p>Вертикальная сеть переводит неструктурированную потребность в сравнимый scope, квалифицирует supply по фактической мощности и доводит переговоры до human approval или автоматической оплаты.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Supplier intelligence, bid-management, agent-to-agent finance и API routers находятся в разных категориях, но каждый закрывает одну необходимую ступень автономной закупки.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Начать с перегруженного вида контрактного производства или строительства. Покупатель сокращает sourcing и получает прозрачную конкуренцию, поставщик фильтрует шум и продает свободную мощность, платформа берет транзакционную комиссию.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Провести 30 реальных RFQ в одной узкой категории с агентом на обеих сторонах, но финальным ручным одобрением; сравнить число квалифицированных ставок, время, цену и долю ответивших поставщиков.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Без плотного supply каталог останется витриной; цена не отражает качество и риск исполнения, а автоматические переговоры могут раскрыть конфиденциальные условия.</p></div>
+        </div>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">agent auctions</span><span class="tag">industrial supply</span><span class="tag">procurement</span><span class="tag">network effects</span>
+        <span class="run-meta">4 источника · run #2</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="AI insurance | agent QA | expert verification | enterprise GTM" data-text="Страховой сертификат как канал продаж ИИ-агента Объединить содержательную телеметрию, симуляцию сложных клиентов, экспертную верификацию и страхование в один непрерывный trust layer, который поставщик агента прикладывает к сделке. Риск оценивается не разовым benchmark, а живой цепочкой: тест до запуска, наблюдение outcome в работе, проверка спорных случаев экспертом и финансовое покрытие остаточного ущерба. QA-инструменты продаются разработчикам, экспертная проверка — как сервис, а страховка — finance/compliance; для enterprise-покупателя это одна причина разрешить агенту действовать. Вертикальный assurance bundle для legal, finance или healthcare agents. Поставщик платит регулярную премию, получает сертификат и быстрее закрывает enterprise-сделки; страховщик накапливает уникальные данные о реальной частоте и причинах ошибок. AI insurance agent QA expert verification enterprise GTM Ответ на этот вопрос важнее технологий! А у твоего ИИ-агента уже есть сертификат? Разрабатывать ИИ-платформы становится невыгодно. А вот это — наоборот, выгодно! Ответственность — это плохо… только когда на ней нельзя заработать!">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Страховой сертификат как канал продаж ИИ-агента</h2>
+            <div class="score-pair">
+                <div class="score"><strong>5/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
             </div>
         </div>
         <div class="source-chain">
         <a class="source-node" href="https://fastfounder.ru/eto-vazhnee-tehnologij/" target="_blank" rel="noopener">
-            <div class="source-role">метод QA</div>
+            <div class="source-role">Дает живую содержательную телеметрию.</div>
             <div class="source-title">Ответ на этот вопрос важнее технологий!</div>
-            <div class="source-niche">ИИ-инфраструктура / Quality assurance</div>
-            <div class="source-evidence">Voker связывает поведение ИИ-агента с бизнес-KPI вместо поверхностной оценки диалога.</div>
+            <div class="source-niche">AI infrastructure / контроль качества</div>
+            <div class="source-evidence">Voker отслеживает решенность задачи и связывает ошибки агента с бизнес-KPI.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/dostojnaja-podrabotka-za-dostojnye-dengi/" target="_blank" rel="noopener">
-            <div class="source-role">регулируемый workflow</div>
-            <div class="source-title">Достойная подработка за достойные деньги!</div>
-            <div class="source-niche">HR Tech / HealthTech</div>
-            <div class="source-evidence">Saile использует агентов для проверки врачебных документов и сокращает длинный цикл найма.</div>
+        <a class="source-node" href="https://fastfounder.ru/u-tvoego-ii-agenta-est-sertifikat/" target="_blank" rel="noopener">
+            <div class="source-role">Дает предзапусковое тестирование.</div>
+            <div class="source-title">А у твоего ИИ-агента уже есть сертификат?</div>
+            <div class="source-niche">Медицинские ИИ-агенты</div>
+            <div class="source-evidence">Amigo создает виртуальных клиентов для проверки и сертификации агентов.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/razrabatyvat-ii-platformy-uzhe-ne-tak-vygodno/" target="_blank" rel="noopener">
+            <div class="source-role">Дает человеческое заверение спорного результата.</div>
+            <div class="source-title">Разрабатывать ИИ-платформы становится невыгодно. А вот это — наоборот, выгодно!</div>
+            <div class="source-niche">Верификация ИИ</div>
+            <div class="source-evidence">Rubric показывает рост ценности экспертной проверки по мере удешевления генерации.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/otvetstvennost-zarabotat/" target="_blank" rel="noopener">
+            <div class="source-role">Дает финансовое покрытие и стандарт риска.</div>
+            <div class="source-title">Ответственность — это плохо… только когда на ней нельзя заработать!</div>
+            <div class="source-niche">Insurance / AI risk</div>
+            <div class="source-evidence">Klaimee аудирует пять слоев работы агента, выставляет score и постоянно мониторит для AI E&amp;O.</div>
         </a></div>
-        <p class="intersection-thesis">Оценивать ИИ-рекрутера не по качеству диалога, а по фактическому результату найма: выходу на работу, удержанию и прохождению испытательного срока.</p>
+        <p class="intersection-thesis">Объединить содержательную телеметрию, симуляцию сложных клиентов, экспертную верификацию и страхование в один непрерывный trust layer, который поставщик агента прикладывает к сделке.</p>
         <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Решения агента связываются с отложенной бизнес-метрикой, поэтому контроль качества превращается из субъективной оценки в обучающий контур.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Voker контролирует клиентских агентов, Saile ускоряет медицинский найм. Перенос QA в регулируемый кадровый workflow создаёт отдельный слой доверия между агентом, кандидатом и работодателем.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Независимый QA-слой для AI sourcing и screening: bias-аудит, причины отклонения, корреляция с 90-дневным retention и лицензирование решений.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Подключиться к одному кадровому workflow и ретроспективно сопоставить решения агента с результатами 500 кандидатов; проверить наличие предсказуемых ошибок и bias.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Дискриминационные признаки, длительная обратная связь, приватность кандидатов и сложность причинно-следственной оценки.</p></div>
+            <div class="detail-box"><h3>Общий механизм</h3><p>Риск оценивается не разовым benchmark, а живой цепочкой: тест до запуска, наблюдение outcome в работе, проверка спорных случаев экспертом и финансовое покрытие остаточного ущерба.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>QA-инструменты продаются разработчикам, экспертная проверка — как сервис, а страховка — finance/compliance; для enterprise-покупателя это одна причина разрешить агенту действовать.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Вертикальный assurance bundle для legal, finance или healthcare agents. Поставщик платит регулярную премию, получает сертификат и быстрее закрывает enterprise-сделки; страховщик накапливает уникальные данные о реальной частоте и причинах ошибок.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Выбрать один узкий агентный workflow, провести 500 симулированных и 100 реальных кейсов, отправить спорные результаты экспертам и проверить у десяти покупателей, меняет ли лимит покрытия security/procurement решение.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Редкие крупные убытки трудно оценить на малой истории; сертификат может создать ложное чувство безопасности, а страховщик — потребовать ограничения, убивающие автономность продукта.</p></div>
         </div>
     </div>
     <div class="intersection-footer">
-        <span class="tag">HR Tech</span><span class="tag">AI QA</span><span class="tag">ответственный ИИ</span>
-        <span class="run-meta">2 источника · run #1</span>
+        <span class="tag">AI insurance</span><span class="tag">agent QA</span><span class="tag">expert verification</span><span class="tag">enterprise GTM</span>
+        <span class="run-meta">4 источника · run #2</span>
     </div>
 </article>
-<article class="intersection-card" data-tags="DevTools | Vertical SaaS | кастомизация" data-text="Вертикальный SaaS, который достраивает себя сам Встроить генеративную кастомизацию в отраслевую операционную систему, чтобы enterprise-клиент получал свою специфику без превращения в заказную разработку. Базовая платформа хранит общий отраслевой workflow, а безопасный слой расширений создаёт клиентские функции поверх API и дизайн-системы. Gigacatalyst — инструмент разработчиков, Tepali и Vori — готовые вертикальные продукты. Пересечение решает главный конфликт vertical SaaS: стандартизация продукта против уникальности каждого оператора. Extension layer для зрелых vertical SaaS: голосовое описание процесса, sandbox, проверка политик и публикация расширения только внутри конкретного клиента. DevTools Vertical SaaS кастомизация Вот тут можно на шаг опередить рынок! Рынок софта для малого и среднего бизнеса скоро исчезнет! Продавай им то — без чего они не выживут!">
+<article class="intersection-card" data-tags="AI franchise | audience holding | microbusiness | shared infrastructure" data-text="ИИ-франшиза, которая владеет одной аудиторией Объединить готовую вертикальную бизнес-модель, агентную операционную систему и портфель продуктов для одной доверенной аудитории, выдавая локальному предпринимателю не софт, а работающую микрокомпанию. Центр накапливает процессы, бренд, спрос и ИИ-инфраструктуру; независимый оператор приносит локальные отношения и ответственность, а каждый новый продукт дешевле распространяется по той же аудитории. Франшизы, venture studios, агентные конструкторы и audience-focused фонды обычно считают разными моделями; здесь они становятся одной системой серийного запуска. Например, семейный concierge для мам: локальный оператор под общим брендом продает проверенные outcome-услуги, агенты ведут бэкофис, холдинг добавляет новые продукты той же семье. Доход — стартовый пакет, доля выручки и портфельная стоимость. AI franchise audience holding microbusiness shared infrastructure Собери самозанятых в свой масштабируемый бизнес! Твоя технология + эта бизнес-модель = лидер рынка! Как не разбрасываться… но побольше всего захапать? Бей в одну аудиторию — и тогда твои результаты умножатся!">
     <div class="intersection-main">
         <div class="intersection-top">
-            <h2 class="intersection-title">Вертикальный SaaS, который достраивает себя сам</h2>
+            <h2 class="intersection-title">ИИ-франшиза, которая владеет одной аудиторией</h2>
+            <div class="score-pair">
+                <div class="score"><strong>5/5</strong>новизна</div>
+                <div class="score"><strong>4/5</strong>опора</div>
+            </div>
+        </div>
+        <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/soberi-samozanjatyh-v-masshtabiruemyj-biznes/" target="_blank" rel="noopener">
+            <div class="source-role">Дает агентную операционную систему соло-бизнеса.</div>
+            <div class="source-title">Собери самозанятых в свой масштабируемый бизнес!</div>
+            <div class="source-niche">AI agents / предпринимательская инфраструктура</div>
+            <div class="source-evidence">Tycoon создает команду агентов с ИИ-CEO и в обзоре переупакован в вертикальную франшизу.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/tehnologiya-plus-biznes-model/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает единый бренд и процессы.</div>
+            <div class="source-title">Твоя технология + эта бизнес-модель = лидер рынка!</div>
+            <div class="source-niche">LegalTech-франшиза</div>
+            <div class="source-evidence">Manifest OS объединяет маленькие юридические фирмы под общей AI-enabled моделью.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/ne-razbrasyvatsja-no-pobolshe-zahapat/" target="_blank" rel="noopener">
+            <div class="source-role">Дает общий мозг и человеческого фаундера.</div>
+            <div class="source-title">Как не разбрасываться… но побольше всего захапать?</div>
+            <div class="source-niche">Venture studio / AI-native services</div>
+            <div class="source-evidence">Infinity Constellation запускает отдельные AI-native компании на общей инфраструктуре, сохраняя руководителя у каждой вертикали.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/bej-v-odnu-tochku/" target="_blank" rel="noopener">
+            <div class="source-role">Добавляет компаундирование одной аудитории.</div>
+            <div class="source-title">Бей в одну аудиторию — и тогда твои результаты умножатся!</div>
+            <div class="source-niche">Venture studio / audience holding</div>
+            <div class="source-evidence">Mother Ventures показывает масштаб мам как покупателя, а обзор предлагает холдинг продуктов, где каждый запуск удешевляет следующий.</div>
+        </a></div>
+        <p class="intersection-thesis">Объединить готовую вертикальную бизнес-модель, агентную операционную систему и портфель продуктов для одной доверенной аудитории, выдавая локальному предпринимателю не софт, а работающую микрокомпанию.</p>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Общий механизм</h3><p>Центр накапливает процессы, бренд, спрос и ИИ-инфраструктуру; независимый оператор приносит локальные отношения и ответственность, а каждый новый продукт дешевле распространяется по той же аудитории.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Франшизы, venture studios, агентные конструкторы и audience-focused фонды обычно считают разными моделями; здесь они становятся одной системой серийного запуска.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Например, семейный concierge для мам: локальный оператор под общим брендом продает проверенные outcome-услуги, агенты ведут бэкофис, холдинг добавляет новые продукты той же семье. Доход — стартовый пакет, доля выручки и портфельная стоимость.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Вручную запустить одну услугу у трех операторов в одном городе, дать им общий playbook и агентный бэкофис, затем предложить той же базе второй продукт и измерить CAC, cross-sell и маржу против независимой компании.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Слабый оператор испортит общий бренд; слишком жесткая централизация убьет предпринимательскую инициативу, а слишком мягкая — стандарты качества и эффект общего мозга.</p></div>
+        </div>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">AI franchise</span><span class="tag">audience holding</span><span class="tag">microbusiness</span><span class="tag">shared infrastructure</span>
+        <span class="run-meta">4 источника · run #2</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="generative IP | interactive media | fandom | personalization" data-text="Книга превращается в личную интерактивную вселенную Использовать существующий IP и фандом как отправную точку, но вместо одной дешевой экранизации генерировать каждому фанату персональный интерактивный сюжет и одноразовые мини-приложения внутри мира. Человек задает канонические персонажи и правила, платформа микро-экспериментами понимает вкус конкретного фаната и выпускает бесконечный поток интерактивных медиа-объектов. AI-экранизации оптимизируют производство длинного видео, генеративные истории — персонализацию, а вайбкодинг-соцсети — формат приложения; их комбинация меняет саму единицу IP-монетизации. Платформа для mid-tail авторов: читатель входит через каноничную адаптацию, затем платит за свою ветку истории, разговоры с героями и shareable мини-игры. Небольшой фандом окупает производство, а персональный поток повышает LTV. generative IP interactive media fandom personalization Хайп утих… наступил момент cделать на этом бизнес! Персонализация 3.0 — это не улучшение, а революция! Как стать МистеромБистом… но в мире приложений? В социальные медиа приходят необычные форматы общения!">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Книга превращается в личную интерактивную вселенную</h2>
+            <div class="score-pair">
+                <div class="score"><strong>5/5</strong>новизна</div>
+                <div class="score"><strong>4/5</strong>опора</div>
+            </div>
+        </div>
+        <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/hajp-utih-pora-delat-biznes/" target="_blank" rel="noopener">
+            <div class="source-role">Дает IP, готовый фандом и дешевую адаптацию.</div>
+            <div class="source-title">Хайп утих… наступил момент cделать на этом бизнес!</div>
+            <div class="source-niche">AI entertainment / niche production</div>
+            <div class="source-evidence">Plotsy экранизирует книги для существующих читателей и делит viewer revenue с автором.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/personalizacija-3-0/" target="_blank" rel="noopener">
+            <div class="source-role">Дает персонализацию текущего желания.</div>
+            <div class="source-title">Персонализация 3.0 — это не улучшение, а революция!</div>
+            <div class="source-niche">AI / generative personalization</div>
+            <div class="source-evidence">Kaon генерирует продолжение истории по поведению и репликам конкретного пользователя.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/stat-mrbeast-v-prilozhenijah/" target="_blank" rel="noopener">
+            <div class="source-role">Дает приложение как медиаформат.</div>
+            <div class="source-title">Как стать МистеромБистом… но в мире приложений?</div>
+            <div class="source-niche">Creator Economy / interactive media</div>
+            <div class="source-evidence">Danger Testing строит аудиторию автора потоком одноразовых screenshot-worthy приложений.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/neobychnye-formaty-obshhenija/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает социальную дистрибуцию интерактивов.</div>
+            <div class="source-title">В социальные медиа приходят необычные форматы общения!</div>
+            <div class="source-niche">AI-native social networks</div>
+            <div class="source-evidence">A1Zap превращает создаваемые ИИ мини-приложения в единицу социальной ленты.</div>
+        </a></div>
+        <p class="intersection-thesis">Использовать существующий IP и фандом как отправную точку, но вместо одной дешевой экранизации генерировать каждому фанату персональный интерактивный сюжет и одноразовые мини-приложения внутри мира.</p>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Общий механизм</h3><p>Человек задает канонические персонажи и правила, платформа микро-экспериментами понимает вкус конкретного фаната и выпускает бесконечный поток интерактивных медиа-объектов.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>AI-экранизации оптимизируют производство длинного видео, генеративные истории — персонализацию, а вайбкодинг-соцсети — формат приложения; их комбинация меняет саму единицу IP-монетизации.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Платформа для mid-tail авторов: читатель входит через каноничную адаптацию, затем платит за свою ветку истории, разговоры с героями и shareable мини-игры. Небольшой фандом окупает производство, а персональный поток повышает LTV.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Взять одну книгу с активным сообществом, сделать одну каноничную сцену и три интерактивных ответвления без полноценного приложения; измерить долю продолживших, повторные сессии, шеринги и готовность платить автора.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Персонализация может разрушить канон и доверие автора; стоимость генерации и модерация контента для несовершеннолетних способны съесть новую маржу.</p></div>
+        </div>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">generative IP</span><span class="tag">interactive media</span><span class="tag">fandom</span><span class="tag">personalization</span>
+        <span class="run-meta">4 источника · run #2</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="revenue recovery | collective intelligence | edge cases | success fee" data-text="Коллективный антиотказ с оплатой за возврат Создать межфирменную библиотеку причин отказов, требований и выигравших контраргументов, которая сначала предотвращает типовой отказ, а затем автономно взыскивает деньги за success fee. Каждый новый спор добавляет структурированный edge case и проверенную стратегию, повышая вероятность успеха остальных участников сети. Revenue recovery обычно продают по вертикалям — страховые выплаты, логистические счета, credentialing — хотя главный актив один: коллективная память повторяющегося крупного контрагента. Вертикальный managed SaaS для SMB, спорящих с несколькими доминирующими плательщиками. Клиент платит долю возврата, платформа получает данные без отдельной закупки и со временем сдвигается от взыскания к предотвращению. revenue recovery collective intelligence edge cases success fee Большая тема с маленькой конкуренцией… которую мало кто видит! Проще помочь вернуть $1 триллион… чем помочь его заработать! Лучше поискать неочевидную задачу — например, вот такую! Очень изящная бизнес-модель — которая много для чего подойдёт!">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Коллективный антиотказ с оплатой за возврат</h2>
             <div class="score-pair">
                 <div class="score"><strong>4/5</strong>новизна</div>
                 <div class="score"><strong>5/5</strong>опора</div>
             </div>
         </div>
         <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/na-shag-operedit-rynok/" target="_blank" rel="noopener">
-            <div class="source-role">движок расширений</div>
-            <div class="source-title">Вот тут можно на шаг опередить рынок!</div>
-            <div class="source-niche">DevTools / B2B SaaS</div>
-            <div class="source-evidence">Gigacatalyst создаёт клиентские функции поверх существующей B2B-платформы без очереди разработчиков.</div>
+        <a class="source-node" href="https://fastfounder.ru/bolshaja-tema-s-malenkoi-konkurenciei/" target="_blank" rel="noopener">
+            <div class="source-role">Показывает сетевую память отказов.</div>
+            <div class="source-title">Большая тема с маленькой конкуренцией… которую мало кто видит!</div>
+            <div class="source-niche">HealthTech / revenue recovery</div>
+            <div class="source-evidence">Boolient объединяет причины страховых отказов разных клиник и успешные контраргументы.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/rynok-softa-skoro-ischeznet/" target="_blank" rel="noopener">
-            <div class="source-role">медицинская вертикаль</div>
-            <div class="source-title">Рынок софта для малого и среднего бизнеса скоро исчезнет!</div>
-            <div class="source-niche">ХелсТех / медэстетика</div>
-            <div class="source-evidence">Tepali показывает, почему отраслевые требования делают горизонтальный софт недостаточным.</div>
+        <a class="source-node" href="https://fastfounder.ru/proshhe-pomoch-vernut-1-trillion/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает end-to-end взыскание.</div>
+            <div class="source-title">Проще помочь вернуть $1 триллион… чем помочь его заработать!</div>
+            <div class="source-niche">Logistics FinTech / revenue recovery</div>
+            <div class="source-evidence">Opereit находит ошибку в логистическом счете и ведет претензию до исправления; 87% претензий удовлетворяются.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/prodavaj-to-bez-chego-oni-ne-vyzhivut/" target="_blank" rel="noopener">
-            <div class="source-role">критическая инфраструктура</div>
-            <div class="source-title">Продавай им то — без чего они не выживут!</div>
-            <div class="source-niche">RetailTech / SaaS для ритейла</div>
-            <div class="source-evidence">Vori доказывает ценность глубокой системы, встроенной в ежедневные операции магазина.</div>
+        <a class="source-node" href="https://fastfounder.ru/luchshe-poiskat-neochevidnuju-zadachu/" target="_blank" rel="noopener">
+            <div class="source-role">Добавляет сложные правила и повторные подачи.</div>
+            <div class="source-title">Лучше поискать неочевидную задачу — например, вот такую!</div>
+            <div class="source-niche">HealthTech / payer administration</div>
+            <div class="source-evidence">Arctic Health автономно обрабатывает payer credentialing и накапливает различия штатов, страховщиков и врачей.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/izjashhnaja-biznes-model/" target="_blank" rel="noopener">
+            <div class="source-role">Дает механизм извлечения edge cases.</div>
+            <div class="source-title">Очень изящная бизнес-модель — которая много для чего подойдёт!</div>
+            <div class="source-niche">AccountingTech / обучение ИИ</div>
+            <div class="source-evidence">Rima превращает обучение экспертов в самоокупаемый сбор библиотеки исключений.</div>
         </a></div>
-        <p class="intersection-thesis">Встроить генеративную кастомизацию в отраслевую операционную систему, чтобы enterprise-клиент получал свою специфику без превращения в заказную разработку.</p>
+        <p class="intersection-thesis">Создать межфирменную библиотеку причин отказов, требований и выигравших контраргументов, которая сначала предотвращает типовой отказ, а затем автономно взыскивает деньги за success fee.</p>
         <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Базовая платформа хранит общий отраслевой workflow, а безопасный слой расширений создаёт клиентские функции поверх API и дизайн-системы.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Gigacatalyst — инструмент разработчиков, Tepali и Vori — готовые вертикальные продукты. Пересечение решает главный конфликт vertical SaaS: стандартизация продукта против уникальности каждого оператора.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Extension layer для зрелых vertical SaaS: голосовое описание процесса, sandbox, проверка политик и публикация расширения только внутри конкретного клиента.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Взять 20 последних feature requests одной вертикальной платформы и проверить, какую долю можно реализовать как безопасные конфигурации без изменения ядра.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Безопасность сгенерированного кода, поддержка расширений и расползание продуктовой модели.</p></div>
+            <div class="detail-box"><h3>Общий механизм</h3><p>Каждый новый спор добавляет структурированный edge case и проверенную стратегию, повышая вероятность успеха остальных участников сети.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Revenue recovery обычно продают по вертикалям — страховые выплаты, логистические счета, credentialing — хотя главный актив один: коллективная память повторяющегося крупного контрагента.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Вертикальный managed SaaS для SMB, спорящих с несколькими доминирующими плательщиками. Клиент платит долю возврата, платформа получает данные без отдельной закупки и со временем сдвигается от взыскания к предотвращению.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Собрать обезличенно 500 отказов у 5 компаний одной ниши, вручную выделить 20 повторяющихся причин и проверить, повышает ли предложенный пакет документов долю принятия и сокращает ли цикл спора.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Компании могут не захотеть делиться чувствительными договорами; контрагент изменит правила, а агрессивная автоматическая переписка ухудшит коммерческие отношения.</p></div>
         </div>
     </div>
     <div class="intersection-footer">
-        <span class="tag">DevTools</span><span class="tag">Vertical SaaS</span><span class="tag">кастомизация</span>
-        <span class="run-meta">3 источника · run #1</span>
+        <span class="tag">revenue recovery</span><span class="tag">collective intelligence</span><span class="tag">edge cases</span><span class="tag">success fee</span>
+        <span class="run-meta">4 источника · run #2</span>
     </div>
 </article>
-<article class="intersection-card" data-tags="PropTech | Vertical SaaS | цифровой двойник" data-text="Операционная система коммерческого здания Перенести цифровой двойник и автопилот обслуживания из частного дома в коммерческую недвижимость, добавив операционную глубину вертикального SaaS. Цифровая модель физического актива превращает разрозненные работы, инвентарь и обслуживание в повторяемый рабочий процесс с накоплением собственных данных. Casa выглядит как подписка на домашних мастеров, а Vori — как софт для продуктовых магазинов. Их объединяет не отрасль, а создание обязательной операционной системы вокруг офлайн-актива. OS для офисов, складов и торговых центров: паспорт здания, график HVAC и лифтов, подрядчики, бюджет и журнал инцидентов. Покупатель — управляющая компания, потенциальный чек заметно выше домашней подписки. PropTech Vertical SaaS цифровой двойник Зарабатывать лучше чужими руками… но чтобы эти руки тебя не кидали! Продавай им то — без чего они не выживут!">
+<article class="intersection-card" data-tags="skills passport | verified work | labor mobility | personal agent" data-text="Переносимый паспорт доказанной работы Заменить резюме профилем из верифицированных лицензий, видео реальных навыков и истории решения контекстных задач, которым личный агент самостоятельно торгует на рынке короткой и постоянной работы. Каждое доказательство навыка создается в ходе реального или близкого к реальному исполнения, переносится между работодателями и снижает повторную проверку. Credentialing, мультимодальное обучение, work-sample hiring и персональные карьерные агенты решают разные этапы, хотя вместе формируют новую ликвидность квалифицированного труда. Начать с одной регулируемой практической профессии. Работник владеет паспортом, работодатель покупает уже проверенную доступность под задачу, а платформа зарабатывает на placement и непрерывной re-verification. skills passport verified work labor mobility personal agent Достойная подработка за достойные деньги! В этой теме наконец-то можно сделать бизнес с нормальными деньгами! Тебе нужно нанять специалиста… или решить конкретную задачу? Но это разные вещи! Как увидеть все возможности — которые приведут тебя к успеху?">
     <div class="intersection-main">
         <div class="intersection-top">
-            <h2 class="intersection-title">Операционная система коммерческого здания</h2>
+            <h2 class="intersection-title">Переносимый паспорт доказанной работы</h2>
+            <div class="score-pair">
+                <div class="score"><strong>4/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/dostojnaja-podrabotka-za-dostojnye-dengi/" target="_blank" rel="noopener">
+            <div class="source-role">Дает переносимые лицензии и непрерывную проверку.</div>
+            <div class="source-title">Достойная подработка за достойные деньги!</div>
+            <div class="source-niche">HR Tech / HealthTech</div>
+            <div class="source-evidence">Saile хранит документы врача и агентами проверяет и обновляет их для быстрых дополнительных смен.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/stalo-mozhno-sdelat-biznes/" target="_blank" rel="noopener">
+            <div class="source-role">Дает мультимодальное доказательство физического навыка.</div>
+            <div class="source-title">В этой теме наконец-то можно сделать бизнес с нормальными деньгами!</div>
+            <div class="source-niche">EdTech / multimodal assessment</div>
+            <div class="source-evidence">DeweyLearn оценивает реальный процесс работы руками по видео и звуку на масштабе.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/specialist-ili-reshenie-zadachi/" target="_blank" rel="noopener">
+            <div class="source-role">Дает контекстный work sample.</div>
+            <div class="source-title">Тебе нужно нанять специалиста… или решить конкретную задачу? Но это разные вещи!</div>
+            <div class="source-niche">HR Tech / skills assessment</div>
+            <div class="source-evidence">Litmus превращает реальные репозитории и tickets работодателя в задание и наблюдает процесс решения с ИИ.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/uvidet-vse-vozmozhnosti/" target="_blank" rel="noopener">
+            <div class="source-role">Дает автономное представительство кандидата.</div>
+            <div class="source-title">Как увидеть все возможности — которые приведут тебя к успеху?</div>
+            <div class="source-niche">HR Tech / personal agents</div>
+            <div class="source-evidence">Pluto сам ищет возможности и передает человеку только взаимно теплые контакты.</div>
+        </a></div>
+        <p class="intersection-thesis">Заменить резюме профилем из верифицированных лицензий, видео реальных навыков и истории решения контекстных задач, которым личный агент самостоятельно торгует на рынке короткой и постоянной работы.</p>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Общий механизм</h3><p>Каждое доказательство навыка создается в ходе реального или близкого к реальному исполнения, переносится между работодателями и снижает повторную проверку.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Credentialing, мультимодальное обучение, work-sample hiring и персональные карьерные агенты решают разные этапы, хотя вместе формируют новую ликвидность квалифицированного труда.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Начать с одной регулируемой практической профессии. Работник владеет паспортом, работодатель покупает уже проверенную доступность под задачу, а платформа зарабатывает на placement и непрерывной re-verification.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>Создать 50 профилей одной профессии с документами и двумя наблюдаемыми заданиями, дать агенту предложить их десяти работодателям и сравнить время до первой смены и interview-to-hire с обычным резюме.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Работодатели могут не признать переносимую оценку, видео и история создают bias, а лицензии и навыки быстро устаревают без непрерывной проверки.</p></div>
+        </div>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">skills passport</span><span class="tag">verified work</span><span class="tag">labor mobility</span><span class="tag">personal agent</span>
+        <span class="run-meta">4 источника · run #2</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="preventive AI | leading indicators | risk pricing | outcome SaaS" data-text="Превентивный агент с ценой от предотвращенного ущерба Перенести агентную автоматизацию из реакции на уже случившуюся проблему в постоянный поиск слабых ранних сигналов и брать цену как долю ожидаемой предотвращенной потери. Система связывает leading indicators с дорогим конечным событием, вмешивается до него и доказывает экономический эффект через контрольную историю или сравнимые кейсы. Construction QA, хроническое здоровье и командный wellbeing воспринимаются разными рынками, но их экономика одинакова: профилактику раньше не покупали, потому что ранний анализ стоил дороже ожидаемой ошибки. Платформа профилактики для одной high-cost вертикали — например, дата-центров или food manufacturing — с непрерывным анализом документов, сообщений и сенсоров. Клиент платит небольшую базу плюс success fee за доказанно предотвращенные инциденты. preventive AI leading indicators risk pricing outcome SaaS Хочешь отменить принцип решения проблем «по мере их возникновения»? Лучше искать не «востребованную» идею — а «необходимую»! Без этого твой стартап умрёт! Как перестать заниматься скучными вещами?">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Превентивный агент с ценой от предотвращенного ущерба</h2>
             <div class="score-pair">
                 <div class="score"><strong>4/5</strong>новизна</div>
                 <div class="score"><strong>4/5</strong>опора</div>
             </div>
         </div>
         <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/zarabatyvat-chuzhimi-rukami/" target="_blank" rel="noopener">
-            <div class="source-role">модель актива</div>
-            <div class="source-title">Зарабатывать лучше чужими руками… но чтобы эти руки тебя не кидали!</div>
-            <div class="source-niche">Home Services / подписка</div>
-            <div class="source-evidence">Casa создаёт цифровой двойник дома и продаёт автопилот обслуживания по подписке.</div>
+        <a class="source-node" href="https://fastfounder.ru/otmenit-princip-reshenija-problem-po-mere-vozniknovenija/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает экономику до необратимого действия.</div>
+            <div class="source-title">Хочешь отменить принцип решения проблем «по мере их возникновения»?</div>
+            <div class="source-niche">ConstructionTech / preventive QA</div>
+            <div class="source-evidence">LightTable находит 70% ошибок проекта до строительства, когда исправление еще дешево.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/prodavaj-to-bez-chego-oni-ne-vyzhivut/" target="_blank" rel="noopener">
-            <div class="source-role">операционная глубина</div>
-            <div class="source-title">Продавай им то — без чего они не выживут!</div>
-            <div class="source-niche">RetailTech / SaaS для ритейла</div>
-            <div class="source-evidence">Vori объединяет критические процессы офлайн-магазина и показывает net revenue retention выше 100%.</div>
+        <a class="source-node" href="https://fastfounder.ru/ne-vostrebovannost-a-neobhodimost/" target="_blank" rel="noopener">
+            <div class="source-role">Показывает продольное наблюдение слабых сигналов.</div>
+            <div class="source-title">Лучше искать не «востребованную» идею — а «необходимую»!</div>
+            <div class="source-niche">HealthTech / хронические заболевания</div>
+            <div class="source-evidence">Juno замечает паттерны хронического состояния между редкими визитами к врачу.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/bez-jetogo-startap-umret/" target="_blank" rel="noopener">
+            <div class="source-role">Добавляет социально-поведенческие сигналы.</div>
+            <div class="source-title">Без этого твой стартап умрёт!</div>
+            <div class="source-niche">HR Tech / team wellbeing</div>
+            <div class="source-evidence">Sliceline предлагает замечать тон и задержки реакции команды до выгорания и вовремя запускать микро-интервенцию.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/perestat-zanimatsja-skuchnymi-delami/" target="_blank" rel="noopener">
+            <div class="source-role">Дает мета-механику поиска зоны вмешательства.</div>
+            <div class="source-title">Как перестать заниматься скучными вещами?</div>
+            <div class="source-niche">Автоматизация процессов</div>
+            <div class="source-evidence">Panorama автоматизирует обнаружение того, что именно в процессе стоит автоматизировать.</div>
         </a></div>
-        <p class="intersection-thesis">Перенести цифровой двойник и автопилот обслуживания из частного дома в коммерческую недвижимость, добавив операционную глубину вертикального SaaS.</p>
+        <p class="intersection-thesis">Перенести агентную автоматизацию из реакции на уже случившуюся проблему в постоянный поиск слабых ранних сигналов и брать цену как долю ожидаемой предотвращенной потери.</p>
         <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Цифровая модель физического актива превращает разрозненные работы, инвентарь и обслуживание в повторяемый рабочий процесс с накоплением собственных данных.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Casa выглядит как подписка на домашних мастеров, а Vori — как софт для продуктовых магазинов. Их объединяет не отрасль, а создание обязательной операционной системы вокруг офлайн-актива.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>OS для офисов, складов и торговых центров: паспорт здания, график HVAC и лифтов, подрядчики, бюджет и журнал инцидентов. Покупатель — управляющая компания, потенциальный чек заметно выше домашней подписки.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Провести 15 интервью с управляющими объектами и вручную собрать цифровой паспорт для трёх зданий; проверить готовность платить за снижение аварийных вызовов и времени диспетчера.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Длинные продажи, интеграции с legacy-системами и ответственность за критическое обслуживание здания.</p></div>
+            <div class="detail-box"><h3>Общий механизм</h3><p>Система связывает leading indicators с дорогим конечным событием, вмешивается до него и доказывает экономический эффект через контрольную историю или сравнимые кейсы.</p></div>
+            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Construction QA, хроническое здоровье и командный wellbeing воспринимаются разными рынками, но их экономика одинакова: профилактику раньше не покупали, потому что ранний анализ стоил дороже ожидаемой ошибки.</p></div>
+            <div class="detail-box"><h3>Возможность</h3><p>Платформа профилактики для одной high-cost вертикали — например, дата-центров или food manufacturing — с непрерывным анализом документов, сообщений и сенсоров. Клиент платит небольшую базу плюс success fee за доказанно предотвращенные инциденты.</p></div>
+            <div class="detail-box"><h3>Как проверить</h3><p>На исторических данных одного процесса проверить, какие сигналы появлялись до 30 дорогих сбоев, затем три месяца давать только предупреждения человеку и считать precision, action rate и реально сэкономленную стоимость.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Нельзя надежно доказать, что несовершившееся событие было предотвращено; ложные тревоги быстро убивают доверие, а success fee вызывает спор о контрфактуале.</p></div>
         </div>
     </div>
     <div class="intersection-footer">
-        <span class="tag">PropTech</span><span class="tag">Vertical SaaS</span><span class="tag">цифровой двойник</span>
-        <span class="run-meta">2 источника · run #1</span>
-    </div>
-</article>
-<article class="intersection-card" data-tags="FinTech | vertical capital | equity GTM" data-text="Капитал для доказанных офлайн-операторов Строить вертикальный капитал не вокруг залога, а вокруг доказанной операционной модели — франшизы, бухгалтерской фирмы или другой повторяемой сети. Инвестор получает лучший риск-профиль благодаря отраслевым данным и одновременно улучшает актив собственным операционным ПО. Exponent выглядит как финтех-кредитор, Modus — как покупатель долей в бухфирмах. Оба заменяют продажу SaaS на участие в экономике клиента и выигрывают за счёт отраслевого понимания. Платформа для финансирования и технологического улучшения сетей аптек, автосервисов или лицензированных клиник с общим underwriting и операционной системой. FinTech vertical capital equity GTM Самые лучшие клиенты — это те, кто умеет и хочет! Софт нужно продавать не за деньги… а за долю!">
-    <div class="intersection-main">
-        <div class="intersection-top">
-            <h2 class="intersection-title">Капитал для доказанных офлайн-операторов</h2>
-            <div class="score-pair">
-                <div class="score"><strong>4/5</strong>новизна</div>
-                <div class="score"><strong>4/5</strong>опора</div>
-            </div>
-        </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/kto-umeet-i-hochet/" target="_blank" rel="noopener">
-            <div class="source-role">андеррайтинг</div>
-            <div class="source-title">Самые лучшие клиенты — это те, кто умеет и хочет!</div>
-            <div class="source-niche">Финтех / франшизы</div>
-            <div class="source-evidence">Exponent кредитует операторов франшиз, учитывая доказанность модели, которую недооценивают банки.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/svoj-ne-za-dengi-a-za-dolju/" target="_blank" rel="noopener">
-            <div class="source-role">операционное улучшение</div>
-            <div class="source-title">Софт нужно продавать не за деньги… а за долю!</div>
-            <div class="source-niche">Финтех / проф. услуги</div>
-            <div class="source-evidence">Modus входит в капитал бухфирм и внедряет технологию изнутри вместо продажи подписки.</div>
-        </a></div>
-        <p class="intersection-thesis">Строить вертикальный капитал не вокруг залога, а вокруг доказанной операционной модели — франшизы, бухгалтерской фирмы или другой повторяемой сети.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Инвестор получает лучший риск-профиль благодаря отраслевым данным и одновременно улучшает актив собственным операционным ПО.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Exponent выглядит как финтех-кредитор, Modus — как покупатель долей в бухфирмах. Оба заменяют продажу SaaS на участие в экономике клиента и выигрывают за счёт отраслевого понимания.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Платформа для финансирования и технологического улучшения сетей аптек, автосервисов или лицензированных клиник с общим underwriting и операционной системой.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>На данных одной вертикали сравнить дефолт и маржу типового оператора с независимым бизнесом; найти 10 владельцев, которым одновременно нужны капитал и автоматизация.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Кредитный цикл, регулирование, капиталоёмкость и конфликт интересов между инвестором и оператором.</p></div>
-        </div>
-    </div>
-    <div class="intersection-footer">
-        <span class="tag">FinTech</span><span class="tag">vertical capital</span><span class="tag">equity GTM</span>
-        <span class="run-meta">2 источника · run #1</span>
+        <span class="tag">preventive AI</span><span class="tag">leading indicators</span><span class="tag">risk pricing</span><span class="tag">outcome SaaS</span>
+        <span class="run-meta">4 источника · run #2</span>
     </div>
 </article></div>
     <div class="empty hidden" id="intersection-empty">Пересечений по этому фильтру нет</div>
 </main>
 
-<footer>Анализ 103 стартапов · 07.08.2026 · intersections-v1</footer>
+<footer>Анализ 175 стартапов · 07.08.2026 · intersections-v1</footer>
 <script>
 let activeIntersectionTag = 'all';
 let intersectionSearch = '';

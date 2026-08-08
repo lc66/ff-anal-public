@@ -161,6 +161,14 @@ nav a:hover, nav a.active {
     gap: 10px; padding: 14px; background: #f8fafc;
     border: 1px solid #edf0f3; border-radius: 12px; margin-bottom: 18px;
 }
+.evidence-details {
+    margin-top: 16px; border-top: 1px solid #edf0f3; padding-top: 12px;
+}
+.evidence-details summary {
+    cursor: pointer; color: #4f46e5; font-size: 12px; font-weight: 700;
+    list-style-position: outside; margin-left: 16px;
+}
+.evidence-details[open] summary { margin-bottom: 14px; }
 .source-node {
     display: block; background: #fff; border: 1px solid #e5e7eb;
     border-radius: 10px; padding: 11px 12px; transition: border-color .15s;
@@ -174,6 +182,16 @@ nav a:hover, nav a.active {
     font-size: 16px; line-height: 1.55; font-weight: 550;
     color: #1e293b; margin-bottom: 17px;
 }
+.action-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin-bottom: 18px;
+}
+.action-box {
+    background: #f0fdf4; border: 1px solid #dcfce7;
+    border-radius: 10px; padding: 12px;
+}
+.action-box h3 { color: #15803d; font-size: 10px; text-transform: uppercase; letter-spacing: .55px; margin-bottom: 5px; }
+.action-box p { color: #334155; font-size: 13px; line-height: 1.48; }
 .intersection-details {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
 }
@@ -339,7 +357,16 @@ nav a:hover, nav a.active {
     .intersection-hero h1 { font-size: 30px; }
     .intersection-hero::after { font-size: 150px; right: 4px; }
     .intersection-top { flex-direction: column; }
-    .intersection-details { grid-template-columns: 1fr; }
+    .intersection-details, .action-strip { grid-template-columns: 1fr; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stat { min-width: 0; padding: 12px; }
+    .stat-value { font-size: 21px; }
+    .stat-label { font-size: 10px; overflow-wrap: anywhere; }
+    #intersection-chips {
+        flex-wrap: nowrap; overflow-x: auto; padding-bottom: 7px;
+        scrollbar-width: thin;
+    }
+    #intersection-chips .chip { flex-shrink: 0; }
     .run-meta { width: 100%; margin-left: 0; }
 }
 
@@ -363,7 +390,7 @@ footer {
     <a href="index.html">Пересечения</a>
     <a href="startups.html">Стартапы</a>
     <a href="insights.html" class="active">Инсайты</a>
-    <span class="nav-count">34 отчётов</span>
+    <span class="nav-count">35 отчётов</span>
 </nav>
 
 <div class="container">
@@ -376,6 +403,7 @@ footer {
         <div class="filter-group">
             <div class="filter-label">По типу</div>
             <div class="filter-chips" id="type-chips"><button class="chip active" onclick="filterInsights('type', 'all', this)">Все типы</button>
+<button class="chip" onclick="filterInsights('type', 'идеи_пересечения_v3', this)">💡 Практические возможности</button>
 <button class="chip" onclick="filterInsights('type', 'белые_пятна_v2', this)">⬜ Белые пятна</button>
 <button class="chip" onclick="filterInsights('type', 'идеи_пересечения_v2', this)">💡 Идеи</button>
 <button class="chip" onclick="filterInsights('type', 'паттерны_v2', this)">🧩 Паттерны</button>
@@ -394,6 +422,7 @@ footer {
         <div class="filter-group">
             <div class="filter-label">По дате</div>
             <div class="filter-chips" id="date-chips"><button class="chip active" onclick="filterInsights('date', 'all', this)">Все даты</button>
+<button class="chip" onclick="filterInsights('date', '2026-08-08', this)">08.08.2026</button>
 <button class="chip" onclick="filterInsights('date', '2026-08-07', this)">07.08.2026</button>
 <button class="chip" onclick="filterInsights('date', '2026-05-27', this)">27.05.2026</button>
 <button class="chip" onclick="filterInsights('date', '2026-05-18', this)">18.05.2026</button>
@@ -407,6 +436,56 @@ footer {
 
     <div class="insights-grid" id="insights-grid">
         
+<div class="insight-card" data-type="идеи_пересечения_v3" data-date="2026-08-08">
+    <div class="insight-header">
+        <div class="insight-title">💡 Практические возможности</div>
+        <div class="insight-meta">
+            <span class="insight-type-badge">идеи_пересечения_v3</span>
+            <span class="insight-date">08.08.2026</span>
+        </div>
+    </div>
+    <div class="insight-body">
+        <p class="section-head">Как теперь ищем возможности</p>
+<br>
+<p>Новая единица анализа — не пара стартапов, а движение внутри ниши. Несколько источников должны показать, куда уже пошёл рынок или какое действие стало частым; другие источники дают механику для возникшего узкого места. На выходе обязателен конкретный покупатель, первый ручной оффер, маршрут к первым десяти клиентам и тест за 7–14 дней.</p>
+<br>
+<p class="section-head">1. Тёплые рестораны для HVAC-подрядчиков</p>
+<br>
+<p>Avoca, Kebra и Dalton Mills показывают наплыв продуктов в home services и HVAC; Swan, Cascade и Osmaura — переход продаж к агентам и событийным сигналам. Вторичная возможность: не ещё один HVAC-софт, а еженедельная таблица ресторанов Чикаго с проверяемым поводом обратиться именно сейчас. Первый покупатель — местный HVAC-подрядчик с 5–30 техниками; первый тест — продать два пакета по $300–500.</p>
+<br>
+<p class="section-head">2. Аудит готовности API к клиентам-агентам</p>
+<br>
+<p>AgentDiscuss, Manicule, Orthogonal и Scope описывают новый machine funnel: discovery, документация, доступ, вызов и исправление ошибки. Небольшой devtool-компании можно сначала продать ручной аудит десяти агентных задач и готовые патчи, не создавая новую observability-платформу.</p>
+<br>
+<p class="section-head">3. Спасение застрявшего credentialing</p>
+<br>
+<p>Saile, Boolient, Opereit, Parrot и Arctic Health показывают одну повторяющуюся операцию: малый поставщик теряет выручку во взаимодействии с крупной бюрократической организацией. Узкий вход — вручную доводить застрявшую payer-заявку психотерапевта в Техасе до понятного статуса и исправления причины отказа.</p>
+<br>
+<p class="section-head">4. Контент из выполненных кровельных работ</p>
+<br>
+<p>Layers и Memoir строят контент из первичных событий, а Hardline и Kebra извлекают данные из естественного полевого потока. Для кровельщика Dallas–Fort Worth первым продуктом может быть еженедельный пакет кейсов, Google-постов и запросов отзыва из фото и голосовых заметок бригады.</p>
+<br>
+<p class="section-head">5. Интервью только с реальными покупателями</p>
+<br>
+<p>Loca, Copper и Pogo используют чек как доказательство поведения; Talp показывает спрос на быстрый тест решения. Узкий сервис для CPG-бренда в Остине — 20 интервью с подтверждёнными покупателями бренда и конкурента по одному вопросу об упаковке, цене или переключении.</p>
+<br>
+<p class="section-head">6. Bid/no-bid desk для электромонтажников</p>
+<br>
+<p>Andustry, Cascade, LightTable и ConstructionBevy показывают рост агентной закупочной инфраструктуры и стоимость ранней проверки. Вместо нового аукциона можно за сутки разбирать входящие ITB небольшого подрядчика в Phoenix и выдавать короткое обоснование go/no-go.</p>
+<br>
+<p class="section-head">7. Реактивация тёплых связей архитектурного бюро</p>
+<br>
+<p>Magic и Centralize работают с памятью отношений, Cascade и Osmaura — с внешним событием why now, Artis подтверждает платёжеспособность премиальной архитектурной ниши. Первый оффер — найти 25 актуальных поводов вернуться к бывшим клиентам и партнёрам внутри старого CRM.</p>
+<br>
+<p class="section-head">8. Видео-проба вместо резюме электрика</p>
+<br>
+<p>Gyver показывает дефицит электриков, DeweyLearn и Litmus — оценку на реальной задаче, Fika — дешёвый видеофильтр, Saile — переносимую верификацию. Начинать можно без маркетплейса: превратить одну вакансию работодателя в безопасную 20-минутную пробу и вручную оценить уже пришедших кандидатов.</p>
+<br>
+<p class="section-head">Общий фильтр</p>
+<br>
+<p>В набор не включены идеи, где до первой продажи обязательно нужны двусторонний маркетплейс, собственная сеть данных, тяжёлая интеграция или регуляторная платформа. Новизна больше не является главным критерием: сначала реализуемость и доказательная опора, затем оригинальность.</p>
+    </div>
+</div>
 <div class="insight-card" data-type="белые_пятна_v2" data-date="2026-08-07">
     <div class="insight-header">
         <div class="insight-title">⬜ Белые пятна</div>
@@ -2060,7 +2139,7 @@ footer {
     <div class="empty hidden" id="insights-empty">Нет отчётов по выбранным фильтрам</div>
 </div>
 
-<footer>Обновлено 07.08.2026 · FastFounder Analyzer</footer>
+<footer>Обновлено 08.08.2026 · FastFounder Analyzer</footer>
 
 <script>
 let activeType = 'all';

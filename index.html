@@ -161,6 +161,14 @@ nav a:hover, nav a.active {
     gap: 10px; padding: 14px; background: #f8fafc;
     border: 1px solid #edf0f3; border-radius: 12px; margin-bottom: 18px;
 }
+.evidence-details {
+    margin-top: 16px; border-top: 1px solid #edf0f3; padding-top: 12px;
+}
+.evidence-details summary {
+    cursor: pointer; color: #4f46e5; font-size: 12px; font-weight: 700;
+    list-style-position: outside; margin-left: 16px;
+}
+.evidence-details[open] summary { margin-bottom: 14px; }
 .source-node {
     display: block; background: #fff; border: 1px solid #e5e7eb;
     border-radius: 10px; padding: 11px 12px; transition: border-color .15s;
@@ -174,6 +182,16 @@ nav a:hover, nav a.active {
     font-size: 16px; line-height: 1.55; font-weight: 550;
     color: #1e293b; margin-bottom: 17px;
 }
+.action-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin-bottom: 18px;
+}
+.action-box {
+    background: #f0fdf4; border: 1px solid #dcfce7;
+    border-radius: 10px; padding: 12px;
+}
+.action-box h3 { color: #15803d; font-size: 10px; text-transform: uppercase; letter-spacing: .55px; margin-bottom: 5px; }
+.action-box p { color: #334155; font-size: 13px; line-height: 1.48; }
 .intersection-details {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
 }
@@ -339,7 +357,16 @@ nav a:hover, nav a.active {
     .intersection-hero h1 { font-size: 30px; }
     .intersection-hero::after { font-size: 150px; right: 4px; }
     .intersection-top { flex-direction: column; }
-    .intersection-details { grid-template-columns: 1fr; }
+    .intersection-details, .action-strip { grid-template-columns: 1fr; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stat { min-width: 0; padding: 12px; }
+    .stat-value { font-size: 21px; }
+    .stat-label { font-size: 10px; overflow-wrap: anywhere; }
+    #intersection-chips {
+        flex-wrap: nowrap; overflow-x: auto; padding-bottom: 7px;
+        scrollbar-width: thin;
+    }
+    #intersection-chips .chip { flex-shrink: 0; }
     .run-meta { width: 100%; margin-left: 0; }
 }
 
@@ -361,555 +388,583 @@ footer {
     <a href="index.html" class="active">Пересечения</a>
     <a href="startups.html">Стартапы</a>
     <a href="insights.html">Инсайты</a>
-    <span class="nav-count">10 гипотез</span>
+    <span class="nav-count">8 гипотез</span>
 </nav>
 
 <main class="container">
     <section class="intersection-hero">
-        <div class="intersection-eyebrow">Стартап × стартап → новая возможность</div>
-        <h1>Идеи рождаются между рынками</h1>
-        <p>Мы ищем не похожие компании, а переносимые механики: что изменится, если соединить продукт, канал или бизнес-модель из разных ниш.</p>
+        <div class="intersection-eyebrow">Движение ниши → новый bottleneck → узкий оффер</div>
+        <h1>Возможности рядом с перегретыми рынками</h1>
+        <p>Мы смотрим, куда массово идут стартапы, какое новое действие или узкое место там возникает и что можно продать конкретному покупателю уже вручную.</p>
     </section>
 
     <div class="stats-row">
-        <div class="stat"><div class="stat-value">10</div><div class="stat-label">Пересечений</div></div>
-        <div class="stat"><div class="stat-value">39</div><div class="stat-label">Стартапов-источников</div></div>
+        <div class="stat"><div class="stat-value">8</div><div class="stat-label">Пересечений</div></div>
+        <div class="stat"><div class="stat-value">32</div><div class="stat-label">Стартапов-источников</div></div>
         <div class="stat"><div class="stat-value">175</div><div class="stat-label">В базе</div></div>
     </div>
 
-    <div class="method-note"><span class="method-mark">↗</span><span><strong>Не просто “X для рынка Y”.</strong> Каждая гипотеза связывает минимум два стартапа, называет общий механизм, объясняет неочевидность и предлагает дешёвую проверку.</span></div>
+    <div class="method-note"><span class="method-mark">↗</span><span><strong>Не механическое “A + B”.</strong> Несколько источников показывают движение ниши, другие — рабочую механику. На выходе: узкий покупатель, первый продаваемый результат и проверка за две недели.</span></div>
 
     <div class="toolbar">
         <input class="search-box" type="search" aria-label="Поиск пересечений" placeholder="Механика, рынок или стартап…" oninput="searchIntersections(this.value)">
     </div>
     <div class="filter-chips" id="intersection-chips" style="margin-bottom:24px"><button class="chip active" onclick="filterIntersection('all', this)">Все</button>
-<button class="chip" onclick="filterIntersection('AI franchise', this)">AI franchise</button>
-<button class="chip" onclick="filterIntersection('AI insurance', this)">AI insurance</button>
-<button class="chip" onclick="filterIntersection('agent QA', this)">agent QA</button>
-<button class="chip" onclick="filterIntersection('agent auctions', this)">agent auctions</button>
-<button class="chip" onclick="filterIntersection('agent economy', this)">agent economy</button>
-<button class="chip" onclick="filterIntersection('audience holding', this)">audience holding</button>
-<button class="chip" onclick="filterIntersection('collective intelligence', this)">collective intelligence</button>
-<button class="chip" onclick="filterIntersection('compiled AI', this)">compiled AI</button>
-<button class="chip" onclick="filterIntersection('data moat', this)">data moat</button>
-<button class="chip" onclick="filterIntersection('edge cases', this)">edge cases</button>
-<button class="chip" onclick="filterIntersection('enterprise GTM', this)">enterprise GTM</button>
-<button class="chip" onclick="filterIntersection('expert verification', this)">expert verification</button>
-<button class="chip" onclick="filterIntersection('fandom', this)">fandom</button>
-<button class="chip" onclick="filterIntersection('generative IP', this)">generative IP</button>
-<button class="chip" onclick="filterIntersection('human-in-the-loop', this)">human-in-the-loop</button>
-<button class="chip" onclick="filterIntersection('industrial supply', this)">industrial supply</button>
-<button class="chip" onclick="filterIntersection('interactive media', this)">interactive media</button>
-<button class="chip" onclick="filterIntersection('labor mobility', this)">labor mobility</button>
-<button class="chip" onclick="filterIntersection('leading indicators', this)">leading indicators</button>
-<button class="chip" onclick="filterIntersection('marketplace', this)">marketplace</button>
-<button class="chip" onclick="filterIntersection('microbusiness', this)">microbusiness</button>
-<button class="chip" onclick="filterIntersection('network effects', this)">network effects</button>
-<button class="chip" onclick="filterIntersection('outcome SaaS', this)">outcome SaaS</button>
-<button class="chip" onclick="filterIntersection('outcome billing', this)">outcome billing</button>
-<button class="chip" onclick="filterIntersection('personal agent', this)">personal agent</button>
-<button class="chip" onclick="filterIntersection('personalization', this)">personalization</button>
-<button class="chip" onclick="filterIntersection('preventive AI', this)">preventive AI</button>
-<button class="chip" onclick="filterIntersection('process discovery', this)">process discovery</button>
+<button class="chip" onclick="filterIntersection('API', this)">API</button>
+<button class="chip" onclick="filterIntersection('Agent Experience', this)">Agent Experience</button>
+<button class="chip" onclick="filterIntersection('Austin', this)">Austin</button>
+<button class="chip" onclick="filterIntersection('CPG', this)">CPG</button>
+<button class="chip" onclick="filterIntersection('CRM', this)">CRM</button>
+<button class="chip" onclick="filterIntersection('Chicago', this)">Chicago</button>
+<button class="chip" onclick="filterIntersection('DevTools', this)">DevTools</button>
+<button class="chip" onclick="filterIntersection('HR Tech', this)">HR Tech</button>
+<button class="chip" onclick="filterIntersection('HVAC', this)">HVAC</button>
+<button class="chip" onclick="filterIntersection('HealthTech', this)">HealthTech</button>
+<button class="chip" onclick="filterIntersection('Phoenix', this)">Phoenix</button>
+<button class="chip" onclick="filterIntersection('South Florida', this)">South Florida</button>
+<button class="chip" onclick="filterIntersection('Texas', this)">Texas</button>
+<button class="chip" onclick="filterIntersection('architecture', this)">architecture</button>
+<button class="chip" onclick="filterIntersection('construction', this)">construction</button>
+<button class="chip" onclick="filterIntersection('credentialing', this)">credentialing</button>
+<button class="chip" onclick="filterIntersection('customer research', this)">customer research</button>
+<button class="chip" onclick="filterIntersection('electricians', this)">electricians</button>
+<button class="chip" onclick="filterIntersection('email workflow', this)">email workflow</button>
+<button class="chip" onclick="filterIntersection('home services', this)">home services</button>
 <button class="chip" onclick="filterIntersection('procurement', this)">procurement</button>
+<button class="chip" onclick="filterIntersection('relationship sales', this)">relationship sales</button>
 <button class="chip" onclick="filterIntersection('revenue recovery', this)">revenue recovery</button>
-<button class="chip" onclick="filterIntersection('rewards', this)">rewards</button>
-<button class="chip" onclick="filterIntersection('risk pricing', this)">risk pricing</button>
-<button class="chip" onclick="filterIntersection('shared infrastructure', this)">shared infrastructure</button>
-<button class="chip" onclick="filterIntersection('skills passport', this)">skills passport</button>
-<button class="chip" onclick="filterIntersection('success fee', this)">success fee</button>
-<button class="chip" onclick="filterIntersection('synthetic users', this)">synthetic users</button>
-<button class="chip" onclick="filterIntersection('tacit knowledge', this)">tacit knowledge</button>
-<button class="chip" onclick="filterIntersection('verified data', this)">verified data</button>
-<button class="chip" onclick="filterIntersection('verified work', this)">verified work</button>
-<button class="chip" onclick="filterIntersection('vertical SaaS', this)">vertical SaaS</button>
+<button class="chip" onclick="filterIntersection('roofing', this)">roofing</button>
+<button class="chip" onclick="filterIntersection('skills assessment', this)">skills assessment</button>
+<button class="chip" onclick="filterIntersection('video', this)">video</button>
+<button class="chip" onclick="filterIntersection('аудит', this)">аудит</button>
+<button class="chip" onclick="filterIntersection('контент', this)">контент</button>
+<button class="chip" onclick="filterIntersection('локальные лиды', this)">локальные лиды</button>
+<button class="chip" onclick="filterIntersection('локальный маркетинг', this)">локальный маркетинг</button>
+<button class="chip" onclick="filterIntersection('сигналы', this)">сигналы</button>
+<button class="chip" onclick="filterIntersection('чеки', this)">чеки</button>
 </div>
 
     <div class="intersection-grid">
-<article class="intersection-card" data-tags="process discovery | compiled AI | tacit knowledge | vertical SaaS" data-text="Живая спецификация, которая компилирует компанию Соединить добычу неявного знания из интервью и полевой работы с компиляцией повторяемых процессов в детерминированные программы и непрерывным обновлением по человеческим исправлениям. Система сначала наблюдает реальную работу и разрешает противоречия, затем превращает подтвержденный процесс в аудируемое исполнение, а исключения возвращает в живую спецификацию. Process mining обычно продают как документацию, field capture — как отчетность, а compiled AI — как инфраструктуру исполнения; вместе они образуют замкнутый контур без ручного написания требований. Вертикальная платформа для сервисной отрасли: покупатель описывает не процесс, а дает доступ к сотрудникам и рабочим артефактам; платформа сама строит и запускает workflow. Это сокращает дорогой consulting/discovery, токены и ошибки, а база исключений становится data moat. process discovery compiled AI tacit knowledge vertical SaaS Вот за чем клиенты и инвесторы будут приходить к тебе сами! Лучше идти туда — где много денег и мало конкурентов! В 2 раза надёжнее и в 40–50 раз дешевле! Интересные модели автоматизации того… что есть в каждой компании!">
+<article class="intersection-card" data-tags="HVAC | локальные лиды | сигналы | Chicago" data-text="Тёплые рестораны для HVAC-подрядчиков Не делать ещё один AI-фронтдеск для HVAC, а продавать местным подрядчикам готовый список ресторанов, у которых именно сейчас вероятна потребность в ремонте, замене или обслуживании климатического оборудования. Событийный проспектинг: собирать публичные предвестники спроса, объяснять why now и сразу давать контакт и следующий шаг для продажи. Стартапы идут автоматизировать работу уже найденного HVAC-клиента. Вторичная возможность находится на шаг раньше — подготовить для подрядчика узкий поток потенциальных заказчиков, не создавая собственный агент продаж. Avoca, Kebra и Dalton Mills независимо строят продукты для home services и HVAC; параллельно Swan, Cascade и Osmaura показывают сдвиг от статических баз лидов к агентной обработке сигналов и моменту возникновения спроса. Владелец или руководитель продаж HVAC-компании с 5–30 техниками, обслуживающей коммерческие объекты в Чикаго. Еженедельная таблица из 50 ресторанов: публичный триггер, адрес, контакт, причина обратиться сейчас и черновик первого сообщения. Пилот — $300–500 без подписки. Найти 30 местных HVAC-компаний через Google Maps и отраслевые каталоги; каждой отправить бесплатно пять вручную найденных лидов из её зоны обслуживания. После подтверждения продаж таблица превращается в узкий data feed с историей сигналов, обратной связью по конверсии и соседними сегментами — гостиницами, продуктовыми магазинами и небольшими сетями. HVAC локальные лиды сигналы Chicago Примени свою технологию на правильном рынке — и стань миллиардным стартапом! Этот рынок нужно трахнуть снизу! Хочешь стать ведущим разработчиком софта в своей сфере? $15 миллионов в месяц — и ни одного наёмного сотрудника? Уже реально! Забирай контракты раньше конкурентов! Новый метод продаж — меньше сил и времени, но больше результатов!">
     <div class="intersection-main">
         <div class="intersection-top">
-            <h2 class="intersection-title">Живая спецификация, которая компилирует компанию</h2>
+            <h2 class="intersection-title">Тёплые рестораны для HVAC-подрядчиков</h2>
             <div class="score-pair">
-                <div class="score"><strong>5/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>реально</div>
+                <div class="score"><strong>4/5</strong>новизна</div>
                 <div class="score"><strong>5/5</strong>опора</div>
             </div>
         </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/klienty-i-investory-budut-prihodit-k-tebe-sami/" target="_blank" rel="noopener">
-            <div class="source-role">Добывает и постоянно обновляет реальный процесс.</div>
-            <div class="source-title">Вот за чем клиенты и инвесторы будут приходить к тебе сами!</div>
-            <div class="source-niche">Enterprise AI / process discovery</div>
-            <div class="source-evidence">Ontora интервьюирует сотрудников, разрешает противоречия и обновляет базу по действиям людей, агентов и человеческим исправлениям.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/mnogo-deneg-i-malo-konkurentov/" target="_blank" rel="noopener">
-            <div class="source-role">Показывает способ извлечения полевой неявной экспертизы.</div>
-            <div class="source-title">Лучше идти туда — где много денег и мало конкурентов!</div>
-            <div class="source-niche">Промышленные инспекции</div>
-            <div class="source-evidence">Cloneable превращает видео работы специалиста в пошаговое GPS-подобное руководство.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/v-2-raza-nadjozhnee-i-v-40-50-raz-deshevle/" target="_blank" rel="noopener">
-            <div class="source-role">Дает надежный исполнительный слой.</div>
-            <div class="source-title">В 2 раза надёжнее и в 40–50 раз дешевле!</div>
-            <div class="source-niche">Enterprise automation / compiled AI</div>
-            <div class="source-evidence">INXM компилирует одобренный ИИ-план в обычный workflow и заявляет 40–50-кратное снижение стоимости повторных действий.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/nuzhno-kazhdoj-kompanii/" target="_blank" rel="noopener">
-            <div class="source-role">Подтверждает ценность смены ритма работы.</div>
-            <div class="source-title">Интересные модели автоматизации того… что есть в каждой компании!</div>
-            <div class="source-niche">Accounting / autonomous workflows</div>
-            <div class="source-evidence">Kinter превращает периодический бухгалтерский аврал в непрерывный агентный процесс с очередью человеческой проверки.</div>
-        </a></div>
-        <p class="intersection-thesis">Соединить добычу неявного знания из интервью и полевой работы с компиляцией повторяемых процессов в детерминированные программы и непрерывным обновлением по человеческим исправлениям.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Система сначала наблюдает реальную работу и разрешает противоречия, затем превращает подтвержденный процесс в аудируемое исполнение, а исключения возвращает в живую спецификацию.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Process mining обычно продают как документацию, field capture — как отчетность, а compiled AI — как инфраструктуру исполнения; вместе они образуют замкнутый контур без ручного написания требований.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Вертикальная платформа для сервисной отрасли: покупатель описывает не процесс, а дает доступ к сотрудникам и рабочим артефактам; платформа сама строит и запускает workflow. Это сокращает дорогой consulting/discovery, токены и ошибки, а база исключений становится data moat.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Выбрать один повторяемый процесс из 20–50 шагов, записать 8 интервью и 20 реальных кейсов, скомпилировать один участок и сравнить за месяц долю ручных касаний, ошибок и стоимость исполнения.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Сотрудники могут описывать работу неполно или защищать неформальные практики; неверно скомпилированное правило будет масштабировать ошибку, поэтому нужны версия, аудит и безопасный rollback.</p></div>
+        <p class="intersection-thesis">Не делать ещё один AI-фронтдеск для HVAC, а продавать местным подрядчикам готовый список ресторанов, у которых именно сейчас вероятна потребность в ремонте, замене или обслуживании климатического оборудования.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Владелец или руководитель продаж HVAC-компании с 5–30 техниками, обслуживающей коммерческие объекты в Чикаго.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Еженедельная таблица из 50 ресторанов: публичный триггер, адрес, контакт, причина обратиться сейчас и черновик первого сообщения. Пилот — $300–500 без подписки.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Найти 30 местных HVAC-компаний через Google Maps и отраслевые каталоги; каждой отправить бесплатно пять вручную найденных лидов из её зоны обслуживания.</p></div>
         </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Avoca, Kebra и Dalton Mills независимо строят продукты для home services и HVAC; параллельно Swan, Cascade и Osmaura показывают сдвиг от статических баз лидов к агентной обработке сигналов и моменту возникновения спроса.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 10 дней собрать 50 ресторанов по открытиям, разрешениям, переездам и другим проверяемым триггерам; показать выборку 30 подрядчикам. Порог: два платных пилота и минимум три лида, которые клиенты готовы взять в работу.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Публичный триггер может слабо коррелировать с реальной потребностью в HVAC, а подрядчики могут уже покупать похожие списки без измеримой отдачи.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 6 источников</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Событийный проспектинг: собирать публичные предвестники спроса, объяснять why now и сразу давать контакт и следующий шаг для продажи.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Стартапы идут автоматизировать работу уже найденного HVAC-клиента. Вторичная возможность находится на шаг раньше — подготовить для подрядчика узкий поток потенциальных заказчиков, не создавая собственный агент продаж.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>После подтверждения продаж таблица превращается в узкий data feed с историей сигналов, обратной связью по конверсии и соседними сегментами — гостиницами, продуктовыми магазинами и небольшими сетями.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/primeni-tehnologiju-na-pravilnom-rynke/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает ценность HVAC-клиента</div>
+            <div class="source-title">Примени свою технологию на правильном рынке — и стань миллиардным стартапом!</div>
+            <div class="source-niche">Home services AI</div>
+            <div class="source-evidence">Avoca выбрала HVAC и смежные home services из-за высокой стоимости пропущенного события и автоматизирует звонки, запись и рекламу.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/bolnaja-zadacha-nizhnego-urovnja/" target="_blank" rel="noopener">
+            <div class="source-role">показывает цифровизацию HVAC снизу</div>
+            <div class="source-title">Этот рынок нужно трахнуть снизу!</div>
+            <div class="source-niche">AI / home services</div>
+            <div class="source-evidence">Kebra собирает голос, фото и данные оборудования в точке работы и превращает их в отчёты, счета, гарантии и заказы.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/stat-vedushhim-razrabotchikom-softa-v-svoej-sfere/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает наплыв продуктов в home services</div>
+            <div class="source-title">Хочешь стать ведущим разработчиком софта в своей сфере?</div>
+            <div class="source-niche">Vertical no-code / home services</div>
+            <div class="source-evidence">Dalton Mills строит вертикальный конструктор приложений именно для HVAC, roofing и других полевых мастеров.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/ni-odnogo-najomnogo-sotrudnika/" target="_blank" rel="noopener">
+            <div class="source-role">добавляет агентную механику продаж</div>
+            <div class="source-title">$15 миллионов в месяц — и ни одного наёмного сотрудника? Уже реально!</div>
+            <div class="source-niche">GTM-автоматизация</div>
+            <div class="source-evidence">Swan разделяет поиск, анализ, подготовку встреч и реанимацию сделок между специализированными агентами.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/kontrakty-ranshe-konkurentov/" target="_blank" rel="noopener">
+            <div class="source-role">даёт механику раннего сигнала</div>
+            <div class="source-title">Забирай контракты раньше конкурентов!</div>
+            <div class="source-niche">ConstructionTech / sales intelligence</div>
+            <div class="source-evidence">Cascade объединяет разрозненные предвестники будущих строительных объектов и ранжирует их до публичного тендера.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/metod-prodazh-po-signalam/" target="_blank" rel="noopener">
+            <div class="source-role">даёт принцип why now</div>
+            <div class="source-title">Новый метод продаж — меньше сил и времени, но больше результатов!</div>
+            <div class="source-niche">LegalTech / signal-based sales</div>
+            <div class="source-evidence">Osmaura отслеживает нишевые события и объясняет, у какого аккаунта потребность возникла именно сейчас.</div>
+        </a></div>
+        </details>
     </div>
     <div class="intersection-footer">
-        <span class="tag">process discovery</span><span class="tag">compiled AI</span><span class="tag">tacit knowledge</span><span class="tag">vertical SaaS</span>
-        <span class="run-meta">4 источника · run #2</span>
+        <span class="tag">HVAC</span><span class="tag">локальные лиды</span><span class="tag">сигналы</span><span class="tag">Chicago</span>
+        <span class="run-meta">6 источников · run #3</span>
     </div>
 </article>
-<article class="intersection-card" data-tags="human-in-the-loop | agent economy | outcome billing | marketplace" data-text="Человеческая аварийная служба для экономики агентов Построить универсальный слой, через который агент обнаруживает, нанимает и оплачивает человека только для физического, социального или ответственного исключения, с измерением результата теми же правилами, что и для машины. Machine-first процесс автоматически маршрутизирует нерешаемый участок в проверенный human endpoint, задает scope и оплачивает подтвержденный outcome. Маркетплейсы людей, billing агентов и каталоги API развиваются отдельно, хотя для автономности агенту человек нужен как еще один динамически вызываемый сервис. API-маркетплейс для агентных компаний: вместо штата исключений они покупают верифицированное человеческое действие по SLA. Поставщик получает новый канал задач, покупатель заменяет фиксированный headcount переменными затратами. human-in-the-loop agent economy outcome billing marketplace Привычная картинка переворачивается вверх тормашками. Буквально! Самый выгодный для стартапа момент — между смертью старого и рождением нового! Сотрудникам скоро придётся платить по-другому… но это и к лучшему! А тебе разве не нужно «самое лучшее по лучшей цене»?">
+<article class="intersection-card" data-tags="home services | локальный маркетинг | контент | roofing" data-text="Контент из выполненных кровельных работ Превращать уже возникающие у кровельщика фото, голосовые заметки и документы по завершённому объекту в доказательный локальный маркетинг — без просьбы к мастерам вести ещё одну систему. Сырой операционный след становится входом автономного контент-конвейера, а подтверждённое завершение работы связывает публикацию с реальным локальным результатом. Автономный контент обычно строят из кода, трендов и редакционного плана. У локального подрядчика лучший контент уже лежит в телефонах бригад, но его не превращают в кейс, страницу района и запрос отзыва. Layers и Memoir показывают сдвиг к контенту из первичных событий продукта; Hardline и Kebra учатся забирать речь и фото прямо из полевой работы; Loca доказывает ценность подтверждённого локального действия. Владелец кровельной компании с 5–25 бригадами в Dallas–Fort Worth, у которой есть выполненные объекты, но редко обновляется Google Business Profile. За $400 в месяц из десяти фото и трёх голосовых заметок выпускать один кейс, четыре Google-поста, страницу района и персональный запрос отзыва клиенту после согласования владельцем. Через Google Maps найти 30 кровельщиков с хорошим рейтингом, но без публикаций за 60 дней; сделать для каждого один демонстрационный пост из материалов с сайта или публичного профиля. После ручной проверки можно подключить intake через SMS/WhatsApp, шаблоны по типам работ и атрибуцию звонков к каждому локальному кейсу. home services локальный маркетинг контент roofing Тут до сих пор можно зарабатывать приличные деньги на простых механиках! Разработал приложение — заработал денег! Безо всяких промежуточных этапов 🤣 Мечта стартапа — рынок побольше, конкурентов поменьше! Этот рынок нужно трахнуть снизу! Сейчас тебе нужна другая лопата!">
     <div class="intersection-main">
         <div class="intersection-top">
-            <h2 class="intersection-title">Человеческая аварийная служба для экономики агентов</h2>
+            <h2 class="intersection-title">Контент из выполненных кровельных работ</h2>
             <div class="score-pair">
-                <div class="score"><strong>5/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>реально</div>
+                <div class="score"><strong>4/5</strong>новизна</div>
                 <div class="score"><strong>5/5</strong>опора</div>
             </div>
         </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/privychnaja-kartinka-vverh-tormashkami/" target="_blank" rel="noopener">
-            <div class="source-role">Подтверждает новый покупательский контур.</div>
-            <div class="source-title">Привычная картинка переворачивается вверх тормашками. Буквально!</div>
-            <div class="source-niche">Инфраструктура ИИ-агентов</div>
-            <div class="source-evidence">Humwork строит рынок, где ИИ-агенты нанимают людей для исключений.</div>
+        <p class="intersection-thesis">Превращать уже возникающие у кровельщика фото, голосовые заметки и документы по завершённому объекту в доказательный локальный маркетинг — без просьбы к мастерам вести ещё одну систему.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Владелец кровельной компании с 5–25 бригадами в Dallas–Fort Worth, у которой есть выполненные объекты, но редко обновляется Google Business Profile.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>За $400 в месяц из десяти фото и трёх голосовых заметок выпускать один кейс, четыре Google-поста, страницу района и персональный запрос отзыва клиенту после согласования владельцем.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Через Google Maps найти 30 кровельщиков с хорошим рейтингом, но без публикаций за 60 дней; сделать для каждого один демонстрационный пост из материалов с сайта или публичного профиля.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Layers и Memoir показывают сдвиг к контенту из первичных событий продукта; Hardline и Kebra учатся забирать речь и фото прямо из полевой работы; Loca доказывает ценность подтверждённого локального действия.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 10 дней предложить 20 компаниям бесплатный пример и месячный пилот. Порог: три оплаты и у двух клиентов бригада действительно присылает исходные материалы две недели подряд.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Бригады могут не присылать достаточно качественных материалов, а публикации без сильной локальной дистрибуции не дадут измеримых лидов.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 5 источников</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Сырой операционный след становится входом автономного контент-конвейера, а подтверждённое завершение работы связывает публикацию с реальным локальным результатом.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Автономный контент обычно строят из кода, трендов и редакционного плана. У локального подрядчика лучший контент уже лежит в телефонах бригад, но его не превращают в кейс, страницу района и запрос отзыва.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>После ручной проверки можно подключить intake через SMS/WhatsApp, шаблоны по типам работ и атрибуцию звонков к каждому локальному кейсу.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/prilichnye-dengi-na-prostyh-mehanikah/" target="_blank" rel="noopener">
+            <div class="source-role">добавляет подтверждённый локальный результат</div>
+            <div class="source-title">Тут до сих пор можно зарабатывать приличные деньги на простых механиках!</div>
+            <div class="source-niche">Локальный маркетинг</div>
+            <div class="source-evidence">Loca связывает локальный контент и продвижение с фактом покупки, подтверждённым чеком.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/samyj-vygodnyj-dlja-startapa-moment/" target="_blank" rel="noopener">
-            <div class="source-role">Подтверждает human repair как отдельную услугу.</div>
-            <div class="source-title">Самый выгодный для стартапа момент — между смертью старого и рождением нового!</div>
-            <div class="source-niche">Маркетплейс разработчиков</div>
-            <div class="source-evidence">Humans Fix AI предлагает людей для исправления ситуаций, с которыми ИИ не справился.</div>
+        <a class="source-node" href="https://fastfounder.ru/razrabotal-prilozhenie-zarabotal-deneg/" target="_blank" rel="noopener">
+            <div class="source-role">даёт end-to-end контент-конвейер</div>
+            <div class="source-title">Разработал приложение — заработал денег! Безо всяких промежуточных этапов 🤣</div>
+            <div class="source-niche">Автономный маркетинг приложений</div>
+            <div class="source-evidence">Layers читает сырой источник, выбирает стратегию, создаёт материалы, публикует и управляет продвижением до результата.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/sotrudnikam-pridjotsja-platit-po-drugomu/" target="_blank" rel="noopener">
-            <div class="source-role">Дает единое измерение и оплату труда.</div>
-            <div class="source-title">Сотрудникам скоро придётся платить по-другому… но это и к лучшему!</div>
-            <div class="source-niche">Оплата за результат</div>
-            <div class="source-evidence">Grade учитывает outcome людей и агентов по совместимым принципам.</div>
+        <a class="source-node" href="https://fastfounder.ru/rynok-pobolshe-konkurentov-pomenshe/" target="_blank" rel="noopener">
+            <div class="source-role">показывает незаметный сбор полевых данных</div>
+            <div class="source-title">Мечта стартапа — рынок побольше, конкурентов поменьше!</div>
+            <div class="source-niche">ConstructionTech / голосовой ИИ</div>
+            <div class="source-evidence">Hardline превращает естественные разговоры на стройке в структурированные записи без новой обязанности прораба.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/bolnaja-zadacha-nizhnego-urovnja/" target="_blank" rel="noopener">
+            <div class="source-role">добавляет фото и голос мастера</div>
+            <div class="source-title">Этот рынок нужно трахнуть снизу!</div>
+            <div class="source-niche">AI / home services</div>
+            <div class="source-evidence">Kebra принимает голос, фото и данные оборудования непосредственно в точке работы.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/nuzhna-drugaja-lopata/" target="_blank" rel="noopener">
+            <div class="source-role">даёт принцип контента из событий</div>
+            <div class="source-title">Сейчас тебе нужна другая лопата!</div>
+            <div class="source-niche">Developer marketing / autonomous content</div>
+            <div class="source-evidence">Memoir превращает изменения продукта и сигналы поддержки в постоянный поток постов, статей и видео.</div>
+        </a></div>
+        </details>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">home services</span><span class="tag">локальный маркетинг</span><span class="tag">контент</span><span class="tag">roofing</span>
+        <span class="run-meta">5 источников · run #3</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="DevTools | Agent Experience | аудит | API" data-text="Аудит готовности API к клиентам-агентам Продавать небольшим API- и devtool-компаниям короткий ручной аудит пути машинного клиента: смог ли агент найти продукт, понять документацию, получить доступ и успешно выполнить типовые задачи. Тестировать не интерфейс для человека, а полный machine funnel — discovery, документацию, auth, вызов, ошибку и повторную попытку. Большинство команд думает об agent-ready продукте как о файле llms.txt или MCP-сервере. Реальный провал часто случается между этими точками, поэтому первым товаром может быть сервисный аудит, а не новая observability-платформа. AgentDiscuss, Orthogonal и Scope рассматривают агентов как отдельный класс покупателей, а Manicule показывает, что документация становится одновременно маркетингом, интерфейсом и обучающим корпусом для машин. Фаундер или DevRel-лид seed-stage API/devtool-компании из 5–30 человек, запустившей продукт или крупную версию за последние 90 дней. Фиксированный аудит за $500–1,000: десять задач, три агентных клиента, запись сбоев, приоритетный список исправлений и готовые патчи к документации и примерам auth. Выбрать 25 свежих запусков на Product Hunt, в YC-каталоге и GitHub Trending; каждому отправить один бесплатно найденный разрыв в машинном пути. Повторяющиеся проверки можно превратить в регрессионный мониторинг Agent Experience и отраслевой benchmark успешности машинных транзакций. DevTools Agent Experience аудит API Ты делаешь то, чем люди захотят пользоваться? Тогда ты уже опоздал! Большинство привычных маркетинговых инструментов скоро станут неактуальными! А тебе разве не нужно «самое лучшее по лучшей цене»? Ты долго этому учился… а теперь эти наработки придётся выкинуть!">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Аудит готовности API к клиентам-агентам</h2>
+            <div class="score-pair">
+                <div class="score"><strong>5/5</strong>реально</div>
+                <div class="score"><strong>3/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <p class="intersection-thesis">Продавать небольшим API- и devtool-компаниям короткий ручной аудит пути машинного клиента: смог ли агент найти продукт, понять документацию, получить доступ и успешно выполнить типовые задачи.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Фаундер или DevRel-лид seed-stage API/devtool-компании из 5–30 человек, запустившей продукт или крупную версию за последние 90 дней.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Фиксированный аудит за $500–1,000: десять задач, три агентных клиента, запись сбоев, приоритетный список исправлений и готовые патчи к документации и примерам auth.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Выбрать 25 свежих запусков на Product Hunt, в YC-каталоге и GitHub Trending; каждому отправить один бесплатно найденный разрыв в машинном пути.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>AgentDiscuss, Orthogonal и Scope рассматривают агентов как отдельный класс покупателей, а Manicule показывает, что документация становится одновременно маркетингом, интерфейсом и обучающим корпусом для машин.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 7 дней провести пять бесплатных мини-аудитов по одной задаче и предложить полный отчёт. Порог: три оплаченных аудита или два аудита и один запрос на ежемесячный повтор.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Команды могут считать проблему преждевременной, а разные агенты и окружения дают нестабильные результаты, которые трудно сравнивать.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 4 источника</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Тестировать не интерфейс для человека, а полный machine funnel — discovery, документацию, auth, вызов, ошибку и повторную попытку.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Большинство команд думает об agent-ready продукте как о файле llms.txt или MCP-сервере. Реальный провал часто случается между этими точками, поэтому первым товаром может быть сервисный аудит, а не новая observability-платформа.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>Повторяющиеся проверки можно превратить в регрессионный мониторинг Agent Experience и отраслевой benchmark успешности машинных транзакций.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/esli-ljudi-zahotjat-ty-opozdal/" target="_blank" rel="noopener">
+            <div class="source-role">показывает машинный discovery</div>
+            <div class="source-title">Ты делаешь то, чем люди захотят пользоваться? Тогда ты уже опоздал!</div>
+            <div class="source-niche">Софт для ИИ-агентов</div>
+            <div class="source-evidence">AgentDiscuss создаёт API-канал, где агенты находят, обсуждают и оценивают инструменты.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/bolshinstvo-marketingovyh-instrumentov-stanut-neaktualnymi/" target="_blank" rel="noopener">
+            <div class="source-role">показывает значение документации</div>
+            <div class="source-title">Большинство привычных маркетинговых инструментов скоро станут неактуальными!</div>
+            <div class="source-niche">DevRel-агентство</div>
+            <div class="source-evidence">Manicule делает документацию актуальной и машиночитаемой и рассматривает её как интерфейс и маркетинг для агентов.</div>
         </a>
         <a class="source-node" href="https://fastfounder.ru/samoe-luchshee-po-luchshei-cene/" target="_blank" rel="noopener">
-            <div class="source-role">Дает discovery, trust, access и payment слой.</div>
+            <div class="source-role">описывает полный машинный путь</div>
             <div class="source-title">А тебе разве не нужно «самое лучшее по лучшей цене»?</div>
             <div class="source-niche">AI agent infrastructure</div>
-            <div class="source-evidence">Orthogonal превращает поиск и оплату внешнего сервиса агентом в одну машинную транзакцию.</div>
+            <div class="source-evidence">Orthogonal объединяет discovery, проверку сервиса, единый API, управление доступом и оплату в одной транзакции агента.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/noviye-polzovateli-softa/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает предмет аудита</div>
+            <div class="source-title">Ты долго этому учился… а теперь эти наработки придётся выкинуть!</div>
+            <div class="source-niche">AI agent observability / AX</div>
+            <div class="source-evidence">Scope проходит путь глазами агента и проверяет знания, документацию, auth, вызовы и ошибки.</div>
         </a></div>
-        <p class="intersection-thesis">Построить универсальный слой, через который агент обнаруживает, нанимает и оплачивает человека только для физического, социального или ответственного исключения, с измерением результата теми же правилами, что и для машины.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Machine-first процесс автоматически маршрутизирует нерешаемый участок в проверенный human endpoint, задает scope и оплачивает подтвержденный outcome.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Маркетплейсы людей, billing агентов и каталоги API развиваются отдельно, хотя для автономности агенту человек нужен как еще один динамически вызываемый сервис.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>API-маркетплейс для агентных компаний: вместо штата исключений они покупают верифицированное человеческое действие по SLA. Поставщик получает новый канал задач, покупатель заменяет фиксированный headcount переменными затратами.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Подключить десять агентов поддержки или e-commerce к ручной диспетчеризации 3 типов исключений и проверить время закрытия, стоимость результата, повторяемость и долю задач, для которых человек действительно необходим.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Сложно стандартизировать качество и юридическую ответственность человеческого действия; слишком редкие исключения не дадут ликвидности, а слишком частые покажут слабость базового агента.</p></div>
-        </div>
+        </details>
     </div>
     <div class="intersection-footer">
-        <span class="tag">human-in-the-loop</span><span class="tag">agent economy</span><span class="tag">outcome billing</span><span class="tag">marketplace</span>
-        <span class="run-meta">4 источника · run #2</span>
+        <span class="tag">DevTools</span><span class="tag">Agent Experience</span><span class="tag">аудит</span><span class="tag">API</span>
+        <span class="run-meta">4 источника · run #3</span>
     </div>
 </article>
-<article class="intersection-card" data-tags="verified data | synthetic users | rewards | data moat" data-text="Платить за правду, продавать цифровую лабораторию Субсидировать людей за подтвержденные действия и мультимодальные данные, а затем обучать на них вертикальных цифровых двойников для дешевого предварительного тестирования решений. Consumer reward покупает consent и ground truth; подтвержденные покупки, контекст и реакции калибруют симуляцию, которую B2B-клиент использует до дорогого запуска. Rewarded apps считают рекламным каналом, data marketplaces — поставщиками сырья, а synthetic research — заменой фокус-групп; объединение превращает вознаграждение в механизм постоянной проверки симуляции. Вертикальная панель, например для домашних ремонтов или pet care: участники получают деньги за чеки, фото, решения и интервью, бренды платят за тестирование офферов на моделях, связанных с реальным последующим поведением. Moat — не LLM, а продольная причинная выборка. verified data synthetic users rewards data moat Как заработать на том… что люди лгут? Вот как можно заработать… раздавая людям деньги просто так! На этот офигенный рынок сейчас можно зайти с другой стороны! Три поразительных факта — но одна неожиданно перспективная тема!">
+<article class="intersection-card" data-tags="construction | procurement | email workflow | Phoenix" data-text="Bid/no-bid desk для электромонтажников Не строить новый строительный аукцион, а за сутки превращать хаотичные приглашения к торгам в короткий пакет решения: подходит ли объект, чего не хватает и стоит ли тратить время сметчика. ИИ и ручной аналитик снимают стоимость участия до ставки: извлекают требования, проверяют fit, находят ранние сигналы и передают человеку только обоснованный go/no-go. Procurement-продукты чаще оптимизируют заказчика или сам торг. У небольшого subcontractor узкое место раньше: дорогой специалист читает десятки нерелевантных писем и документов ещё до решения участвовать. Andustry автоматизирует сравнение поставщиков, Cascade ищет проекты до тендера, LightTable переносит QA до дорогого действия, а ConstructionBevy прямо показывает перегруз строительных подрядчиков нерелевантными запросами. Коммерческий электромонтажный подрядчик на 10–50 сотрудников в Phoenix metro, получающий не меньше 20 приглашений к торгам в неделю. Двухнедельный managed inbox за $500: клиент пересылает ITB, в течение 24 часов получает одностраничный разбор scope, локации, сроков, missing items, fit и рекомендации go/no-go. Собрать 30 компаний из Blue Book и Google Maps; предложить бесплатно разобрать десять старых приглашений и показать, сколько часов сметчика ушло бы на заведомо неподходящие проекты. История принятых и отклонённых проектов превращается в персональную модель fit, ранжирование новых возможностей и benchmark цен и конкуренции по региону. construction procurement email workflow Phoenix Очень выгодная тема для очень простых платформ! Забирай контракты раньше конкурентов! Хочешь отменить принцип решения проблем «по мере их возникновения»? Пора взрывать закупки с помощью таких вот платформ!">
     <div class="intersection-main">
         <div class="intersection-top">
-            <h2 class="intersection-title">Платить за правду, продавать цифровую лабораторию</h2>
+            <h2 class="intersection-title">Bid/no-bid desk для электромонтажников</h2>
             <div class="score-pair">
-                <div class="score"><strong>5/5</strong>новизна</div>
+                <div class="score"><strong>4/5</strong>реально</div>
+                <div class="score"><strong>4/5</strong>новизна</div>
                 <div class="score"><strong>5/5</strong>опора</div>
             </div>
         </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/zarabotat-na-tom-chto-ljudi-lgut/" target="_blank" rel="noopener">
-            <div class="source-role">Показывает ground truth и B2B-спрос.</div>
-            <div class="source-title">Как заработать на том… что люди лгут?</div>
-            <div class="source-niche">Consumer data / market research</div>
-            <div class="source-evidence">Pogo платит 3 млн пользователей за чеки и сигналы, а брендам дает интервью подтвержденных покупателей.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/zarabotat-razdavaja-dengi/" target="_blank" rel="noopener">
-            <div class="source-role">Добавляет игровые и транзакционные сигналы.</div>
-            <div class="source-title">Вот как можно заработать… раздавая людям деньги просто так!</div>
-            <div class="source-niche">FinTech / rewarded discovery</div>
-            <div class="source-evidence">Copper связывает вознаграждения, игровое поведение и подтвержденные покупки.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/zajti-s-drugoj-storony/" target="_blank" rel="noopener">
-            <div class="source-role">Дает рынок повторного лицензирования данных.</div>
-            <div class="source-title">На этот офигенный рынок сейчас можно зайти с другой стороны!</div>
-            <div class="source-niche">AI data marketplace</div>
-            <div class="source-evidence">Luel платит распределенным людям за запись и проверку данных и неэксклюзивно продает один датасет многим разработчикам.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/tri-porazitelnyh-fakta/" target="_blank" rel="noopener">
-            <div class="source-role">Дает конечный продукт поверх данных.</div>
-            <div class="source-title">Три поразительных факта — но одна неожиданно перспективная тема!</div>
-            <div class="source-niche">AI / market research</div>
-            <div class="source-evidence">Talp симулирует реакции персон на рекламу, прототипы и стратегические решения.</div>
-        </a></div>
-        <p class="intersection-thesis">Субсидировать людей за подтвержденные действия и мультимодальные данные, а затем обучать на них вертикальных цифровых двойников для дешевого предварительного тестирования решений.</p>
+        <p class="intersection-thesis">Не строить новый строительный аукцион, а за сутки превращать хаотичные приглашения к торгам в короткий пакет решения: подходит ли объект, чего не хватает и стоит ли тратить время сметчика.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Коммерческий электромонтажный подрядчик на 10–50 сотрудников в Phoenix metro, получающий не меньше 20 приглашений к торгам в неделю.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Двухнедельный managed inbox за $500: клиент пересылает ITB, в течение 24 часов получает одностраничный разбор scope, локации, сроков, missing items, fit и рекомендации go/no-go.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Собрать 30 компаний из Blue Book и Google Maps; предложить бесплатно разобрать десять старых приглашений и показать, сколько часов сметчика ушло бы на заведомо неподходящие проекты.</p></div>
+        </div>
         <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Consumer reward покупает consent и ground truth; подтвержденные покупки, контекст и реакции калибруют симуляцию, которую B2B-клиент использует до дорогого запуска.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Rewarded apps считают рекламным каналом, data marketplaces — поставщиками сырья, а synthetic research — заменой фокус-групп; объединение превращает вознаграждение в механизм постоянной проверки симуляции.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Вертикальная панель, например для домашних ремонтов или pet care: участники получают деньги за чеки, фото, решения и интервью, бренды платят за тестирование офферов на моделях, связанных с реальным последующим поведением. Moat — не LLM, а продольная причинная выборка.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Набрать 300 участников одной дорогой категории, оплатить три месяца чеков и коротких дневников, предсказать выбор между двумя офферами и сравнить симуляцию с фактической покупкой.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Вознаграждение меняет поведение и привлекает профессиональных охотников за бонусами; приватность, согласие и право повторного лицензирования должны быть частью продукта, а не юридическим приложением.</p></div>
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Andustry автоматизирует сравнение поставщиков, Cascade ищет проекты до тендера, LightTable переносит QA до дорогого действия, а ConstructionBevy прямо показывает перегруз строительных подрядчиков нерелевантными запросами.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 7 дней обработать по десять прошлых ITB у трёх подрядчиков. Порог: совпадение с их решением минимум в 80% случаев и два платных пилота на новые письма.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Документы часто неполны, конфиденциальны и требуют локальной строительной экспертизы; ошибочный go/no-go может стоить крупного контракта.</p></div>
         </div>
-    </div>
-    <div class="intersection-footer">
-        <span class="tag">verified data</span><span class="tag">synthetic users</span><span class="tag">rewards</span><span class="tag">data moat</span>
-        <span class="run-meta">4 источника · run #2</span>
-    </div>
-</article>
-<article class="intersection-card" data-tags="agent auctions | industrial supply | procurement | network effects" data-text="Агентный аукцион промышленной мощности Соединить проверенный граф поставщиков, специализированный двусторонний аукцион и машинный слой discovery/payment, чтобы агенты заказчика и исполнителя сами уточняли, торговались и заключали стандартные сделки. Вертикальная сеть переводит неструктурированную потребность в сравнимый scope, квалифицирует supply по фактической мощности и доводит переговоры до human approval или автоматической оплаты. Supplier intelligence, bid-management, agent-to-agent finance и API routers находятся в разных категориях, но каждый закрывает одну необходимую ступень автономной закупки. Начать с перегруженного вида контрактного производства или строительства. Покупатель сокращает sourcing и получает прозрачную конкуренцию, поставщик фильтрует шум и продает свободную мощность, платформа берет транзакционную комиссию. agent auctions industrial supply procurement network effects Очень выгодная тема для очень простых платформ! Пора взрывать закупки с помощью таких вот платформ! Чтобы быстро взлететь, делай сразу СЕТЬ — вот такую! А тебе разве не нужно «самое лучшее по лучшей цене»?">
-    <div class="intersection-main">
-        <div class="intersection-top">
-            <h2 class="intersection-title">Агентный аукцион промышленной мощности</h2>
-            <div class="score-pair">
-                <div class="score"><strong>5/5</strong>новизна</div>
-                <div class="score"><strong>5/5</strong>опора</div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 4 источника</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>ИИ и ручной аналитик снимают стоимость участия до ставки: извлекают требования, проверяют fit, находят ранние сигналы и передают человеку только обоснованный go/no-go.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Procurement-продукты чаще оптимизируют заказчика или сам торг. У небольшого subcontractor узкое место раньше: дорогой специалист читает десятки нерелевантных писем и документов ещё до решения участвовать.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>История принятых и отклонённых проектов превращается в персональную модель fit, ранжирование новых возможностей и benchmark цен и конкуренции по региону.</p></div>
             </div>
-        </div>
-        <div class="source-chain">
+            <div class="source-chain">
         <a class="source-node" href="https://fastfounder.ru/vygodnaja-tema-dlja-prostyh-platform/" target="_blank" rel="noopener">
-            <div class="source-role">Дает проверенный граф реальной мощности.</div>
+            <div class="source-role">даёт механику сравнения предложений</div>
             <div class="source-title">Очень выгодная тема для очень простых платформ!</div>
             <div class="source-niche">B2B-закупки</div>
-            <div class="source-evidence">Andustry строит supplier graph и использует ИИ для арбитража между заказом и проверенным производителем.</div>
+            <div class="source-evidence">Andustry ищет и сравнивает сотни поставщиков и условия сверх простой цены.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/pora-vzryvat-zakupki/" target="_blank" rel="noopener">
-            <div class="source-role">Дает специализированную механику RFQ.</div>
-            <div class="source-title">Пора взрывать закупки с помощью таких вот платформ!</div>
-            <div class="source-niche">Procurement / agentic auctions</div>
-            <div class="source-evidence">ConstructionBevy фильтрует, уточняет и распределяет строительные запросы и ведет партнерскую доску подрядчиков.</div>
+        <a class="source-node" href="https://fastfounder.ru/kontrakty-ranshe-konkurentov/" target="_blank" rel="noopener">
+            <div class="source-role">добавляет ранние сигналы проекта</div>
+            <div class="source-title">Забирай контракты раньше конкурентов!</div>
+            <div class="source-niche">ConstructionTech / sales intelligence</div>
+            <div class="source-evidence">Cascade предсказывает строительные объекты и ранжирует их по fit и тёплому пути к заказчику.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/delaj-srazu-set/" target="_blank" rel="noopener">
-            <div class="source-role">Показывает необходимость агентов обеих сторон.</div>
-            <div class="source-title">Чтобы быстро взлететь, делай сразу СЕТЬ — вот такую!</div>
-            <div class="source-niche">B2B FinTech / agent networks</div>
-            <div class="source-evidence">Causa Prima автоматизирует взаиморасчеты сетью buyer- и supplier-агентов, иначе человек становится bottleneck.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/samoe-luchshee-po-luchshei-cene/" target="_blank" rel="noopener">
-            <div class="source-role">Дает единые discovery, access и payment.</div>
-            <div class="source-title">А тебе разве не нужно «самое лучшее по лучшей цене»?</div>
-            <div class="source-niche">AI agent infrastructure</div>
-            <div class="source-evidence">Orthogonal нормализует поиск, вызов, credentials и оплату внешнего сервиса агентом.</div>
-        </a></div>
-        <p class="intersection-thesis">Соединить проверенный граф поставщиков, специализированный двусторонний аукцион и машинный слой discovery/payment, чтобы агенты заказчика и исполнителя сами уточняли, торговались и заключали стандартные сделки.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Вертикальная сеть переводит неструктурированную потребность в сравнимый scope, квалифицирует supply по фактической мощности и доводит переговоры до human approval или автоматической оплаты.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Supplier intelligence, bid-management, agent-to-agent finance и API routers находятся в разных категориях, но каждый закрывает одну необходимую ступень автономной закупки.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Начать с перегруженного вида контрактного производства или строительства. Покупатель сокращает sourcing и получает прозрачную конкуренцию, поставщик фильтрует шум и продает свободную мощность, платформа берет транзакционную комиссию.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Провести 30 реальных RFQ в одной узкой категории с агентом на обеих сторонах, но финальным ручным одобрением; сравнить число квалифицированных ставок, время, цену и долю ответивших поставщиков.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Без плотного supply каталог останется витриной; цена не отражает качество и риск исполнения, а автоматические переговоры могут раскрыть конфиденциальные условия.</p></div>
-        </div>
-    </div>
-    <div class="intersection-footer">
-        <span class="tag">agent auctions</span><span class="tag">industrial supply</span><span class="tag">procurement</span><span class="tag">network effects</span>
-        <span class="run-meta">4 источника · run #2</span>
-    </div>
-</article>
-<article class="intersection-card" data-tags="AI insurance | agent QA | expert verification | enterprise GTM" data-text="Страховой сертификат как канал продаж ИИ-агента Объединить содержательную телеметрию, симуляцию сложных клиентов, экспертную верификацию и страхование в один непрерывный trust layer, который поставщик агента прикладывает к сделке. Риск оценивается не разовым benchmark, а живой цепочкой: тест до запуска, наблюдение outcome в работе, проверка спорных случаев экспертом и финансовое покрытие остаточного ущерба. QA-инструменты продаются разработчикам, экспертная проверка — как сервис, а страховка — finance/compliance; для enterprise-покупателя это одна причина разрешить агенту действовать. Вертикальный assurance bundle для legal, finance или healthcare agents. Поставщик платит регулярную премию, получает сертификат и быстрее закрывает enterprise-сделки; страховщик накапливает уникальные данные о реальной частоте и причинах ошибок. AI insurance agent QA expert verification enterprise GTM Ответ на этот вопрос важнее технологий! А у твоего ИИ-агента уже есть сертификат? Разрабатывать ИИ-платформы становится невыгодно. А вот это — наоборот, выгодно! Ответственность — это плохо… только когда на ней нельзя заработать!">
-    <div class="intersection-main">
-        <div class="intersection-top">
-            <h2 class="intersection-title">Страховой сертификат как канал продаж ИИ-агента</h2>
-            <div class="score-pair">
-                <div class="score"><strong>5/5</strong>новизна</div>
-                <div class="score"><strong>5/5</strong>опора</div>
-            </div>
-        </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/eto-vazhnee-tehnologij/" target="_blank" rel="noopener">
-            <div class="source-role">Дает живую содержательную телеметрию.</div>
-            <div class="source-title">Ответ на этот вопрос важнее технологий!</div>
-            <div class="source-niche">AI infrastructure / контроль качества</div>
-            <div class="source-evidence">Voker отслеживает решенность задачи и связывает ошибки агента с бизнес-KPI.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/u-tvoego-ii-agenta-est-sertifikat/" target="_blank" rel="noopener">
-            <div class="source-role">Дает предзапусковое тестирование.</div>
-            <div class="source-title">А у твоего ИИ-агента уже есть сертификат?</div>
-            <div class="source-niche">Медицинские ИИ-агенты</div>
-            <div class="source-evidence">Amigo создает виртуальных клиентов для проверки и сертификации агентов.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/razrabatyvat-ii-platformy-uzhe-ne-tak-vygodno/" target="_blank" rel="noopener">
-            <div class="source-role">Дает человеческое заверение спорного результата.</div>
-            <div class="source-title">Разрабатывать ИИ-платформы становится невыгодно. А вот это — наоборот, выгодно!</div>
-            <div class="source-niche">Верификация ИИ</div>
-            <div class="source-evidence">Rubric показывает рост ценности экспертной проверки по мере удешевления генерации.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/otvetstvennost-zarabotat/" target="_blank" rel="noopener">
-            <div class="source-role">Дает финансовое покрытие и стандарт риска.</div>
-            <div class="source-title">Ответственность — это плохо… только когда на ней нельзя заработать!</div>
-            <div class="source-niche">Insurance / AI risk</div>
-            <div class="source-evidence">Klaimee аудирует пять слоев работы агента, выставляет score и постоянно мониторит для AI E&amp;O.</div>
-        </a></div>
-        <p class="intersection-thesis">Объединить содержательную телеметрию, симуляцию сложных клиентов, экспертную верификацию и страхование в один непрерывный trust layer, который поставщик агента прикладывает к сделке.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Риск оценивается не разовым benchmark, а живой цепочкой: тест до запуска, наблюдение outcome в работе, проверка спорных случаев экспертом и финансовое покрытие остаточного ущерба.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>QA-инструменты продаются разработчикам, экспертная проверка — как сервис, а страховка — finance/compliance; для enterprise-покупателя это одна причина разрешить агенту действовать.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Вертикальный assurance bundle для legal, finance или healthcare agents. Поставщик платит регулярную премию, получает сертификат и быстрее закрывает enterprise-сделки; страховщик накапливает уникальные данные о реальной частоте и причинах ошибок.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Выбрать один узкий агентный workflow, провести 500 симулированных и 100 реальных кейсов, отправить спорные результаты экспертам и проверить у десяти покупателей, меняет ли лимит покрытия security/procurement решение.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Редкие крупные убытки трудно оценить на малой истории; сертификат может создать ложное чувство безопасности, а страховщик — потребовать ограничения, убивающие автономность продукта.</p></div>
-        </div>
-    </div>
-    <div class="intersection-footer">
-        <span class="tag">AI insurance</span><span class="tag">agent QA</span><span class="tag">expert verification</span><span class="tag">enterprise GTM</span>
-        <span class="run-meta">4 источника · run #2</span>
-    </div>
-</article>
-<article class="intersection-card" data-tags="AI franchise | audience holding | microbusiness | shared infrastructure" data-text="ИИ-франшиза, которая владеет одной аудиторией Объединить готовую вертикальную бизнес-модель, агентную операционную систему и портфель продуктов для одной доверенной аудитории, выдавая локальному предпринимателю не софт, а работающую микрокомпанию. Центр накапливает процессы, бренд, спрос и ИИ-инфраструктуру; независимый оператор приносит локальные отношения и ответственность, а каждый новый продукт дешевле распространяется по той же аудитории. Франшизы, venture studios, агентные конструкторы и audience-focused фонды обычно считают разными моделями; здесь они становятся одной системой серийного запуска. Например, семейный concierge для мам: локальный оператор под общим брендом продает проверенные outcome-услуги, агенты ведут бэкофис, холдинг добавляет новые продукты той же семье. Доход — стартовый пакет, доля выручки и портфельная стоимость. AI franchise audience holding microbusiness shared infrastructure Собери самозанятых в свой масштабируемый бизнес! Твоя технология + эта бизнес-модель = лидер рынка! Как не разбрасываться… но побольше всего захапать? Бей в одну аудиторию — и тогда твои результаты умножатся!">
-    <div class="intersection-main">
-        <div class="intersection-top">
-            <h2 class="intersection-title">ИИ-франшиза, которая владеет одной аудиторией</h2>
-            <div class="score-pair">
-                <div class="score"><strong>5/5</strong>новизна</div>
-                <div class="score"><strong>4/5</strong>опора</div>
-            </div>
-        </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/soberi-samozanjatyh-v-masshtabiruemyj-biznes/" target="_blank" rel="noopener">
-            <div class="source-role">Дает агентную операционную систему соло-бизнеса.</div>
-            <div class="source-title">Собери самозанятых в свой масштабируемый бизнес!</div>
-            <div class="source-niche">AI agents / предпринимательская инфраструктура</div>
-            <div class="source-evidence">Tycoon создает команду агентов с ИИ-CEO и в обзоре переупакован в вертикальную франшизу.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/tehnologiya-plus-biznes-model/" target="_blank" rel="noopener">
-            <div class="source-role">Подтверждает единый бренд и процессы.</div>
-            <div class="source-title">Твоя технология + эта бизнес-модель = лидер рынка!</div>
-            <div class="source-niche">LegalTech-франшиза</div>
-            <div class="source-evidence">Manifest OS объединяет маленькие юридические фирмы под общей AI-enabled моделью.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/ne-razbrasyvatsja-no-pobolshe-zahapat/" target="_blank" rel="noopener">
-            <div class="source-role">Дает общий мозг и человеческого фаундера.</div>
-            <div class="source-title">Как не разбрасываться… но побольше всего захапать?</div>
-            <div class="source-niche">Venture studio / AI-native services</div>
-            <div class="source-evidence">Infinity Constellation запускает отдельные AI-native компании на общей инфраструктуре, сохраняя руководителя у каждой вертикали.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/bej-v-odnu-tochku/" target="_blank" rel="noopener">
-            <div class="source-role">Добавляет компаундирование одной аудитории.</div>
-            <div class="source-title">Бей в одну аудиторию — и тогда твои результаты умножатся!</div>
-            <div class="source-niche">Venture studio / audience holding</div>
-            <div class="source-evidence">Mother Ventures показывает масштаб мам как покупателя, а обзор предлагает холдинг продуктов, где каждый запуск удешевляет следующий.</div>
-        </a></div>
-        <p class="intersection-thesis">Объединить готовую вертикальную бизнес-модель, агентную операционную систему и портфель продуктов для одной доверенной аудитории, выдавая локальному предпринимателю не софт, а работающую микрокомпанию.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Центр накапливает процессы, бренд, спрос и ИИ-инфраструктуру; независимый оператор приносит локальные отношения и ответственность, а каждый новый продукт дешевле распространяется по той же аудитории.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Франшизы, venture studios, агентные конструкторы и audience-focused фонды обычно считают разными моделями; здесь они становятся одной системой серийного запуска.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Например, семейный concierge для мам: локальный оператор под общим брендом продает проверенные outcome-услуги, агенты ведут бэкофис, холдинг добавляет новые продукты той же семье. Доход — стартовый пакет, доля выручки и портфельная стоимость.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Вручную запустить одну услугу у трех операторов в одном городе, дать им общий playbook и агентный бэкофис, затем предложить той же базе второй продукт и измерить CAC, cross-sell и маржу против независимой компании.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Слабый оператор испортит общий бренд; слишком жесткая централизация убьет предпринимательскую инициативу, а слишком мягкая — стандарты качества и эффект общего мозга.</p></div>
-        </div>
-    </div>
-    <div class="intersection-footer">
-        <span class="tag">AI franchise</span><span class="tag">audience holding</span><span class="tag">microbusiness</span><span class="tag">shared infrastructure</span>
-        <span class="run-meta">4 источника · run #2</span>
-    </div>
-</article>
-<article class="intersection-card" data-tags="generative IP | interactive media | fandom | personalization" data-text="Книга превращается в личную интерактивную вселенную Использовать существующий IP и фандом как отправную точку, но вместо одной дешевой экранизации генерировать каждому фанату персональный интерактивный сюжет и одноразовые мини-приложения внутри мира. Человек задает канонические персонажи и правила, платформа микро-экспериментами понимает вкус конкретного фаната и выпускает бесконечный поток интерактивных медиа-объектов. AI-экранизации оптимизируют производство длинного видео, генеративные истории — персонализацию, а вайбкодинг-соцсети — формат приложения; их комбинация меняет саму единицу IP-монетизации. Платформа для mid-tail авторов: читатель входит через каноничную адаптацию, затем платит за свою ветку истории, разговоры с героями и shareable мини-игры. Небольшой фандом окупает производство, а персональный поток повышает LTV. generative IP interactive media fandom personalization Хайп утих… наступил момент cделать на этом бизнес! Персонализация 3.0 — это не улучшение, а революция! Как стать МистеромБистом… но в мире приложений? В социальные медиа приходят необычные форматы общения!">
-    <div class="intersection-main">
-        <div class="intersection-top">
-            <h2 class="intersection-title">Книга превращается в личную интерактивную вселенную</h2>
-            <div class="score-pair">
-                <div class="score"><strong>5/5</strong>новизна</div>
-                <div class="score"><strong>4/5</strong>опора</div>
-            </div>
-        </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/hajp-utih-pora-delat-biznes/" target="_blank" rel="noopener">
-            <div class="source-role">Дает IP, готовый фандом и дешевую адаптацию.</div>
-            <div class="source-title">Хайп утих… наступил момент cделать на этом бизнес!</div>
-            <div class="source-niche">AI entertainment / niche production</div>
-            <div class="source-evidence">Plotsy экранизирует книги для существующих читателей и делит viewer revenue с автором.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/personalizacija-3-0/" target="_blank" rel="noopener">
-            <div class="source-role">Дает персонализацию текущего желания.</div>
-            <div class="source-title">Персонализация 3.0 — это не улучшение, а революция!</div>
-            <div class="source-niche">AI / generative personalization</div>
-            <div class="source-evidence">Kaon генерирует продолжение истории по поведению и репликам конкретного пользователя.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/stat-mrbeast-v-prilozhenijah/" target="_blank" rel="noopener">
-            <div class="source-role">Дает приложение как медиаформат.</div>
-            <div class="source-title">Как стать МистеромБистом… но в мире приложений?</div>
-            <div class="source-niche">Creator Economy / interactive media</div>
-            <div class="source-evidence">Danger Testing строит аудиторию автора потоком одноразовых screenshot-worthy приложений.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/neobychnye-formaty-obshhenija/" target="_blank" rel="noopener">
-            <div class="source-role">Подтверждает социальную дистрибуцию интерактивов.</div>
-            <div class="source-title">В социальные медиа приходят необычные форматы общения!</div>
-            <div class="source-niche">AI-native social networks</div>
-            <div class="source-evidence">A1Zap превращает создаваемые ИИ мини-приложения в единицу социальной ленты.</div>
-        </a></div>
-        <p class="intersection-thesis">Использовать существующий IP и фандом как отправную точку, но вместо одной дешевой экранизации генерировать каждому фанату персональный интерактивный сюжет и одноразовые мини-приложения внутри мира.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Человек задает канонические персонажи и правила, платформа микро-экспериментами понимает вкус конкретного фаната и выпускает бесконечный поток интерактивных медиа-объектов.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>AI-экранизации оптимизируют производство длинного видео, генеративные истории — персонализацию, а вайбкодинг-соцсети — формат приложения; их комбинация меняет саму единицу IP-монетизации.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Платформа для mid-tail авторов: читатель входит через каноничную адаптацию, затем платит за свою ветку истории, разговоры с героями и shareable мини-игры. Небольшой фандом окупает производство, а персональный поток повышает LTV.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Взять одну книгу с активным сообществом, сделать одну каноничную сцену и три интерактивных ответвления без полноценного приложения; измерить долю продолживших, повторные сессии, шеринги и готовность платить автора.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Персонализация может разрушить канон и доверие автора; стоимость генерации и модерация контента для несовершеннолетних способны съесть новую маржу.</p></div>
-        </div>
-    </div>
-    <div class="intersection-footer">
-        <span class="tag">generative IP</span><span class="tag">interactive media</span><span class="tag">fandom</span><span class="tag">personalization</span>
-        <span class="run-meta">4 источника · run #2</span>
-    </div>
-</article>
-<article class="intersection-card" data-tags="revenue recovery | collective intelligence | edge cases | success fee" data-text="Коллективный антиотказ с оплатой за возврат Создать межфирменную библиотеку причин отказов, требований и выигравших контраргументов, которая сначала предотвращает типовой отказ, а затем автономно взыскивает деньги за success fee. Каждый новый спор добавляет структурированный edge case и проверенную стратегию, повышая вероятность успеха остальных участников сети. Revenue recovery обычно продают по вертикалям — страховые выплаты, логистические счета, credentialing — хотя главный актив один: коллективная память повторяющегося крупного контрагента. Вертикальный managed SaaS для SMB, спорящих с несколькими доминирующими плательщиками. Клиент платит долю возврата, платформа получает данные без отдельной закупки и со временем сдвигается от взыскания к предотвращению. revenue recovery collective intelligence edge cases success fee Большая тема с маленькой конкуренцией… которую мало кто видит! Проще помочь вернуть $1 триллион… чем помочь его заработать! Лучше поискать неочевидную задачу — например, вот такую! Очень изящная бизнес-модель — которая много для чего подойдёт!">
-    <div class="intersection-main">
-        <div class="intersection-top">
-            <h2 class="intersection-title">Коллективный антиотказ с оплатой за возврат</h2>
-            <div class="score-pair">
-                <div class="score"><strong>4/5</strong>новизна</div>
-                <div class="score"><strong>5/5</strong>опора</div>
-            </div>
-        </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/bolshaja-tema-s-malenkoi-konkurenciei/" target="_blank" rel="noopener">
-            <div class="source-role">Показывает сетевую память отказов.</div>
-            <div class="source-title">Большая тема с маленькой конкуренцией… которую мало кто видит!</div>
-            <div class="source-niche">HealthTech / revenue recovery</div>
-            <div class="source-evidence">Boolient объединяет причины страховых отказов разных клиник и успешные контраргументы.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/proshhe-pomoch-vernut-1-trillion/" target="_blank" rel="noopener">
-            <div class="source-role">Подтверждает end-to-end взыскание.</div>
-            <div class="source-title">Проще помочь вернуть $1 триллион… чем помочь его заработать!</div>
-            <div class="source-niche">Logistics FinTech / revenue recovery</div>
-            <div class="source-evidence">Opereit находит ошибку в логистическом счете и ведет претензию до исправления; 87% претензий удовлетворяются.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/luchshe-poiskat-neochevidnuju-zadachu/" target="_blank" rel="noopener">
-            <div class="source-role">Добавляет сложные правила и повторные подачи.</div>
-            <div class="source-title">Лучше поискать неочевидную задачу — например, вот такую!</div>
-            <div class="source-niche">HealthTech / payer administration</div>
-            <div class="source-evidence">Arctic Health автономно обрабатывает payer credentialing и накапливает различия штатов, страховщиков и врачей.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/izjashhnaja-biznes-model/" target="_blank" rel="noopener">
-            <div class="source-role">Дает механизм извлечения edge cases.</div>
-            <div class="source-title">Очень изящная бизнес-модель — которая много для чего подойдёт!</div>
-            <div class="source-niche">AccountingTech / обучение ИИ</div>
-            <div class="source-evidence">Rima превращает обучение экспертов в самоокупаемый сбор библиотеки исключений.</div>
-        </a></div>
-        <p class="intersection-thesis">Создать межфирменную библиотеку причин отказов, требований и выигравших контраргументов, которая сначала предотвращает типовой отказ, а затем автономно взыскивает деньги за success fee.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Каждый новый спор добавляет структурированный edge case и проверенную стратегию, повышая вероятность успеха остальных участников сети.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Revenue recovery обычно продают по вертикалям — страховые выплаты, логистические счета, credentialing — хотя главный актив один: коллективная память повторяющегося крупного контрагента.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Вертикальный managed SaaS для SMB, спорящих с несколькими доминирующими плательщиками. Клиент платит долю возврата, платформа получает данные без отдельной закупки и со временем сдвигается от взыскания к предотвращению.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Собрать обезличенно 500 отказов у 5 компаний одной ниши, вручную выделить 20 повторяющихся причин и проверить, повышает ли предложенный пакет документов долю принятия и сокращает ли цикл спора.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Компании могут не захотеть делиться чувствительными договорами; контрагент изменит правила, а агрессивная автоматическая переписка ухудшит коммерческие отношения.</p></div>
-        </div>
-    </div>
-    <div class="intersection-footer">
-        <span class="tag">revenue recovery</span><span class="tag">collective intelligence</span><span class="tag">edge cases</span><span class="tag">success fee</span>
-        <span class="run-meta">4 источника · run #2</span>
-    </div>
-</article>
-<article class="intersection-card" data-tags="skills passport | verified work | labor mobility | personal agent" data-text="Переносимый паспорт доказанной работы Заменить резюме профилем из верифицированных лицензий, видео реальных навыков и истории решения контекстных задач, которым личный агент самостоятельно торгует на рынке короткой и постоянной работы. Каждое доказательство навыка создается в ходе реального или близкого к реальному исполнения, переносится между работодателями и снижает повторную проверку. Credentialing, мультимодальное обучение, work-sample hiring и персональные карьерные агенты решают разные этапы, хотя вместе формируют новую ликвидность квалифицированного труда. Начать с одной регулируемой практической профессии. Работник владеет паспортом, работодатель покупает уже проверенную доступность под задачу, а платформа зарабатывает на placement и непрерывной re-verification. skills passport verified work labor mobility personal agent Достойная подработка за достойные деньги! В этой теме наконец-то можно сделать бизнес с нормальными деньгами! Тебе нужно нанять специалиста… или решить конкретную задачу? Но это разные вещи! Как увидеть все возможности — которые приведут тебя к успеху?">
-    <div class="intersection-main">
-        <div class="intersection-top">
-            <h2 class="intersection-title">Переносимый паспорт доказанной работы</h2>
-            <div class="score-pair">
-                <div class="score"><strong>4/5</strong>новизна</div>
-                <div class="score"><strong>5/5</strong>опора</div>
-            </div>
-        </div>
-        <div class="source-chain">
-        <a class="source-node" href="https://fastfounder.ru/dostojnaja-podrabotka-za-dostojnye-dengi/" target="_blank" rel="noopener">
-            <div class="source-role">Дает переносимые лицензии и непрерывную проверку.</div>
-            <div class="source-title">Достойная подработка за достойные деньги!</div>
-            <div class="source-niche">HR Tech / HealthTech</div>
-            <div class="source-evidence">Saile хранит документы врача и агентами проверяет и обновляет их для быстрых дополнительных смен.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/stalo-mozhno-sdelat-biznes/" target="_blank" rel="noopener">
-            <div class="source-role">Дает мультимодальное доказательство физического навыка.</div>
-            <div class="source-title">В этой теме наконец-то можно сделать бизнес с нормальными деньгами!</div>
-            <div class="source-niche">EdTech / multimodal assessment</div>
-            <div class="source-evidence">DeweyLearn оценивает реальный процесс работы руками по видео и звуку на масштабе.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/specialist-ili-reshenie-zadachi/" target="_blank" rel="noopener">
-            <div class="source-role">Дает контекстный work sample.</div>
-            <div class="source-title">Тебе нужно нанять специалиста… или решить конкретную задачу? Но это разные вещи!</div>
-            <div class="source-niche">HR Tech / skills assessment</div>
-            <div class="source-evidence">Litmus превращает реальные репозитории и tickets работодателя в задание и наблюдает процесс решения с ИИ.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/uvidet-vse-vozmozhnosti/" target="_blank" rel="noopener">
-            <div class="source-role">Дает автономное представительство кандидата.</div>
-            <div class="source-title">Как увидеть все возможности — которые приведут тебя к успеху?</div>
-            <div class="source-niche">HR Tech / personal agents</div>
-            <div class="source-evidence">Pluto сам ищет возможности и передает человеку только взаимно теплые контакты.</div>
-        </a></div>
-        <p class="intersection-thesis">Заменить резюме профилем из верифицированных лицензий, видео реальных навыков и истории решения контекстных задач, которым личный агент самостоятельно торгует на рынке короткой и постоянной работы.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Каждое доказательство навыка создается в ходе реального или близкого к реальному исполнения, переносится между работодателями и снижает повторную проверку.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Credentialing, мультимодальное обучение, work-sample hiring и персональные карьерные агенты решают разные этапы, хотя вместе формируют новую ликвидность квалифицированного труда.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Начать с одной регулируемой практической профессии. Работник владеет паспортом, работодатель покупает уже проверенную доступность под задачу, а платформа зарабатывает на placement и непрерывной re-verification.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>Создать 50 профилей одной профессии с документами и двумя наблюдаемыми заданиями, дать агенту предложить их десяти работодателям и сравнить время до первой смены и interview-to-hire с обычным резюме.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Работодатели могут не признать переносимую оценку, видео и история создают bias, а лицензии и навыки быстро устаревают без непрерывной проверки.</p></div>
-        </div>
-    </div>
-    <div class="intersection-footer">
-        <span class="tag">skills passport</span><span class="tag">verified work</span><span class="tag">labor mobility</span><span class="tag">personal agent</span>
-        <span class="run-meta">4 источника · run #2</span>
-    </div>
-</article>
-<article class="intersection-card" data-tags="preventive AI | leading indicators | risk pricing | outcome SaaS" data-text="Превентивный агент с ценой от предотвращенного ущерба Перенести агентную автоматизацию из реакции на уже случившуюся проблему в постоянный поиск слабых ранних сигналов и брать цену как долю ожидаемой предотвращенной потери. Система связывает leading indicators с дорогим конечным событием, вмешивается до него и доказывает экономический эффект через контрольную историю или сравнимые кейсы. Construction QA, хроническое здоровье и командный wellbeing воспринимаются разными рынками, но их экономика одинакова: профилактику раньше не покупали, потому что ранний анализ стоил дороже ожидаемой ошибки. Платформа профилактики для одной high-cost вертикали — например, дата-центров или food manufacturing — с непрерывным анализом документов, сообщений и сенсоров. Клиент платит небольшую базу плюс success fee за доказанно предотвращенные инциденты. preventive AI leading indicators risk pricing outcome SaaS Хочешь отменить принцип решения проблем «по мере их возникновения»? Лучше искать не «востребованную» идею — а «необходимую»! Без этого твой стартап умрёт! Как перестать заниматься скучными вещами?">
-    <div class="intersection-main">
-        <div class="intersection-top">
-            <h2 class="intersection-title">Превентивный агент с ценой от предотвращенного ущерба</h2>
-            <div class="score-pair">
-                <div class="score"><strong>4/5</strong>новизна</div>
-                <div class="score"><strong>4/5</strong>опора</div>
-            </div>
-        </div>
-        <div class="source-chain">
         <a class="source-node" href="https://fastfounder.ru/otmenit-princip-reshenija-problem-po-mere-vozniknovenija/" target="_blank" rel="noopener">
-            <div class="source-role">Подтверждает экономику до необратимого действия.</div>
+            <div class="source-role">переносит проверку до дорогого действия</div>
             <div class="source-title">Хочешь отменить принцип решения проблем «по мере их возникновения»?</div>
             <div class="source-niche">ConstructionTech / preventive QA</div>
-            <div class="source-evidence">LightTable находит 70% ошибок проекта до строительства, когда исправление еще дешево.</div>
+            <div class="source-evidence">LightTable ищет риски и ошибки до начала стройки, когда исправление ещё дёшево.</div>
         </a>
-        <a class="source-node" href="https://fastfounder.ru/ne-vostrebovannost-a-neobhodimost/" target="_blank" rel="noopener">
-            <div class="source-role">Показывает продольное наблюдение слабых сигналов.</div>
-            <div class="source-title">Лучше искать не «востребованную» идею — а «необходимую»!</div>
-            <div class="source-niche">HealthTech / хронические заболевания</div>
-            <div class="source-evidence">Juno замечает паттерны хронического состояния между редкими визитами к врачу.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/bez-jetogo-startap-umret/" target="_blank" rel="noopener">
-            <div class="source-role">Добавляет социально-поведенческие сигналы.</div>
-            <div class="source-title">Без этого твой стартап умрёт!</div>
-            <div class="source-niche">HR Tech / team wellbeing</div>
-            <div class="source-evidence">Sliceline предлагает замечать тон и задержки реакции команды до выгорания и вовремя запускать микро-интервенцию.</div>
-        </a>
-        <a class="source-node" href="https://fastfounder.ru/perestat-zanimatsja-skuchnymi-delami/" target="_blank" rel="noopener">
-            <div class="source-role">Дает мета-механику поиска зоны вмешательства.</div>
-            <div class="source-title">Как перестать заниматься скучными вещами?</div>
-            <div class="source-niche">Автоматизация процессов</div>
-            <div class="source-evidence">Panorama автоматизирует обнаружение того, что именно в процессе стоит автоматизировать.</div>
+        <a class="source-node" href="https://fastfounder.ru/pora-vzryvat-zakupki/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает перегруз подрядчика</div>
+            <div class="source-title">Пора взрывать закупки с помощью таких вот платформ!</div>
+            <div class="source-niche">Procurement / agentic auctions</div>
+            <div class="source-evidence">ConstructionBevy фильтрует входящие предложения, выясняет недостающие детали и снижает шум на стороне подрядчика.</div>
         </a></div>
-        <p class="intersection-thesis">Перенести агентную автоматизацию из реакции на уже случившуюся проблему в постоянный поиск слабых ранних сигналов и брать цену как долю ожидаемой предотвращенной потери.</p>
-        <div class="intersection-details">
-            <div class="detail-box"><h3>Общий механизм</h3><p>Система связывает leading indicators с дорогим конечным событием, вмешивается до него и доказывает экономический эффект через контрольную историю или сравнимые кейсы.</p></div>
-            <div class="detail-box"><h3>Почему это неочевидно</h3><p>Construction QA, хроническое здоровье и командный wellbeing воспринимаются разными рынками, но их экономика одинакова: профилактику раньше не покупали, потому что ранний анализ стоил дороже ожидаемой ошибки.</p></div>
-            <div class="detail-box"><h3>Возможность</h3><p>Платформа профилактики для одной high-cost вертикали — например, дата-центров или food manufacturing — с непрерывным анализом документов, сообщений и сенсоров. Клиент платит небольшую базу плюс success fee за доказанно предотвращенные инциденты.</p></div>
-            <div class="detail-box"><h3>Как проверить</h3><p>На исторических данных одного процесса проверить, какие сигналы появлялись до 30 дорогих сбоев, затем три месяца давать только предупреждения человеку и считать precision, action rate и реально сэкономленную стоимость.</p></div>
-            <div class="detail-box"><h3>Главный риск</h3><p>Нельзя надежно доказать, что несовершившееся событие было предотвращено; ложные тревоги быстро убивают доверие, а success fee вызывает спор о контрфактуале.</p></div>
-        </div>
+        </details>
     </div>
     <div class="intersection-footer">
-        <span class="tag">preventive AI</span><span class="tag">leading indicators</span><span class="tag">risk pricing</span><span class="tag">outcome SaaS</span>
-        <span class="run-meta">4 источника · run #2</span>
+        <span class="tag">construction</span><span class="tag">procurement</span><span class="tag">email workflow</span><span class="tag">Phoenix</span>
+        <span class="run-meta">4 источника · run #3</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="HR Tech | electricians | skills assessment | video" data-text="Видео-проба вместо резюме электрика Не создавать новый job marketplace, а превращать реальную вакансию электромонтажной компании в короткую практическую видео-пробу и оценивать уже пришедших кандидатов по процессу выполнения. Рабочая задача компании становится структурированной пробой; видео фиксирует технику, объяснение и проверку результата, а переносимый профиль хранит подтверждённую способность, а не самоописание. Blue-collar рекрутинг обычно упирается в привлечение аудитории, а assessment — в тесты и сертификаты. Первый продукт может не искать кандидатов вообще: он повышает качество выбора из уже существующего потока работодателя. Gyver строит канал вокруг дефицита электриков, DeweyLearn оценивает физический навык по видео, Litmus создаёт пробу из реальной задачи, Fika использует короткое наблюдение как фильтр, Saile показывает ценность переносимой верификации. Региональный электромонтажный подрядчик в Германии с 20–100 сотрудниками и минимум пятью открытыми вакансиями техников или учеников. За €600 разработать одну 20-минутную безопасную пробу, инструкцию кандидату и рубрику; принять до 20 видео, вручную оценить их с мастером заказчика и выдать shortlist с доказательствами. Найти 25 компаний с повторяющимися вакансиями; предложить владельцу превратить один типичный callback или учебный стенд в бесплатный образец рубрики без замены его текущего канала найма. Библиотека оценённых задач становится отраслевым стандартом навыков, а кандидат со временем получает переносимую карту подтверждённых практических действий. HR Tech electricians skills assessment video Не думал стать инфлюенсером для сантехников? Ну и зря! Достойная подработка за достойные деньги! В этой теме наконец-то можно сделать бизнес с нормальными деньгами! Тебе нужно нанять специалиста… или решить конкретную задачу? Но это разные вещи! Можно взлететь даже с простыми вещами — если они попали в тренд!">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Видео-проба вместо резюме электрика</h2>
+            <div class="score-pair">
+                <div class="score"><strong>4/5</strong>реально</div>
+                <div class="score"><strong>4/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <p class="intersection-thesis">Не создавать новый job marketplace, а превращать реальную вакансию электромонтажной компании в короткую практическую видео-пробу и оценивать уже пришедших кандидатов по процессу выполнения.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Региональный электромонтажный подрядчик в Германии с 20–100 сотрудниками и минимум пятью открытыми вакансиями техников или учеников.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>За €600 разработать одну 20-минутную безопасную пробу, инструкцию кандидату и рубрику; принять до 20 видео, вручную оценить их с мастером заказчика и выдать shortlist с доказательствами.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Найти 25 компаний с повторяющимися вакансиями; предложить владельцу превратить один типичный callback или учебный стенд в бесплатный образец рубрики без замены его текущего канала найма.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Gyver строит канал вокруг дефицита электриков, DeweyLearn оценивает физический навык по видео, Litmus создаёт пробу из реальной задачи, Fika использует короткое наблюдение как фильтр, Saile показывает ценность переносимой верификации.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 14 дней согласовать пробу с тремя работодателями и провести её хотя бы на десяти их кандидатах. Порог: два платных пилота и сокращение числа очных собеседований минимум на треть без пропуска финального выбора мастера.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Нужно безопасно спроектировать физическую задачу и не превратить видео в дискриминационный фильтр; работодатель может не иметь достаточного входящего потока кандидатов.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 5 источников</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Рабочая задача компании становится структурированной пробой; видео фиксирует технику, объяснение и проверку результата, а переносимый профиль хранит подтверждённую способность, а не самоописание.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Blue-collar рекрутинг обычно упирается в привлечение аудитории, а assessment — в тесты и сертификаты. Первый продукт может не искать кандидатов вообще: он повышает качество выбора из уже существующего потока работодателя.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>Библиотека оценённых задач становится отраслевым стандартом навыков, а кандидат со временем получает переносимую карту подтверждённых практических действий.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/infljuenser-dlja-santehnikov/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает дефицит и канал</div>
+            <div class="source-title">Не думал стать инфлюенсером для сантехников? Ну и зря!</div>
+            <div class="source-niche">HR Tech / blue-collar workforce</div>
+            <div class="source-evidence">Gyver привлекает электриков короткими видео, ведёт WhatsApp-сообщество и продаёт работодателям доступ к кандидатам.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/dostojnaja-podrabotka-za-dostojnye-dengi/" target="_blank" rel="noopener">
+            <div class="source-role">добавляет переносимую верификацию</div>
+            <div class="source-title">Достойная подработка за достойные деньги!</div>
+            <div class="source-niche">HR Tech / HealthTech</div>
+            <div class="source-evidence">Saile хранит проверенный профиль специалиста и непрерывно следит за документами и готовностью к работе.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/stalo-mozhno-sdelat-biznes/" target="_blank" rel="noopener">
+            <div class="source-role">даёт оценку физического навыка</div>
+            <div class="source-title">В этой теме наконец-то можно сделать бизнес с нормальными деньгами!</div>
+            <div class="source-niche">EdTech / multimodal assessment</div>
+            <div class="source-evidence">DeweyLearn анализирует видео, звук и контекст выполнения практической задачи и сопоставляет процесс с результатом.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/specialist-ili-reshenie-zadachi/" target="_blank" rel="noopener">
+            <div class="source-role">даёт реальную рабочую пробу</div>
+            <div class="source-title">Тебе нужно нанять специалиста… или решить конкретную задачу? Но это разные вещи!</div>
+            <div class="source-niche">HR Tech / skills assessment</div>
+            <div class="source-evidence">Litmus превращает вакансии и задачи компании в изолированные испытания и наблюдает процесс решения.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/prostye-veshhi-v-trende/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает короткий видеофильтр</div>
+            <div class="source-title">Можно взлететь даже с простыми вещами — если они попали в тренд!</div>
+            <div class="source-niche">Recruiting / human-signal assessment</div>
+            <div class="source-evidence">Fika использует видеоинтервью и наблюдение за действием как дешёвый этап между резюме и дорогим личным интервью.</div>
+        </a></div>
+        </details>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">HR Tech</span><span class="tag">electricians</span><span class="tag">skills assessment</span><span class="tag">video</span>
+        <span class="run-meta">5 источников · run #3</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="HealthTech | credentialing | revenue recovery | Texas" data-text="Спасение застрявшего credentialing для психотерапевтов Начать не с платформы для всех клиник, а с ручного rescue-сервиса: доводить одну застрявшую заявку психотерапевта к страховщику до понятного следующего статуса и устранять конкретную причину отказа. Revenue recovery через ведение исключения до результата: собрать документы, доказать соответствие, вести переписку и накапливать библиотеку payer-specific краевых случаев. Credentialing обычно продают как большой back-office SaaS. Для маленькой клиники болезненнее один специалист, который месяцами не может выставлять счета, поэтому узкий rescue-кейс легче купить и выполнить вручную. Saile, Boolient, Parrot, Opereit и Arctic Health сходятся на одной операции: малый поставщик теряет выручку во взаимодействии с крупной бюрократической организацией, а ценность появляется только когда процесс доведён до результата. Операционный руководитель независимой behavioral-health клиники в Техасе, которая добавляет 2–10 терапевтов и работает с несколькими страховщиками. Разбор и сопровождение одной застрявшей заявки: карта статуса, список недостающих документов, звонки и письма по доверенности, журнал действий. Фиксированная цена плюс бонус за завершение. Найти клиники по вакансиям терапевтов, NPI-каталогу и Psychology Today; обратиться к 30 администраторам с бесплатной 20-минутной диагностикой одного кейса. Повторяющиеся причины задержек образуют payer-specific базу решений; затем можно продавать профилактическую проверку пакета до подачи и white-label workflow небольшим credentialing-аутсорсерам. HealthTech credentialing revenue recovery Texas Достойная подработка за достойные деньги! Большая тема с маленькой конкуренцией… которую мало кто видит! Проще помочь вернуть $1 триллион… чем помочь его заработать! Неожиданная фишка для твоего стартапа! Лучше поискать неочевидную задачу — например, вот такую!">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Спасение застрявшего credentialing для психотерапевтов</h2>
+            <div class="score-pair">
+                <div class="score"><strong>4/5</strong>реально</div>
+                <div class="score"><strong>3/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <p class="intersection-thesis">Начать не с платформы для всех клиник, а с ручного rescue-сервиса: доводить одну застрявшую заявку психотерапевта к страховщику до понятного следующего статуса и устранять конкретную причину отказа.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Операционный руководитель независимой behavioral-health клиники в Техасе, которая добавляет 2–10 терапевтов и работает с несколькими страховщиками.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Разбор и сопровождение одной застрявшей заявки: карта статуса, список недостающих документов, звонки и письма по доверенности, журнал действий. Фиксированная цена плюс бонус за завершение.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Найти клиники по вакансиям терапевтов, NPI-каталогу и Psychology Today; обратиться к 30 администраторам с бесплатной 20-минутной диагностикой одного кейса.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Saile, Boolient, Parrot, Opereit и Arctic Health сходятся на одной операции: малый поставщик теряет выручку во взаимодействии с крупной бюрократической организацией, а ценность появляется только когда процесс доведён до результата.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 14 дней провести пять диагностик и взять два кейса в платное сопровождение. Успех — клиент предоставляет документы и платит за конкретный план действий до обещания полной автоматизации.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Нужны корректные полномочия, безопасная работа с медицинскими данными и точное разграничение административной помощи и юридических обещаний результата.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 5 источников</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Revenue recovery через ведение исключения до результата: собрать документы, доказать соответствие, вести переписку и накапливать библиотеку payer-specific краевых случаев.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Credentialing обычно продают как большой back-office SaaS. Для маленькой клиники болезненнее один специалист, который месяцами не может выставлять счета, поэтому узкий rescue-кейс легче купить и выполнить вручную.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>Повторяющиеся причины задержек образуют payer-specific базу решений; затем можно продавать профилактическую проверку пакета до подачи и white-label workflow небольшим credentialing-аутсорсерам.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/dostojnaja-podrabotka-za-dostojnye-dengi/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает узкое место верификации</div>
+            <div class="source-title">Достойная подработка за достойные деньги!</div>
+            <div class="source-niche">HR Tech / HealthTech</div>
+            <div class="source-evidence">Saile показывает, что проверка лицензий и документов задерживает выход врача на первую смену на 90–120 дней.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/bolshaja-tema-s-malenkoi-konkurenciei/" target="_blank" rel="noopener">
+            <div class="source-role">даёт библиотеку payer-исключений</div>
+            <div class="source-title">Большая тема с маленькой конкуренцией… которую мало кто видит!</div>
+            <div class="source-niche">HealthTech / revenue recovery</div>
+            <div class="source-evidence">Boolient объединяет случаи страховых отказов и подсказывает документы и аргументы, которые уже возвращали оплату.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/proshhe-pomoch-vernut-1-trillion/" target="_blank" rel="noopener">
+            <div class="source-role">даёт модель доведения до возврата</div>
+            <div class="source-title">Проще помочь вернуть $1 триллион… чем помочь его заработать!</div>
+            <div class="source-niche">Logistics FinTech / revenue recovery</div>
+            <div class="source-evidence">Opereit не только находит расхождение, но формирует доказательства и ведёт переписку до исправления счёта.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/neozhidannaja-fishka-startapa/" target="_blank" rel="noopener">
+            <div class="source-role">показывает административный барьер</div>
+            <div class="source-title">Неожиданная фишка для твоего стартапа!</div>
+            <div class="source-niche">Automotive services / insurance automation</div>
+            <div class="source-evidence">Parrot автоматизирует согласование между небольшой мастерской и страховой и связывает ускорение процесса с высвобождением выручки.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/luchshe-poiskat-neochevidnuju-zadachu/" target="_blank" rel="noopener">
+            <div class="source-role">прямо подтверждает credentialing</div>
+            <div class="source-title">Лучше поискать неочевидную задачу — например, вот такую!</div>
+            <div class="source-niche">HealthTech / payer administration</div>
+            <div class="source-evidence">Arctic Health ведёт формы и письма, исправляет отказы до одобрения и сокращает месяцы ожидания врача.</div>
+        </a></div>
+        </details>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">HealthTech</span><span class="tag">credentialing</span><span class="tag">revenue recovery</span><span class="tag">Texas</span>
+        <span class="run-meta">5 источников · run #3</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="CPG | чеки | customer research | Austin" data-text="Интервью только с реальными покупателями новинки Проводить для небольших CPG-брендов короткие исследования не среди заявленного ICP, а среди людей, которые чеком подтвердили покупку их продукта или прямого конкурента в конкретном городе. Сначала подтверждать поведение транзакционным следом, затем задавать качественный вопрос; интервью объясняет выбор, а чек защищает от выдуманной аудитории. Бренды выбирают между дешёвым опросом и дорогой большой панелью. Узкий вручную набранный спринт может дать достовернее ответ на одно решение — упаковку, цену или переход от конкурента — без собственной consumer-платформы. Loca, Copper и Pogo независимо используют чеки и вознаграждение как источник проверенного поведения; Talp показывает рост спроса на быстрый прогноз реакции перед бизнес-решением. Фаундер или бренд-менеджер нового food/beverage-бренда, который продаётся в Whole Foods и независимых магазинах Остина и меняет упаковку, цену или позиционирование. Спринт за $1,500: десять подтверждённых покупателей бренда и десять покупателей конкурента, 20 коротких интервью, видеонарезка и решение по одному заранее выбранному вопросу. Найти новинки на полках и в Instacart, затем выйти на 20 локальных брендов через LinkedIn; респондентов вручную набрать в районных группах за вознаграждение после проверки чека. Повторные исследования формируют локальную receipt-панель и базу доказанных переключений между брендами, которую можно продавать как подписку на категорию. CPG чеки customer research Austin Тут до сих пор можно зарабатывать приличные деньги на простых механиках! Вот как можно заработать… раздавая людям деньги просто так! Три поразительных факта — но одна неожиданно перспективная тема! Как заработать на том… что люди лгут?">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Интервью только с реальными покупателями новинки</h2>
+            <div class="score-pair">
+                <div class="score"><strong>4/5</strong>реально</div>
+                <div class="score"><strong>3/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <p class="intersection-thesis">Проводить для небольших CPG-брендов короткие исследования не среди заявленного ICP, а среди людей, которые чеком подтвердили покупку их продукта или прямого конкурента в конкретном городе.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Фаундер или бренд-менеджер нового food/beverage-бренда, который продаётся в Whole Foods и независимых магазинах Остина и меняет упаковку, цену или позиционирование.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Спринт за $1,500: десять подтверждённых покупателей бренда и десять покупателей конкурента, 20 коротких интервью, видеонарезка и решение по одному заранее выбранному вопросу.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Найти новинки на полках и в Instacart, затем выйти на 20 локальных брендов через LinkedIn; респондентов вручную набрать в районных группах за вознаграждение после проверки чека.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Loca, Copper и Pogo независимо используют чеки и вознаграждение как источник проверенного поведения; Talp показывает рост спроса на быстрый прогноз реакции перед бизнес-решением.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 14 дней договориться с одним брендом на пилот и набрать минимум по восемь подтверждённых покупателей двух когорт. Успех — бренд платит до готовности панели и использует вывод для конкретного решения.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>В узкой категории и городе набор подтверждённых покупателей может оказаться медленным или слишком дорогим, а чеки не всегда однозначно идентифицируют SKU.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 4 источника</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Сначала подтверждать поведение транзакционным следом, затем задавать качественный вопрос; интервью объясняет выбор, а чек защищает от выдуманной аудитории.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Бренды выбирают между дешёвым опросом и дорогой большой панелью. Узкий вручную набранный спринт может дать достовернее ответ на одно решение — упаковку, цену или переход от конкурента — без собственной consumer-платформы.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>Повторные исследования формируют локальную receipt-панель и базу доказанных переключений между брендами, которую можно продавать как подписку на категорию.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/prilichnye-dengi-na-prostyh-mehanikah/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает покупку чеком</div>
+            <div class="source-title">Тут до сих пор можно зарабатывать приличные деньги на простых механиках!</div>
+            <div class="source-niche">Локальный маркетинг</div>
+            <div class="source-evidence">Loca использует фотографию чека, чтобы отличить реальный визит и покупку от рекламного взаимодействия.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/zarabotat-razdavaja-dengi/" target="_blank" rel="noopener">
+            <div class="source-role">показывает вознаграждаемое поведение</div>
+            <div class="source-title">Вот как можно заработать… раздавая людям деньги просто так!</div>
+            <div class="source-niche">FinTech / rewarded discovery</div>
+            <div class="source-evidence">Copper платит за чеки и связывает реакцию на стимул с подтверждённой онлайн- и офлайн-покупкой.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/tri-porazitelnyh-fakta/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает спрос на быстрый тест решения</div>
+            <div class="source-title">Три поразительных факта — но одна неожиданно перспективная тема!</div>
+            <div class="source-niche">AI / market research</div>
+            <div class="source-evidence">Talp сравнивает рекламу, прототипы и стратегии до запуска и объясняет предпочтения сегментов.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/zarabotat-na-tom-chto-ljudi-lgut/" target="_blank" rel="noopener">
+            <div class="source-role">соединяет чек с интервью</div>
+            <div class="source-title">Как заработать на том… что люди лгут?</div>
+            <div class="source-niche">Consumer data / market research</div>
+            <div class="source-evidence">Pogo находит когорту по реальным транзакционным сигналам и затем проводит видеоинтервью о пути покупки.</div>
+        </a></div>
+        </details>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">CPG</span><span class="tag">чеки</span><span class="tag">customer research</span><span class="tag">Austin</span>
+        <span class="run-meta">4 источника · run #3</span>
+    </div>
+</article>
+<article class="intersection-card" data-tags="architecture | CRM | relationship sales | South Florida" data-text="Реактивация тёплых связей для архитектурных бюро Искать новые проекты не в холодной базе, а внутри старого CRM архитектурного бюро: находить у бывших клиентов и реферальных партнёров свежие проектные сигналы и готовить персональный повод вернуться в разговор. Соединить внутреннюю память отношений с внешним событием why now; продавцу выдаётся не лид, а уже существующая связь, конкретный триггер и кратчайший тёплый маршрут. Маркетинг премиальных бюро продают как красивый сайт, SEO и контент. Но у фирмы с длинным циклом сделки самый дешёвый новый проект может скрываться в старой сети отношений, которую никто не сопоставляет с текущими разрешениями, сделками и кадровыми изменениями. Magic и Centralize строят продажи на памяти отношений и stakeholder-графе; Cascade и Osmaura доказывают ценность событийного момента; Artis показывает платежеспособность узкой ниши премиальной архитектуры и дизайна. Владелец boutique architecture firm на 5–30 человек в South Florida с CRM или почтовым архивом минимум на 500 контактов. Разовый спринт за $750–1,500: очистить 500 контактов, найти 25 актуальных публичных триггеров у клиентов и партнёров, восстановить цепочку отношений и подготовить персональные черновики писем. Выбрать 20 бюро из AIA-каталогов с сильным портфолио, но нерегулярным outbound; показать владельцу три сигнала по публично указанным прошлым клиентам или партнёрам. После спринтов появляется вертикальный relationship monitor: он обновляет stakeholder-граф и еженедельно выдаёт только тёплые возможности с доказуемым поводом для контакта. architecture CRM relationship sales South Florida Современная конкуренция — это уже не борьба продуктов! А что тогда? Этот «навигатор» прокладывает путь к успешным продажам! Забирай контракты раньше конкурентов! Новый метод продаж — меньше сил и времени, но больше результатов! Денежная корова нужна?">
+    <div class="intersection-main">
+        <div class="intersection-top">
+            <h2 class="intersection-title">Реактивация тёплых связей для архитектурных бюро</h2>
+            <div class="score-pair">
+                <div class="score"><strong>4/5</strong>реально</div>
+                <div class="score"><strong>4/5</strong>новизна</div>
+                <div class="score"><strong>4/5</strong>опора</div>
+            </div>
+        </div>
+        <p class="intersection-thesis">Искать новые проекты не в холодной базе, а внутри старого CRM архитектурного бюро: находить у бывших клиентов и реферальных партнёров свежие проектные сигналы и готовить персональный повод вернуться в разговор.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Владелец boutique architecture firm на 5–30 человек в South Florida с CRM или почтовым архивом минимум на 500 контактов.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Разовый спринт за $750–1,500: очистить 500 контактов, найти 25 актуальных публичных триггеров у клиентов и партнёров, восстановить цепочку отношений и подготовить персональные черновики писем.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Выбрать 20 бюро из AIA-каталогов с сильным портфолио, но нерегулярным outbound; показать владельцу три сигнала по публично указанным прошлым клиентам или партнёрам.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Magic и Centralize строят продажи на памяти отношений и stakeholder-графе; Cascade и Osmaura доказывают ценность событийного момента; Artis показывает платежеспособность узкой ниши премиальной архитектуры и дизайна.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 14 дней провести бесплатный мини-аудит для пяти бюро. Порог: два платных спринта и минимум пять интро или ответов на 25 подготовленных реактиваций у каждого клиента.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>CRM может быть грязным, а публичный сигнал — недостаточно сильным; без доверия владельца нельзя безопасно работать с его почтой и историей отношений.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 5 источников</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Соединить внутреннюю память отношений с внешним событием why now; продавцу выдаётся не лид, а уже существующая связь, конкретный триггер и кратчайший тёплый маршрут.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Маркетинг премиальных бюро продают как красивый сайт, SEO и контент. Но у фирмы с длинным циклом сделки самый дешёвый новый проект может скрываться в старой сети отношений, которую никто не сопоставляет с текущими разрешениями, сделками и кадровыми изменениями.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>После спринтов появляется вертикальный relationship monitor: он обновляет stakeholder-граф и еженедельно выдаёт только тёплые возможности с доказуемым поводом для контакта.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/konkurencija-uzhe-ne-borba-produktov/" target="_blank" rel="noopener">
+            <div class="source-role">даёт механику памяти отношений</div>
+            <div class="source-title">Современная конкуренция — это уже не борьба продуктов! А что тогда?</div>
+            <div class="source-niche">Маркетинг отношений</div>
+            <div class="source-evidence">Magic объединяет данные о клиенте и масштабирует персональную заботу владельца по нескольким каналам.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/navigator-prodazh/" target="_blank" rel="noopener">
+            <div class="source-role">добавляет stakeholder-граф</div>
+            <div class="source-title">Этот «навигатор» прокладывает путь к успешным продажам!</div>
+            <div class="source-niche">SalesTech / relationship intelligence</div>
+            <div class="source-evidence">Centralize восстанавливает оргструктуру, влияние и тёплые цепочки знакомств внутри сделки.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/kontrakty-ranshe-konkurentov/" target="_blank" rel="noopener">
+            <div class="source-role">даёт строительные предвестники</div>
+            <div class="source-title">Забирай контракты раньше конкурентов!</div>
+            <div class="source-niche">ConstructionTech / sales intelligence</div>
+            <div class="source-evidence">Cascade объединяет сигналы будущих объектов до публичного тендера и объясняет fit для конкретной фирмы.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/metod-prodazh-po-signalam/" target="_blank" rel="noopener">
+            <div class="source-role">добавляет момент why now</div>
+            <div class="source-title">Новый метод продаж — меньше сил и времени, но больше результатов!</div>
+            <div class="source-niche">LegalTech / signal-based sales</div>
+            <div class="source-evidence">Osmaura отслеживает запуски, расширения и другие события, указывающие на возникшую потребность.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/denezhnaja-korova-nisha/" target="_blank" rel="noopener">
+            <div class="source-role">подтверждает покупателя</div>
+            <div class="source-title">Денежная корова нужна?</div>
+            <div class="source-niche">Vertical marketing services</div>
+            <div class="source-evidence">Artis продаёт премиальным архитекторам и дизайнерам managed growth за несколько тысяч долларов в месяц.</div>
+        </a></div>
+        </details>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">architecture</span><span class="tag">CRM</span><span class="tag">relationship sales</span><span class="tag">South Florida</span>
+        <span class="run-meta">5 источников · run #3</span>
     </div>
 </article></div>
     <div class="empty hidden" id="intersection-empty">Пересечений по этому фильтру нет</div>
 </main>
 
-<footer>Анализ 175 стартапов · 07.08.2026 · intersections-v1</footer>
+<footer>Анализ 175 стартапов · 08.08.2026 · intersections-v2</footer>
 <script>
 let activeIntersectionTag = 'all';
 let intersectionSearch = '';

@@ -161,6 +161,14 @@ nav a:hover, nav a.active {
     gap: 10px; padding: 14px; background: #f8fafc;
     border: 1px solid #edf0f3; border-radius: 12px; margin-bottom: 18px;
 }
+.evidence-details {
+    margin-top: 16px; border-top: 1px solid #edf0f3; padding-top: 12px;
+}
+.evidence-details summary {
+    cursor: pointer; color: #4f46e5; font-size: 12px; font-weight: 700;
+    list-style-position: outside; margin-left: 16px;
+}
+.evidence-details[open] summary { margin-bottom: 14px; }
 .source-node {
     display: block; background: #fff; border: 1px solid #e5e7eb;
     border-radius: 10px; padding: 11px 12px; transition: border-color .15s;
@@ -174,6 +182,16 @@ nav a:hover, nav a.active {
     font-size: 16px; line-height: 1.55; font-weight: 550;
     color: #1e293b; margin-bottom: 17px;
 }
+.action-strip {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    margin-bottom: 18px;
+}
+.action-box {
+    background: #f0fdf4; border: 1px solid #dcfce7;
+    border-radius: 10px; padding: 12px;
+}
+.action-box h3 { color: #15803d; font-size: 10px; text-transform: uppercase; letter-spacing: .55px; margin-bottom: 5px; }
+.action-box p { color: #334155; font-size: 13px; line-height: 1.48; }
 .intersection-details {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;
 }
@@ -339,7 +357,16 @@ nav a:hover, nav a.active {
     .intersection-hero h1 { font-size: 30px; }
     .intersection-hero::after { font-size: 150px; right: 4px; }
     .intersection-top { flex-direction: column; }
-    .intersection-details { grid-template-columns: 1fr; }
+    .intersection-details, .action-strip { grid-template-columns: 1fr; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stat { min-width: 0; padding: 12px; }
+    .stat-value { font-size: 21px; }
+    .stat-label { font-size: 10px; overflow-wrap: anywhere; }
+    #intersection-chips {
+        flex-wrap: nowrap; overflow-x: auto; padding-bottom: 7px;
+        scrollbar-width: thin;
+    }
+    #intersection-chips .chip { flex-shrink: 0; }
     .run-meta { width: 100%; margin-left: 0; }
 }
 
@@ -3723,7 +3750,7 @@ footer {
     <div class="empty hidden" id="empty">Ничего не найдено</div>
 </div>
 
-<footer>Обновлено 07.08.2026 · FastFounder Analyzer</footer>
+<footer>Обновлено 08.08.2026 · FastFounder Analyzer</footer>
 
 <script>
 let currentNiche = 'all';

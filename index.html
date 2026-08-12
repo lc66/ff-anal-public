@@ -135,6 +135,36 @@ nav a:hover, nav a.active {
     color: #3730a3; font-size: 13px; margin-bottom: 28px;
 }
 .method-mark { font-size: 18px; line-height: 1.2; }
+.public-tabs {
+    display: flex; gap: 8px; margin: 0 0 28px;
+    padding: 5px; width: fit-content;
+    background: #eef2f7; border-radius: 12px;
+}
+.public-tab {
+    appearance: none; border: 0; border-radius: 9px;
+    padding: 9px 15px; background: transparent; color: #64748b;
+    font: inherit; font-size: 13px; font-weight: 650; cursor: pointer;
+}
+.public-tab:hover { color: #111827; }
+.public-tab.active {
+    color: #312e81; background: #fff;
+    box-shadow: 0 1px 3px rgba(15,23,42,.1);
+}
+.public-panel[hidden] { display: none; }
+.parking-intro {
+    border: 1px solid #fde68a; background: #fffbeb; color: #92400e;
+    border-radius: 12px; padding: 15px 17px; margin-bottom: 22px;
+    font-size: 13px;
+}
+.parking-badge {
+    display: inline-flex; align-items: center; border-radius: 999px;
+    padding: 4px 9px; margin-bottom: 10px;
+    background: #fef3c7; color: #92400e;
+    font-size: 10px; font-weight: 750; text-transform: uppercase;
+    letter-spacing: .55px;
+}
+.parked-card { border-color: #f3e3b5; }
+.parked-card .intersection-footer { background: #fffcf3; }
 .intersection-grid { display: grid; gap: 18px; }
 .intersection-card {
     background: #fff; border: 1px solid #e5e7eb;
@@ -361,6 +391,8 @@ nav a:hover, nav a.active {
     .intersection-hero { padding: 28px 22px; }
     .intersection-hero h1 { font-size: 30px; }
     .intersection-hero::after { font-size: 150px; right: 4px; }
+    .public-tabs { width: 100%; }
+    .public-tab { flex: 1; padding-inline: 10px; }
     .intersection-top { flex-direction: column; }
     .intersection-details, .action-strip { grid-template-columns: 1fr; }
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -403,6 +435,12 @@ footer {
         <p>Что уже делают профинансированные стартапы, почему это работает и где ещё существуют те же условия — без выдуманного GTM и стартап-плана.</p>
     </section>
 
+    <div class="public-tabs" role="tablist" aria-label="Разделы идей">
+        <button class="public-tab active" id="coordinates-tab" type="button" role="tab" aria-selected="true" aria-controls="coordinates-panel" onclick="showPublicTab('coordinates', this)">Координаты · 4</button>
+        <button class="public-tab" id="parking-tab" type="button" role="tab" aria-selected="false" aria-controls="parking-panel" onclick="showPublicTab('parking', this)">На подумать · 3</button>
+    </div>
+
+    <section class="public-panel" id="coordinates-panel" role="tabpanel" aria-labelledby="coordinates-tab">
     <div class="stats-row">
         <div class="stat"><div class="stat-value">4</div><div class="stat-label">Координат</div></div>
         <div class="stat"><div class="stat-value">8</div><div class="stat-label">Стартапов-источников</div></div>
@@ -429,7 +467,7 @@ footer {
 <button class="chip" onclick="filterIntersection('электрики', this)">электрики</button>
 </div>
 
-    <div class="intersection-grid">
+    <div class="intersection-grid" id="coordinates-grid">
 <article class="intersection-card" data-tags="страхование | андеррайтинг | вертикальная интеграция" data-text="Андеррайтинг новых рисков — внутри собственного посредника Panta перестала продавать автоматизацию другим страховым брокерам и сама стала брокером сложных страховок: агент выполняет десятки организационных действий, а специалист принимает важные решения, после чего компания получает комиссию со всей сделки. Когда автоматизация снимает почти всю координационную работу, подписка продаёт лишь небольшое ускорение чужого специалиста. Собственный посредник забирает экономику всей сделки и может обслуживать случаи, от которых обычные брокеры отказываются из-за трудоёмкости. Автор прямо ставит развилку: платформу индивидуального андеррайтинга можно продавать страховым компаниям, а можно использовать внутри собственной страховой или андеррайтинговой компании на новых и нестандартных рынках. Использовать индивидуальный андеррайтинг Florin внутри собственного специализированного брокера или андеррайтера для одной категории рисков, которую стандартные страховые таблицы часто отклоняют, а не ограничиваться продажей платформы страховщикам. В обоих контекстах уже существует страховая премия или комиссия, а узкое место создают нестандартный риск и дорогая ручная обработка. Florin автоматизирует индивидуальную оценку риска, а Panta показывает, что такую автоматизацию можно монетизировать как саму регулируемую услугу. страхование андеррайтинг вертикальная интеграция Их геморрой — это твои деньги. Только брать их нужно вот так! Большие дыры на огромном рынке — куда можно влезть!">
     <div class="intersection-main">
         <div class="intersection-top">
@@ -595,12 +633,218 @@ footer {
     </div>
 </article></div>
     <div class="empty hidden" id="intersection-empty">Координат по этому фильтру нет</div>
+    </section>
+
+    <section class="public-panel" id="parking-panel" role="tabpanel" aria-labelledby="parking-tab" hidden>
+        <div class="parking-intro"><strong>Идеи, отложенные для размышления.</strong> Они хранятся отдельно от одобренного набора координат и могут быть возвращены в работу позже.</div>
+        <div class="intersection-grid" id="parking-grid">
+<article class="intersection-card parked-card" data-tags="roofing | автоконтент | field data | local marketing" data-text="Автопилот контента из папки завершённого объекта Кровельщик выбирает папку с уже сделанными бригадой фото и видео, а система сама выделяет до/после, адресный контекст и тип работы и готовит Google-пост, Instagram-карусель, короткое вертикальное видео, локальную страницу-кейс и запрос отзыва. От владельца нужны только выбор папки и одно подтверждение. Операционный цифровой след превращается в многоканальный маркетинг без отдельного сбора контента и без нового приложения для полевого сотрудника. Контент-автоматизацию обычно начинают с промпта или редакционного плана. У подрядчика достоверный источник уже возникает при сдаче объекта; ценность не в генерации текста, а в автоматическом распознавании доказательств выполненной работы и адаптации одного события под несколько локальных каналов. Hardline и Kebra забирают речь и фото прямо из полевой работы, Layers и Memoir строят автономные конвейеры из событий, а Loca связывает локальный контент с подтверждённым действием. Владелец кровельной компании с 5–25 бригадами в Dallas–Fort Worth, у которого есть сотни фото выполненных объектов, но Instagram, Google Business Profile и страницы районов обновляются нерегулярно. Пилот за $149: подключить одну общую папку Google Photos/Drive, автоматически обработать пять завершённых объектов и выдать очередь материалов для четырёх каналов с единым экраном подтверждения; без просьб к бригаде заполнять формы. Найти через Google Maps 30 кровельщиков с рейтингом выше 4,5 и отсутствием публикаций за 60 дней; для каждого автоматически собрать демонстрационную карусель из публичных фото. Дополнительный канал — три локальных агентства, уже ведущих рекламу home-services и способных перепродавать инструмент клиентам. После подтверждения использования продукт подключает события Jobber/ServiceTitan, автоматически просит недостающий кадр только при необходимости, публикует после согласования и связывает каждый кейс со звонками и заявками. roofing автоконтент field data local marketing Тут до сих пор можно зарабатывать приличные деньги на простых механиках! Разработал приложение — заработал денег! Безо всяких промежуточных этапов 🤣 Мечта стартапа — рынок побольше, конкурентов поменьше! Этот рынок нужно трахнуть снизу! Сейчас тебе нужна другая лопата!">
+    <div class="intersection-main">
+        <div class="parking-badge">На подумать</div>
+        <div class="intersection-top">
+            <h2 class="intersection-title">Автопилот контента из папки завершённого объекта</h2>
+            <div class="score-pair">
+                <div class="score"><strong>5/5</strong>реально</div>
+                <div class="score"><strong>4/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <p class="intersection-thesis">Кровельщик выбирает папку с уже сделанными бригадой фото и видео, а система сама выделяет до/после, адресный контекст и тип работы и готовит Google-пост, Instagram-карусель, короткое вертикальное видео, локальную страницу-кейс и запрос отзыва. От владельца нужны только выбор папки и одно подтверждение.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Владелец кровельной компании с 5–25 бригадами в Dallas–Fort Worth, у которого есть сотни фото выполненных объектов, но Instagram, Google Business Profile и страницы районов обновляются нерегулярно.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Пилот за $149: подключить одну общую папку Google Photos/Drive, автоматически обработать пять завершённых объектов и выдать очередь материалов для четырёх каналов с единым экраном подтверждения; без просьб к бригаде заполнять формы.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Найти через Google Maps 30 кровельщиков с рейтингом выше 4,5 и отсутствием публикаций за 60 дней; для каждого автоматически собрать демонстрационную карусель из публичных фото. Дополнительный канал — три локальных агентства, уже ведущих рекламу home-services и способных перепродавать инструмент клиентам.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Hardline и Kebra забирают речь и фото прямо из полевой работы, Layers и Memoir строят автономные конвейеры из событий, а Loca связывает локальный контент с подтверждённым действием.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 10 дней собрать прототип на общей папке и дать его 10 владельцам. Порог: пять владельцев подключают реальную папку без помощи бригады, трое оплачивают $149 и минимум 70% подготовленных комплектов подтверждаются не более чем за две минуты.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Фотографии могут не содержать понятной истории или согласия клиента, а красивый контент может не дать лидов; автоматическая публикация без строгого подтверждения способна раскрыть адрес или дефект объекта.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 5 источников</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Операционный цифровой след превращается в многоканальный маркетинг без отдельного сбора контента и без нового приложения для полевого сотрудника.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Контент-автоматизацию обычно начинают с промпта или редакционного плана. У подрядчика достоверный источник уже возникает при сдаче объекта; ценность не в генерации текста, а в автоматическом распознавании доказательств выполненной работы и адаптации одного события под несколько локальных каналов.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>После подтверждения использования продукт подключает события Jobber/ServiceTitan, автоматически просит недостающий кадр только при необходимости, публикует после согласования и связывает каждый кейс со звонками и заявками.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/prilichnye-dengi-na-prostyh-mehanikah/" target="_blank" rel="noopener">
+            <div class="source-role">Связывает локальный контент с подтверждённым действием.</div>
+            <div class="source-title">Тут до сих пор можно зарабатывать приличные деньги на простых механиках!</div>
+            <div class="source-niche">Локальный маркетинг</div>
+            <div class="source-evidence">Loca использует фотографию чека, чтобы отличить реальный визит и покупку от рекламного взаимодействия.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/razrabotal-prilozhenie-zarabotal-deneg/" target="_blank" rel="noopener">
+            <div class="source-role">Даёт end-to-end модель автономного контент-конвейера.</div>
+            <div class="source-title">Разработал приложение — заработал денег! Безо всяких промежуточных этапов 🤣</div>
+            <div class="source-niche">Автономный маркетинг приложений</div>
+            <div class="source-evidence">Layers читает сырой источник, выбирает стратегию, создаёт материалы, публикует и управляет продвижением до результата.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/rynok-pobolshe-konkurentov-pomenshe/" target="_blank" rel="noopener">
+            <div class="source-role">Показывает незаметный сбор полевых данных.</div>
+            <div class="source-title">Мечта стартапа — рынок побольше, конкурентов поменьше!</div>
+            <div class="source-niche">ConstructionTech / голосовой ИИ</div>
+            <div class="source-evidence">Hardline превращает естественные разговоры на стройке в структурированные записи без новой обязанности прораба.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/bolnaja-zadacha-nizhnego-urovnja/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает, что фото и голос уже возникают в точке работы.</div>
+            <div class="source-title">Этот рынок нужно трахнуть снизу!</div>
+            <div class="source-niche">AI / home services</div>
+            <div class="source-evidence">Kebra принимает голос, фото и данные оборудования непосредственно в точке работы.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/nuzhna-drugaja-lopata/" target="_blank" rel="noopener">
+            <div class="source-role">Даёт принцип контента из операционных событий.</div>
+            <div class="source-title">Сейчас тебе нужна другая лопата!</div>
+            <div class="source-niche">Developer marketing / autonomous content</div>
+            <div class="source-evidence">Memoir превращает изменения продукта и сигналы поддержки в постоянный поток постов, статей и видео.</div>
+        </a></div>
+        </details>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">roofing</span><span class="tag">автоконтент</span><span class="tag">field data</span><span class="tag">local marketing</span>
+        <span class="run-meta">На подумать · 5 источников · исходный run #5</span>
+    </div>
+</article>
+<article class="intersection-card parked-card" data-tags="DevTools | Agent Experience | self-serve | CI" data-text="Бесплатный тест-драйв API глазами агента Дать API-команде бесплатный self-serve сканер: она указывает документацию или OpenAPI-файл, а несколько агентных клиентов пытаются найти продукт, понять auth и выполнить три типовые задачи. Бесплатный отчёт привлекает разработчиков, а платными становятся регулярные проверки после релизов и CI-гейт. Полный machine funnel проверяется как исполняемый тест: discovery → документация → доступ → вызов → обработка ошибки → повторная попытка. Agent readiness часто сводят к MCP или llms.txt, а аудит продают как консультацию. Здесь диагностика становится бесплатным продуктом и каналом дистрибуции, а деньги возникают только там, где автоматический тест должен повторяться и ловить регрессии. AgentDiscuss, Orthogonal и Scope независимо описывают агентов как новый класс покупателей с собственным discovery, доступом и транзакцией; Manicule показывает, что документация становится одновременно интерфейсом и маркетингом для машин. Фаундер или DevRel-лид API/devtool-компании из 5–50 человек, которая регулярно меняет документацию, auth или публичные endpoints. Бесплатно — один публичный прогон по трём задачам и shareable scorecard. Первый платный тариф за $99 в месяц — ежедневный повтор, история регрессий и GitHub check, который падает при поломке агентного пути. Выпустить бесплатный GitHub Action и каталог публичных scorecard, затем разместить его в Product Hunt, Hacker News Show и сообществах API/DevRel. Вручную прогнать публичную документацию 30 свежих запусков из Product Hunt и отправить фаундерам ссылку на конкретный найденный разрыв. После подтверждения спроса сканер расширяется в Agent Experience observability: приватные тестовые аккаунты, сравнение моделей, benchmark категории и готовые патчи к документации. DevTools Agent Experience self-serve CI Ты делаешь то, чем люди захотят пользоваться? Тогда ты уже опоздал! Большинство привычных маркетинговых инструментов скоро станут неактуальными! А тебе разве не нужно «самое лучшее по лучшей цене»? Ты долго этому учился… а теперь эти наработки придётся выкинуть!">
+    <div class="intersection-main">
+        <div class="parking-badge">На подумать</div>
+        <div class="intersection-top">
+            <h2 class="intersection-title">Бесплатный тест-драйв API глазами агента</h2>
+            <div class="score-pair">
+                <div class="score"><strong>4/5</strong>реально</div>
+                <div class="score"><strong>4/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <p class="intersection-thesis">Дать API-команде бесплатный self-serve сканер: она указывает документацию или OpenAPI-файл, а несколько агентных клиентов пытаются найти продукт, понять auth и выполнить три типовые задачи. Бесплатный отчёт привлекает разработчиков, а платными становятся регулярные проверки после релизов и CI-гейт.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Фаундер или DevRel-лид API/devtool-компании из 5–50 человек, которая регулярно меняет документацию, auth или публичные endpoints.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Бесплатно — один публичный прогон по трём задачам и shareable scorecard. Первый платный тариф за $99 в месяц — ежедневный повтор, история регрессий и GitHub check, который падает при поломке агентного пути.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Выпустить бесплатный GitHub Action и каталог публичных scorecard, затем разместить его в Product Hunt, Hacker News Show и сообществах API/DevRel. Вручную прогнать публичную документацию 30 свежих запусков из Product Hunt и отправить фаундерам ссылку на конкретный найденный разрыв.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>AgentDiscuss, Orthogonal и Scope независимо описывают агентов как новый класс покупателей с собственным discovery, доступом и транзакцией; Manicule показывает, что документация становится одновременно интерфейсом и маркетингом для машин.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 14 дней собрать тонкий сканер для OpenAPI и трёх фиксированных задач. Порог: 50 самостоятельных прогонов от 20 компаний, минимум 10 оставленных рабочих email и три согласия платить $99 за повторные проверки; ручная продажа аудита успехом не считается.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Результат зависит от модели и окружения, а безопасный тест auth и платных операций сложнее публичного чтения документации; бесплатный отчёт может давать трафик без готовности платить за мониторинг.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 4 источника</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Полный machine funnel проверяется как исполняемый тест: discovery → документация → доступ → вызов → обработка ошибки → повторная попытка.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Agent readiness часто сводят к MCP или llms.txt, а аудит продают как консультацию. Здесь диагностика становится бесплатным продуктом и каналом дистрибуции, а деньги возникают только там, где автоматический тест должен повторяться и ловить регрессии.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>После подтверждения спроса сканер расширяется в Agent Experience observability: приватные тестовые аккаунты, сравнение моделей, benchmark категории и готовые патчи к документации.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/esli-ljudi-zahotjat-ty-opozdal/" target="_blank" rel="noopener">
+            <div class="source-role">Показывает машинный канал discovery.</div>
+            <div class="source-title">Ты делаешь то, чем люди захотят пользоваться? Тогда ты уже опоздал!</div>
+            <div class="source-niche">Софт для ИИ-агентов</div>
+            <div class="source-evidence">AgentDiscuss создаёт API-канал, где агенты находят, обсуждают и оценивают инструменты.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/bolshinstvo-marketingovyh-instrumentov-stanut-neaktualnymi/" target="_blank" rel="noopener">
+            <div class="source-role">Обосновывает проверку документации как интерфейса.</div>
+            <div class="source-title">Большинство привычных маркетинговых инструментов скоро станут неактуальными!</div>
+            <div class="source-niche">DevRel-агентство</div>
+            <div class="source-evidence">Manicule делает документацию актуальной и машиночитаемой и рассматривает её как интерфейс и маркетинг для агентов.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/samoe-luchshee-po-luchshei-cene/" target="_blank" rel="noopener">
+            <div class="source-role">Задаёт полный машинный путь до транзакции.</div>
+            <div class="source-title">А тебе разве не нужно «самое лучшее по лучшей цене»?</div>
+            <div class="source-niche">AI agent infrastructure</div>
+            <div class="source-evidence">Orthogonal объединяет discovery, проверку сервиса, единый API, управление доступом и оплату в одной транзакции агента.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/noviye-polzovateli-softa/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает предмет автоматического теста.</div>
+            <div class="source-title">Ты долго этому учился… а теперь эти наработки придётся выкинуть!</div>
+            <div class="source-niche">AI agent observability / AX</div>
+            <div class="source-evidence">Scope проходит путь глазами агента и проверяет знания, документацию, auth, вызовы и ошибки.</div>
+        </a></div>
+        </details>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">DevTools</span><span class="tag">Agent Experience</span><span class="tag">self-serve</span><span class="tag">CI</span>
+        <span class="run-meta">На подумать · 4 источника · исходный run #5</span>
+    </div>
+</article>
+<article class="intersection-card parked-card" data-tags="CPG | receipt data | research | retail channel" data-text="Интервью с покупателями через QR на кассе Набирать респондентов для CPG-исследования не через холодную рекламу, а в момент доказанной покупки: независимый магазин печатает QR на чеке или ставит его у полки, покупатель загружает чек и проходит семиминутное интервью о выбранном SKU или конкуренте за фиксированное вознаграждение. Транзакционный след сначала подтверждает реальное поведение, а встроенный в место покупки канал сразу превращает этого покупателя в доступного респондента. Receipt-панели обычно сначала строят большую consumer-аудиторию, а исследования — отдельный рекрутинг. Локальная связка использует уже существующий трафик магазина и продаёт бренду ответ на один вопрос до создания панели или потребительского приложения. Loca, Copper и Pogo независимо используют чеки и вознаграждение как источник проверенного поведения; Talp показывает спрос на быстрый прогноз реакции до изменения упаковки, цены или позиционирования. Фаундер или бренд-менеджер food/beverage-бренда, продающегося минимум в трёх независимых магазинах Остина и выбирающего между двумя вариантами упаковки, цены или сообщения. Спринт за $1,200 плюс фактические вознаграждения: 20 подтверждённых покупателей бренда или конкурента, 20 коротких интервью и решение по одному заранее сформулированному вопросу. Магазину — $5 за завершённое интервью, покупателю — $10. Сначала договориться с двумя specialty-grocery магазинами Остина о QR на чеке без интеграции с POS. Первые 10 брендов найти среди товаров этих магазинов, в Naturally Austin и на локальных CPG-встречах; показывать им уже доступный канал к их фактическим покупателям. Если набор стабильно работает, сеть магазинов и чеков превращается в локальную панель доказанных переключений между брендами, а магазин получает recurring revenue за исследовательский доступ к собственному трафику. CPG receipt data research retail channel Тут до сих пор можно зарабатывать приличные деньги на простых механиках! Вот как можно заработать… раздавая людям деньги просто так! Три поразительных факта — но одна неожиданно перспективная тема! Как заработать на том… что люди лгут?">
+    <div class="intersection-main">
+        <div class="parking-badge">На подумать</div>
+        <div class="intersection-top">
+            <h2 class="intersection-title">Интервью с покупателями через QR на кассе</h2>
+            <div class="score-pair">
+                <div class="score"><strong>4/5</strong>реально</div>
+                <div class="score"><strong>4/5</strong>новизна</div>
+                <div class="score"><strong>5/5</strong>опора</div>
+            </div>
+        </div>
+        <p class="intersection-thesis">Набирать респондентов для CPG-исследования не через холодную рекламу, а в момент доказанной покупки: независимый магазин печатает QR на чеке или ставит его у полки, покупатель загружает чек и проходит семиминутное интервью о выбранном SKU или конкуренте за фиксированное вознаграждение.</p>
+        <div class="action-strip">
+            <div class="action-box"><h3>Кто платит первым</h3><p>Фаундер или бренд-менеджер food/beverage-бренда, продающегося минимум в трёх независимых магазинах Остина и выбирающего между двумя вариантами упаковки, цены или сообщения.</p></div>
+            <div class="action-box"><h3>Что продаём сначала</h3><p>Спринт за $1,200 плюс фактические вознаграждения: 20 подтверждённых покупателей бренда или конкурента, 20 коротких интервью и решение по одному заранее сформулированному вопросу. Магазину — $5 за завершённое интервью, покупателю — $10.</p></div>
+            <div class="action-box"><h3>Первые 10 клиентов</h3><p>Сначала договориться с двумя specialty-grocery магазинами Остина о QR на чеке без интеграции с POS. Первые 10 брендов найти среди товаров этих магазинов, в Naturally Austin и на локальных CPG-встречах; показывать им уже доступный канал к их фактическим покупателям.</p></div>
+        </div>
+        <div class="intersection-details">
+            <div class="detail-box"><h3>Сигнал в нише</h3><p>Loca, Copper и Pogo независимо используют чеки и вознаграждение как источник проверенного поведения; Talp показывает спрос на быстрый прогноз реакции до изменения упаковки, цены или позиционирования.</p></div>
+            <div class="detail-box"><h3>Проверка за 7–14 дней</h3><p>За 14 дней получить согласие двух магазинов, одного платящего бренда и 20 валидных интервью. Порог: совокупная стоимость магазина, покупателя и проверки не выше $25 за завершённое интервью, не менее 30% приглашённых начинают опрос и бренд принимает решение на основании результата.</p></div>
+            <div class="detail-box"><h3>Главный риск</h3><p>Магазины могут не захотеть размещать QR, стимул способен исказить ответы, а редкий SKU не даст нужную когорту за две недели; чеки и видео требуют явного согласия и минимизации персональных данных.</p></div>
+        </div>
+        <details class="evidence-details">
+            <summary>Логика и доказательства · 4 источника</summary>
+            <div class="intersection-details">
+                <div class="detail-box"><h3>Переносимый механизм</h3><p>Транзакционный след сначала подтверждает реальное поведение, а встроенный в место покупки канал сразу превращает этого покупателя в доступного респондента.</p></div>
+                <div class="detail-box"><h3>Почему это неочевидно</h3><p>Receipt-панели обычно сначала строят большую consumer-аудиторию, а исследования — отдельный рекрутинг. Локальная связка использует уже существующий трафик магазина и продаёт бренду ответ на один вопрос до создания панели или потребительского приложения.</p></div>
+                <div class="detail-box"><h3>Если сработает</h3><p>Если набор стабильно работает, сеть магазинов и чеков превращается в локальную панель доказанных переключений между брендами, а магазин получает recurring revenue за исследовательский доступ к собственному трафику.</p></div>
+            </div>
+            <div class="source-chain">
+        <a class="source-node" href="https://fastfounder.ru/prilichnye-dengi-na-prostyh-mehanikah/" target="_blank" rel="noopener">
+            <div class="source-role">Доказывает верификацию локальной покупки чеком.</div>
+            <div class="source-title">Тут до сих пор можно зарабатывать приличные деньги на простых механиках!</div>
+            <div class="source-niche">Локальный маркетинг</div>
+            <div class="source-evidence">Loca использует фотографию чека, чтобы отличить реальный визит и покупку от рекламного взаимодействия.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/zarabotat-razdavaja-dengi/" target="_blank" rel="noopener">
+            <div class="source-role">Показывает работающую механику вознаграждения за чек.</div>
+            <div class="source-title">Вот как можно заработать… раздавая людям деньги просто так!</div>
+            <div class="source-niche">FinTech / rewarded discovery</div>
+            <div class="source-evidence">Copper платит за чеки и связывает реакцию на стимул с подтверждённой онлайн- и офлайн-покупкой.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/tri-porazitelnyh-fakta/" target="_blank" rel="noopener">
+            <div class="source-role">Подтверждает покупательский спрос на быстрый тест решения.</div>
+            <div class="source-title">Три поразительных факта — но одна неожиданно перспективная тема!</div>
+            <div class="source-niche">AI / market research</div>
+            <div class="source-evidence">Talp сравнивает рекламу, прототипы и стратегии до запуска и объясняет предпочтения сегментов.</div>
+        </a>
+        <a class="source-node" href="https://fastfounder.ru/zarabotat-na-tom-chto-ljudi-lgut/" target="_blank" rel="noopener">
+            <div class="source-role">Соединяет транзакционную когорту с интервью.</div>
+            <div class="source-title">Как заработать на том… что люди лгут?</div>
+            <div class="source-niche">Consumer data / market research</div>
+            <div class="source-evidence">Pogo находит когорту по реальным транзакционным сигналам и затем проводит видеоинтервью о пути покупки.</div>
+        </a></div>
+        </details>
+    </div>
+    <div class="intersection-footer">
+        <span class="tag">CPG</span><span class="tag">receipt data</span><span class="tag">research</span><span class="tag">retail channel</span>
+        <span class="run-meta">На подумать · 4 источника · исходный run #5</span>
+    </div>
+</article></div>
+    </section>
 </main>
 
 <footer>Анализ 180 стартапов · 12.08.2026 · coordinates-v1</footer>
 <script>
 let activeIntersectionTag = 'all';
 let intersectionSearch = '';
+
+function showPublicTab(name, button) {
+    document.querySelectorAll('.public-tab').forEach(tab => {
+        const active = tab === button;
+        tab.classList.toggle('active', active);
+        tab.setAttribute('aria-selected', String(active));
+    });
+    document.querySelectorAll('.public-panel').forEach(panel => {
+        panel.hidden = panel.id !== `${name}-panel`;
+    });
+}
 
 function filterIntersection(tag, button) {
     activeIntersectionTag = tag;
@@ -616,7 +860,7 @@ function searchIntersections(value) {
 
 function applyIntersectionFilters() {
     let visible = 0;
-    document.querySelectorAll('.intersection-card').forEach(card => {
+    document.querySelectorAll('#coordinates-grid .intersection-card').forEach(card => {
         const tagOk = activeIntersectionTag === 'all' || card.dataset.tags.split(' | ').includes(activeIntersectionTag);
         const textOk = !intersectionSearch || card.dataset.text.toLowerCase().includes(intersectionSearch);
         card.classList.toggle('hidden', !(tagOk && textOk));

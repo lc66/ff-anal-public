@@ -135,6 +135,36 @@ nav a:hover, nav a.active {
     color: #3730a3; font-size: 13px; margin-bottom: 28px;
 }
 .method-mark { font-size: 18px; line-height: 1.2; }
+.public-tabs {
+    display: flex; gap: 8px; margin: 0 0 28px;
+    padding: 5px; width: fit-content;
+    background: #eef2f7; border-radius: 12px;
+}
+.public-tab {
+    appearance: none; border: 0; border-radius: 9px;
+    padding: 9px 15px; background: transparent; color: #64748b;
+    font: inherit; font-size: 13px; font-weight: 650; cursor: pointer;
+}
+.public-tab:hover { color: #111827; }
+.public-tab.active {
+    color: #312e81; background: #fff;
+    box-shadow: 0 1px 3px rgba(15,23,42,.1);
+}
+.public-panel[hidden] { display: none; }
+.parking-intro {
+    border: 1px solid #fde68a; background: #fffbeb; color: #92400e;
+    border-radius: 12px; padding: 15px 17px; margin-bottom: 22px;
+    font-size: 13px;
+}
+.parking-badge {
+    display: inline-flex; align-items: center; border-radius: 999px;
+    padding: 4px 9px; margin-bottom: 10px;
+    background: #fef3c7; color: #92400e;
+    font-size: 10px; font-weight: 750; text-transform: uppercase;
+    letter-spacing: .55px;
+}
+.parked-card { border-color: #f3e3b5; }
+.parked-card .intersection-footer { background: #fffcf3; }
 .intersection-grid { display: grid; gap: 18px; }
 .intersection-card {
     background: #fff; border: 1px solid #e5e7eb;
@@ -361,6 +391,8 @@ nav a:hover, nav a.active {
     .intersection-hero { padding: 28px 22px; }
     .intersection-hero h1 { font-size: 30px; }
     .intersection-hero::after { font-size: 150px; right: 4px; }
+    .public-tabs { width: 100%; }
+    .public-tab { flex: 1; padding-inline: 10px; }
     .intersection-top { flex-direction: column; }
     .intersection-details, .action-strip { grid-template-columns: 1fr; }
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }

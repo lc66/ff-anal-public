@@ -182,10 +182,15 @@ nav a:hover, nav a.active {
     font-size: 16px; line-height: 1.55; font-weight: 550;
     color: #1e293b; margin-bottom: 17px;
 }
+.coordinate-label {
+    color: #6366f1; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .55px; margin-bottom: 5px;
+}
 .action-strip {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
     margin-bottom: 18px;
 }
+.coordinate-actions { grid-template-columns: repeat(2, 1fr); }
 .action-box {
     background: #f0fdf4; border: 1px solid #dcfce7;
     border-radius: 10px; padding: 12px;
@@ -390,7 +395,7 @@ footer {
     <a href="index.html">Пересечения</a>
     <a href="startups.html" class="active">Стартапы</a>
     <a href="insights.html">Инсайты</a>
-    <span class="nav-count">175 обзоров</span>
+    <span class="nav-count">180 обзоров</span>
 </nav>
 
 <div class="container">
@@ -401,15 +406,15 @@ footer {
 
     <div class="stats-row">
         <div class="stat">
-            <div class="stat-value">175</div>
+            <div class="stat-value">180</div>
             <div class="stat-label">Стартапов</div>
         </div>
         <div class="stat">
-            <div class="stat-value">172</div>
+            <div class="stat-value">177</div>
             <div class="stat-label">Ниш</div>
         </div>
         <div class="stat">
-            <div class="stat-value">175</div>
+            <div class="stat-value">180</div>
             <div class="stat-label">С раундом</div>
         </div>
     </div>
@@ -436,7 +441,10 @@ footer {
 <button class="chip" onclick="filterNiche('AI marketing / adaptive web', this)">AI marketing / adaptive web</button>
 <button class="chip" onclick="filterNiche('AI reading / publishing', this)">AI reading / publishing</button>
 <button class="chip" onclick="filterNiche('AI roll-up / профессиональные услуги', this)">AI roll-up / профессиональные услуги</button>
+<button class="chip" onclick="filterNiche('AI venture studios', this)">AI venture studios</button>
+<button class="chip" onclick="filterNiche('AI-native elder care', this)">AI-native elder care</button>
 <button class="chip" onclick="filterNiche('AI-native social networks', this)">AI-native social networks</button>
+<button class="chip" onclick="filterNiche('AI-продуктивность', this)">AI-продуктивность</button>
 <button class="chip" onclick="filterNiche('Accounting / autonomous workflows', this)">Accounting / autonomous workflows</button>
 <button class="chip" onclick="filterNiche('AccountingTech / обучение ИИ', this)">AccountingTech / обучение ИИ</button>
 <button class="chip" onclick="filterNiche('Automotive services / insurance automation', this)">Automotive services / insurance automation</button>
@@ -489,6 +497,7 @@ footer {
 <button class="chip" onclick="filterNiche('FinTech / банковская инфраструктура', this)">FinTech / банковская инфраструктура</button>
 <button class="chip" onclick="filterNiche('FinTech / инвестиционная инфраструктура', this)">FinTech / инвестиционная инфраструктура</button>
 <button class="chip" onclick="filterNiche('FinTech / франчайзинг', this)">FinTech / франчайзинг</button>
+<button class="chip" onclick="filterNiche('Franchise operations software', this)">Franchise operations software</button>
 <button class="chip" onclick="filterNiche('Future of Work / рынок экспертизы', this)">Future of Work / рынок экспертизы</button>
 <button class="chip" onclick="filterNiche('GTM-автоматизация', this)">GTM-автоматизация</button>
 <button class="chip" onclick="filterNiche('GovTech / life bureaucracy', this)">GovTech / life bureaucracy</button>
@@ -511,6 +520,7 @@ footer {
 <button class="chip" onclick="filterNiche('Higher Education / human skills', this)">Higher Education / human skills</button>
 <button class="chip" onclick="filterNiche('Home services / подписная платформа', this)">Home services / подписная платформа</button>
 <button class="chip" onclick="filterNiche('Home services AI', this)">Home services AI</button>
+<button class="chip" onclick="filterNiche('InsurTech', this)">InsurTech</button>
 <button class="chip" onclick="filterNiche('Insurance / AI risk', this)">Insurance / AI risk</button>
 <button class="chip" onclick="filterNiche('Legal marketplace / AI-enabled services', this)">Legal marketplace / AI-enabled services</button>
 <button class="chip" onclick="filterNiche('LegalTech', this)">LegalTech</button>
@@ -596,6 +606,96 @@ footer {
 
     <div class="grid" id="grid">
         
+<div class="card" data-niche="AI-продуктивность" data-title="Фаундер — это ты. А эти важные персоны — кто?" data-text="Один человек или соло-фаундер часто нуждается в споре нескольких независимых экспертов и помощи в принятии решения, тогда как обычный ИИ-чат даёт один усреднённый ответ и плохо воспроизводит естественную групповую динамику. Полезный продукт возникает не из количества разговаривающих моделей, а из тщательно собранных ролей с актуальной предметной экспертизой, разными углами зрения, памятью и механизмом достижения решения. Поэтому главный актив такого сервиса может сместиться от интерфейса звонка к маркетплейсу ИИ-директоров, а сложнейшие барьеры — естественная групповая коммуникация, адаптивная «интуиция» и изоляция конфиденциальной памяти разных клиентов.">
+    <div class="card-top">
+        <div class="card-title">Фаундер — это ты. А эти важные персоны — кто?</div>
+        <div class="badge round-badge">Не раскрыто</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">AI-продуктивность</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Голосовые мультиагентные советы и групповой брейншторм</span>
+    </div>
+    <div class="card-problem">🎯 Один человек или соло-фаундер часто нуждается в споре нескольких независимых экспертов и помощи в принятии решения, тогда как обычный ИИ-чат даёт один усреднённый ответ и плохо воспроизводит естественную групповую динамику.</div>
+    <div class="card-insight">Полезный продукт возникает не из количества разговаривающих моделей, а из тщательно собранных ролей с актуальной предметной экспертизой, разными углами зрения, памятью и механизмом достижения решения. Поэтому главный актив такого сервиса может сместиться от интерфейса звонка к маркетплейсу ИИ-директоров, а сложнейшие барьеры — естественная групповая коммуникация, адаптивная «интуиция» и изоляция конфиденциальной памяти разных клиентов.</div>
+    <div class="card-footer">
+        <span class="card-date">12.08.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/sovet-ii-direktorov/" target="_blank" rel="noopener">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="InsurTech" data-title="Большие дыры на огромном рынке — куда можно влезть!" data-text="Табличный андеррайтинг плохо оценивает нестандартные компании и новые технологии, поэтому клиенты получают отказ или неточный тариф, а страховщики упускают большой рынок специфических рисков. Быстро меняющиеся рынки создают слой рисков, для которых исторических таблиц недостаточно: преимущество даёт не просто автоматизация анкеты, а сбор внешних данных и индивидуальное моделирование риска. Один и тот же движок можно продавать incumbents как софт либо встроить в собственного страхового посредника или страховщика, забрав большую часть экономики услуги.">
+    <div class="card-top">
+        <div class="card-title">Большие дыры на огромном рынке — куда можно влезть!</div>
+        <div class="badge round-badge">$500K</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">InsurTech</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">ИИ-андеррайтинг нестандартных и новых рисков</span>
+    </div>
+    <div class="card-problem">🎯 Табличный андеррайтинг плохо оценивает нестандартные компании и новые технологии, поэтому клиенты получают отказ или неточный тариф, а страховщики упускают большой рынок специфических рисков.</div>
+    <div class="card-insight">Быстро меняющиеся рынки создают слой рисков, для которых исторических таблиц недостаточно: преимущество даёт не просто автоматизация анкеты, а сбор внешних данных и индивидуальное моделирование риска. Один и тот же движок можно продавать incumbents как софт либо встроить в собственного страхового посредника или страховщика, забрав большую часть экономики услуги.</div>
+    <div class="card-footer">
+        <span class="card-date">11.08.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/dyry-na-ogromnom-rynke/" target="_blank" rel="noopener">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="Franchise operations software" data-title="Для 15% бизнесов — у успеха есть алгоритм!" data-text="Franchisors can document operating standards but struggle to make every location and employee follow changing procedures consistently, causing repeated errors, uneven service quality and brand damage across the network. Franchises are unusually suitable for bounded autonomous agents because success is defined by repeatable, explicit processes and checkable completion conditions. The same operational adherence data can power more than compliance: it can identify whether the process or execution is broken, trigger a safe human-approved improvement loop, and become evidence for adjacent decisions such as financing proven operators.">
+    <div class="card-top">
+        <div class="card-title">Для 15% бизнесов — у успеха есть алгоритм!</div>
+        <div class="badge round-badge">$25M round on 2026-08-04; $53.6M total disclosed funding across five rounds.</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">Franchise operations software</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">AI-controlled continuous improvement and standards compliance for multi-location franchises</span>
+    </div>
+    <div class="card-problem">🎯 Franchisors can document operating standards but struggle to make every location and employee follow changing procedures consistently, causing repeated errors, uneven service quality and brand damage across the network.</div>
+    <div class="card-insight">Franchises are unusually suitable for bounded autonomous agents because success is defined by repeatable, explicit processes and checkable completion conditions. The same operational adherence data can power more than compliance: it can identify whether the process or execution is broken, trigger a safe human-approved improvement loop, and become evidence for adjacent decisions such as financing proven operators.</div>
+    <div class="card-footer">
+        <span class="card-date">08.08.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/algoritm-uspeha-franshiz/" target="_blank" rel="noopener">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="AI-native elder care" data-title="В этом тренде можно быть уверенным на 100%!" data-text="Demand for aging at home is rising faster than the existing care system can scale; agencies lose shifts to last-minute caregiver no-shows and administrative onboarding failures, while tens of millions of relatives provide eligible care without pay or professional support. When AI materially lowers the operating cost of a regulated service, the company can capture more value by becoming the service provider and use the savings to improve both supply pay and customer price. In elder care, the central scaling bottleneck is dependable workforce orchestration—including fast replacement of missed shifts and formalizing existing family labor—not merely a better consumer interface.">
+    <div class="card-top">
+        <div class="card-title">В этом тренде можно быть уверенным на 100%!</div>
+        <div class="badge round-badge">$500K disclosed round on 2026-07-01; $500K total disclosed funding; participating in Y Combinator.</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">AI-native elder care</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Licensed home-care agency combining professional and paid family caregivers</span>
+    </div>
+    <div class="card-problem">🎯 Demand for aging at home is rising faster than the existing care system can scale; agencies lose shifts to last-minute caregiver no-shows and administrative onboarding failures, while tens of millions of relatives provide eligible care without pay or professional support.</div>
+    <div class="card-insight">When AI materially lowers the operating cost of a regulated service, the company can capture more value by becoming the service provider and use the savings to improve both supply pay and customer price. In elder care, the central scaling bottleneck is dependable workforce orchestration—including fast replacement of missed shifts and formalizing existing family labor—not merely a better consumer interface.</div>
+    <div class="card-footer">
+        <span class="card-date">09.08.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/trend-100-uverennost/" target="_blank" rel="noopener">
+            Читать →
+        </a>
+    </div>
+</div>
+<div class="card" data-niche="AI venture studios" data-title="Сделать и продать стартап — всего за 12 месяцев!" data-text="Large incumbent software companies need AI-native products and business processes but are slowed by legacy products, organizations and workflows; independent founders also lack the shared infrastructure and speed needed to exploit the short transition window. A startup exit can be designed as the business model rather than treated as luck: during a temporary technology transition, a small AI-native team can rebuild a proven product and its operating processes faster than a legacy incumbent can reorganize, then sell the ready-made transformation back to that incumbent. The transferable opportunity is in products and infrastructure that accelerate an inevitable industry transition before the window closes.">
+    <div class="card-top">
+        <div class="card-title">Сделать и продать стартап — всего за 12 месяцев!</div>
+        <div class="badge round-badge">$6M seed/first disclosed investment round on 2026-08-06; $6M total disclosed funding.</div>
+    </div>
+    <div>
+        <span class="niche-tag" style="background:#f5f5f5">AI venture studios</span>
+        <span style="font-size:12px;color:#aaa;margin-left:6px">Build-to-acquire studio for AI-native versions of established cloud software</span>
+    </div>
+    <div class="card-problem">🎯 Large incumbent software companies need AI-native products and business processes but are slowed by legacy products, organizations and workflows; independent founders also lack the shared infrastructure and speed needed to exploit the short transition window.</div>
+    <div class="card-insight">A startup exit can be designed as the business model rather than treated as luck: during a temporary technology transition, a small AI-native team can rebuild a proven product and its operating processes faster than a legacy incumbent can reorganize, then sell the ready-made transformation back to that incumbent. The transferable opportunity is in products and infrastructure that accelerate an inevitable industry transition before the window closes.</div>
+    <div class="card-footer">
+        <span class="card-date">10.08.2026</span>
+        <a class="card-link" href="https://fastfounder.ru/sdelat-i-prodat-za-12-mesjacev/" target="_blank" rel="noopener">
+            Читать →
+        </a>
+    </div>
+</div>
 <div class="card" data-niche="HealthTech / payer administration" data-title="Лучше поискать неочевидную задачу — например, вот такую!" data-text="Новый врач ждет 4–5 месяцев формальной и payer-верификации, а каждая страховая и штат создают краевые требования, формы, отказы и повторные подачи. Лучшие AI-first задачи сочетают много ручного труда и много краевых случаев: агент делает все по умолчанию и зовет человека лишь на авторизованное исключение. Библиотека различий штатов, страховщиков и врачей становится главным moat, а не интерфейс форм.">
     <div class="card-top">
         <div class="card-title">Лучше поискать неочевидную задачу — например, вот такую!</div>
@@ -3750,7 +3850,7 @@ footer {
     <div class="empty hidden" id="empty">Ничего не найдено</div>
 </div>
 
-<footer>Обновлено 10.08.2026 · FastFounder Analyzer</footer>
+<footer>Обновлено 12.08.2026 · FastFounder Analyzer</footer>
 
 <script>
 let currentNiche = 'all';

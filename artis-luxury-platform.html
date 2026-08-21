@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Стратегическая презентация концепта growth- и operating-платформы для премиальных интерьерных салонов и дизайнеров.">
+  <title>Luxury Interiors Growth Platform</title>
+  <style>
+    :root {
+      --paper: #f3efe8;
+      --paper-deep: #e7dfd3;
+      --ink: #211b18;
+      --muted: #71665e;
+      --espresso: #2a1d18;
+      --oxblood: #6e2028;
+      --brass: #a47c45;
+      --line: rgba(33, 27, 24, .18);
+      --white: #fffdf9;
+      --shadow: 0 32px 80px rgba(32, 23, 18, .18);
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      background: #17110f;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #17110f;
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck { width: 100%; }
+
+    .slide {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      min-height: 680px;
+      overflow: hidden;
+      scroll-snap-align: start;
+      background: var(--paper);
+      isolation: isolate;
+    }
+
+    .slide::after {
+      content: attr(data-slide);
+      position: absolute;
+      right: 4.6vw;
+      bottom: 3.6vh;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .14em;
+    }
+
+    .inner {
+      width: 100%;
+      height: 100%;
+      padding: 6.4vh 6.4vw 6vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eyebrow {
+      margin: 0 0 2.4vh;
+      color: var(--oxblood);
+      font-size: clamp(12px, 1.05vw, 17px);
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1, h2 {
+      font-family: var(--serif);
+      font-weight: 500;
+      letter-spacing: -.035em;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin-bottom: 3.2vh;
+      font-size: clamp(54px, 6.8vw, 104px);
+      line-height: .92;
+    }
+
+    h2 {
+      max-width: 1060px;
+      margin-bottom: 4.4vh;
+      font-size: clamp(42px, 4.5vw, 72px);
+      line-height: 1.01;
+    }
+
+    h3 {
+      margin-bottom: 1.2vh;
+      font-size: clamp(19px, 1.7vw, 28px);
+      line-height: 1.15;
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+
+    .lead {
+      max-width: 860px;
+      color: var(--muted);
+      font-size: clamp(20px, 1.8vw, 29px);
+      line-height: 1.32;
+    }
+
+    .rule {
+      width: 100%;
+      height: 1px;
+      margin: 1.4vh 0 3.2vh;
+      background: var(--line);
+    }
+
+    .accent { color: var(--oxblood); }
+    .brass { color: var(--brass); }
+    .serif { font-family: var(--serif); }
+    .muted { color: var(--muted); }
+
+    .cover {
+      background: var(--espresso);
+      color: var(--white);
+    }
+
+    .cover::after { color: rgba(255,255,255,.58); }
+
+    .cover-grid {
+      display: grid;
+      grid-template-columns: 52% 48%;
+      width: 100%;
+      height: 100%;
+    }
+
+    .cover-copy {
+      position: relative;
+      z-index: 2;
+      padding: 7vh 4.7vw 6vh 6.4vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cover-copy .eyebrow { color: #d8b47a; }
+    .cover-copy .lead { max-width: 650px; color: rgba(255,255,255,.72); }
+
+    .cover-image {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .cover-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 54% 53%;
+      filter: saturate(.86) contrast(1.03);
+    }
+
+    .cover-image::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, var(--espresso) 0%, transparent 18%), linear-gradient(180deg, transparent 65%, rgba(22,13,10,.38));
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 24px;
+      color: rgba(255,255,255,.58);
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .statement {
+      background: var(--paper);
+    }
+
+    .statement .inner { justify-content: space-between; }
+
+    .statement-quote {
+      max-width: 1180px;
+      font-family: var(--serif);
+      font-size: clamp(50px, 6vw, 94px);
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+
+    .statement-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7vw;
+      align-items: end;
+      border-top: 1px solid var(--line);
+      padding-top: 2.5vh;
+    }
+
+    .statement-bottom p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.35vw, 22px);
+      line-height: 1.45;
+    }
+
+    .triad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      flex: 1;
+      min-height: 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .triad article {
+      position: relative;
+      padding: 3.4vh 2.3vw 2vh;
+      border-right: 1px solid var(--line);
+    }
+
+    .triad article:last-child { border-right: 0; }
+
+    .triad .index {
+      display: block;
+      margin-bottom: 8vh;
+      color: var(--oxblood);
+      font-size: 13px;
+      letter-spacing: .16em;
+    }
+
+    .triad p {
+      max-width: 310px;
+      color: var(--muted);
+      font-size: clamp(16px, 1.25vw, 21px);
+      line-height: 1.42;
+    }
+
+    .triad .loss {
+      position: absolute;
+      left: 2.3vw;
+      bottom: 2.8vh;
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: clamp(22px, 2vw, 34px);
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      flex: 1;
+      min-height: 0;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .pillar {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 3.2vh 2.1vw;
+      background: var(--white);
+    }
+
+    .pillar:nth-child(2), .pillar:nth-child(4) { background: #ebe4d9; }
+
+    .pillar .num {
+      color: var(--brass);
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 62px);
+      line-height: 1;
+    }
+
+    .pillar h3 { margin-top: auto; }
+
+    .pillar p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.15vw, 19px);
+      line-height: 1.4;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5vw;
+      align-items: stretch;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .choice {
+      padding: 3.8vh 3vw;
+      border-top: 1px solid var(--ink);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .choice.preferred {
+      color: var(--white);
+      background: var(--oxblood);
+      border: 0;
+    }
+
+    .choice-label {
+      margin-bottom: 4vh;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .choice ul {
+      margin: 1.6vh 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: clamp(16px, 1.25vw, 20px);
+      line-height: 1.5;
+    }
+
+    .choice.preferred ul { color: rgba(255,255,255,.78); }
+    .choice li + li { margin-top: 1.2vh; }
+    .choice .verdict { margin-top: auto; font-family: var(--serif); font-size: clamp(24px, 2.2vw, 36px); }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0;
+      margin-top: auto;
+      margin-bottom: auto;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .flow-step {
+      position: relative;
+      min-height: 250px;
+      padding: 2.5vh 1.25vw;
+      border-right: 1px solid var(--line);
+    }
+
+    .flow-step:last-child { border-right: 0; }
+    .flow-step::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      z-index: 2;
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      background: var(--paper);
+      color: var(--oxblood);
+    }
+
+    .flow-step:last-child::after { display: none; }
+    .flow-step small { color: var(--brass); font-weight: 700; }
+    .flow-step h3 { margin-top: 9vh; font-size: clamp(17px, 1.45vw, 23px); }
+    .flow-step p { color: var(--muted); font-size: clamp(13px, .98vw, 16px); line-height: 1.35; }
+
+    .economics {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 6vw;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .payer {
+      padding: 4vh 3.2vw;
+      background: var(--espresso);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .payer .big {
+      margin: auto 0;
+      font-family: var(--serif);
+      font-size: clamp(45px, 5.1vw, 82px);
+      line-height: .98;
+    }
+
+    .payer p { color: rgba(255,255,255,.68); font-size: clamp(16px, 1.2vw, 20px); line-height: 1.4; }
+
+    .revenue-stack {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      border-top: 1px solid var(--ink);
+    }
+
+    .revenue-row {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 18px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .revenue-row span:first-child { color: var(--brass); font-family: var(--serif); font-size: 28px; }
+    .revenue-row strong { display: block; font-size: clamp(18px, 1.45vw, 24px); }
+    .revenue-row em { color: var(--muted); font-size: clamp(14px, 1vw, 17px); font-style: normal; }
+
+    .flywheel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6vw;
+      align-items: center;
+      flex: 1;
+    }
+
+    .wheel {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      padding-top: 80px;
+    }
+
+    .wheel-center {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 62px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--white);
+      background: var(--oxblood);
+      font-family: var(--serif);
+      font-size: clamp(19px, 1.55vw, 27px);
+      line-height: 1.05;
+    }
+
+    .wheel-label {
+      position: static;
+      min-height: 88px;
+      max-width: none;
+      padding: 15px 16px;
+      border-top: 1px solid var(--ink);
+      background: rgba(182, 151, 104, .09);
+      font-size: clamp(14px, 1.05vw, 18px);
+      line-height: 1.22;
+      text-align: left;
+    }
+
+    .wl1, .wl2, .wl3, .wl4 { transform: none; }
+
+    .proof-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.6vh;
+    }
+
+    .proof-item {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 22px;
+      align-items: baseline;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2vh;
+    }
+
+    .proof-item strong {
+      color: var(--oxblood);
+      font-family: var(--serif);
+      font-size: clamp(29px, 2.8vw, 44px);
+      font-weight: 500;
+    }
+
+    .proof-item p { margin: 0; color: var(--muted); font-size: clamp(15px, 1.2vw, 20px); line-height: 1.4; }
+
+    .category-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: auto;
+      margin-bottom: auto;
+      table-layout: fixed;
+      font-size: clamp(14px, 1.12vw, 19px);
+    }
+
+    .category-table th,
+    .category-table td {
+      padding: 2.15vh 1.35vw;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .category-table th {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .category-table th:first-child { width: 30%; }
+    .category-table tr.recommend { background: var(--espresso); color: var(--white); }
+    .category-table tr.recommend td { border-bottom-color: transparent; }
+    .score { color: var(--brass); letter-spacing: .12em; white-space: nowrap; }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5vw;
+      flex: 1;
+      align-items: center;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 47%;
+      height: 1px;
+      background: var(--ink);
+    }
+
+    .phase {
+      position: relative;
+      min-height: 340px;
+      padding-top: 3vh;
+    }
+
+    .phase::before {
+      content: "";
+      position: absolute;
+      top: calc(47% - 7px);
+      left: 0;
+      width: 15px;
+      height: 15px;
+      background: var(--oxblood);
+      border-radius: 50%;
+    }
+
+    .phase .phase-no { color: var(--brass); font-family: var(--serif); font-size: 42px; }
+    .phase h3 { margin-top: 1vh; max-width: 250px; }
+    .phase p { position: absolute; top: 58%; left: 0; max-width: 300px; color: var(--muted); font-size: clamp(15px, 1.1vw, 19px); line-height: 1.42; }
+
+    .pilot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7vw;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .pilot-scope {
+      border-top: 1px solid var(--ink);
+      padding-top: 2.8vh;
+    }
+
+    .pilot-scope ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: pilot;
+    }
+
+    .pilot-scope li {
+      counter-increment: pilot;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      padding: 1.65vh 0;
+      border-bottom: 1px solid var(--line);
+      font-size: clamp(16px, 1.2vw, 20px);
+      line-height: 1.32;
+    }
+
+    .pilot-scope li::before { content: "0" counter(pilot); color: var(--brass); font-family: var(--serif); }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .metric {
+      min-height: 150px;
+      padding: 2.2vh 1.5vw;
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .metric strong { color: var(--oxblood); font-family: var(--serif); font-size: clamp(24px, 2.4vw, 38px); font-weight: 500; }
+    .metric span { color: var(--muted); font-size: clamp(13px, .95vw, 16px); line-height: 1.28; }
+
+    .closing {
+      background: var(--oxblood);
+      color: var(--white);
+    }
+
+    .closing::after { color: rgba(255,255,255,.55); }
+    .closing .inner { justify-content: space-between; }
+    .closing h2 { max-width: 1120px; font-size: clamp(48px, 5.45vw, 82px); }
+    .closing .lead { color: rgba(255,255,255,.74); max-width: 900px; }
+
+    .closing-action {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: 5vw;
+      border-top: 1px solid rgba(255,255,255,.35);
+      padding-top: 3vh;
+      align-items: start;
+    }
+
+    .closing-action strong {
+      color: #e7c68d;
+      font-size: 13px;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+    }
+
+    .closing-action p { margin: 0; font-size: clamp(18px, 1.5vw, 25px); line-height: 1.4; }
+
+    .sources {
+      background: #e8e0d4;
+    }
+
+    .source-list {
+      columns: 2;
+      column-gap: 7vw;
+      margin: auto 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .source-list li {
+      break-inside: avoid;
+      padding: 1.6vh 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: clamp(14px, 1vw, 17px);
+      line-height: 1.35;
+    }
+
+    .source-list a { color: var(--ink); text-decoration-color: var(--brass); text-underline-offset: 3px; }
+
+    .nav {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transform: translateY(-50%);
+    }
+
+    .nav a {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.38);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.14);
+      transition: transform .2s, background .2s;
+    }
+
+    .nav a.active { background: #fff; transform: scale(1.75); }
+
+    @media (max-width: 900px) {
+      html { scroll-snap-type: none; }
+      .slide { height: auto; min-height: 100vh; }
+      .inner { padding: 54px 34px 64px; }
+      .cover-grid, .choice-grid, .economics, .flywheel, .pilot-grid, .closing-action { grid-template-columns: 1fr; }
+      .cover-copy { min-height: 68vh; padding: 54px 34px; }
+      .cover-image { min-height: 55vh; }
+      .triad, .pillars, .flow, .timeline { grid-template-columns: 1fr; }
+      .triad article, .pillar, .flow-step, .phase { min-height: auto; }
+      .triad .index { margin-bottom: 30px; }
+      .triad .loss { position: static; margin-top: 32px; }
+      .flow-step::after, .timeline::before, .phase::before { display: none; }
+      .flow-step h3 { margin-top: 30px; }
+      .phase p { position: static; }
+      .source-list { columns: 1; }
+      .nav { display: none; }
+    }
+
+    @page {
+      size: 13.333in 7.5in;
+      margin: 0;
+    }
+
+    @media print {
+      html, body { background: #fff; scroll-snap-type: none; }
+      .nav { display: none !important; }
+      .slide {
+        width: 13.333in;
+        height: 7.5in;
+        min-height: 0;
+        break-after: page;
+        page-break-after: always;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+      .slide:last-child { break-after: auto; page-break-after: auto; }
+      .inner { padding: .48in .64in .45in; }
+      .cover-copy { padding: .55in .45in .48in .64in; }
+      a { color: inherit; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="nav" aria-label="Навигация по слайдам"></aside>
+  <main class="deck">
+    <section class="slide cover" id="s1" data-slide="01 / 12">
+      <div class="cover-grid">
+        <div class="cover-copy">
+          <div>
+            <p class="eyebrow">Рабочая концепция · 2026</p>
+            <h1>Luxury Interiors<br>Growth Platform</h1>
+            <p class="lead">Artis × Modus для премиальных интерьерных салонов и дизайнеров.</p>
+          </div>
+          <div class="cover-meta">
+            <span>Growth</span><span>Trade</span><span>Operations</span><span>Equity</span>
+          </div>
+        </div>
+        <div class="cover-image">
+          <img src="assets/luxury-showroom.png" alt="Премиальный интерьерный салон с креслом, камнем, деревом и латунью">
+        </div>
+      </div>
+    </section>
+
+    <section class="slide statement" id="s2" data-slide="02 / 12">
+      <div class="inner">
+        <p class="eyebrow">Главный тезис</p>
+        <div class="statement-quote">Красоту нельзя автоматизировать. <span class="accent">Всё вокруг неё — можно.</span></div>
+        <div class="statement-bottom">
+          <p>Artis уже продаёт премиальным дизайнерам бренд, digital‑присутствие и свободу от координации, расписаний и коммуникаций.</p>
+          <p>Следующий шаг — отвечать не только за образ, но и за коммерческий результат: спрос, trade‑отношения, смету, заказ и повторную продажу.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s3" data-slide="03 / 12">
+      <div class="inner">
+        <p class="eyebrow">Где теряются деньги</p>
+        <h2>Дорогой рынок разорван между тремя участниками</h2>
+        <div class="triad">
+          <article>
+            <span class="index">01 · ДИЗАЙНЕР</span>
+            <h3>Создаёт желание</h3>
+            <p>Но тратит часы на каталоги, образцы, сметы, статусы и рекламации вместо творческой работы.</p>
+            <div class="loss">Теряет время</div>
+          </article>
+          <article>
+            <span class="index">02 · САЛОН</span>
+            <h3>Владеет товаром и маржой</h3>
+            <p>Но медленно отвечает, забывает открытые сметы и не знает, какой контент или дизайнер принёс заказ.</p>
+            <div class="loss">Теряет конверсию</div>
+          </article>
+          <article>
+            <span class="index">03 · КЛИЕНТ</span>
+            <h3>Готов платить за результат</h3>
+            <p>Но получает набор поставщиков, непрозрачные сроки и отсутствие единого ответственного за комплектацию.</p>
+            <div class="loss">Теряет доверие</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s4" data-slide="04 / 12">
+      <div class="inner">
+        <p class="eyebrow">Решение</p>
+        <h2>Один коммерческий слой соединяет красоту с транзакцией</h2>
+        <div class="pillars">
+          <article class="pillar">
+            <div class="num">01</div>
+            <h3>Demand engine</h3>
+            <p>Позиционирование, контент, SEO/GEO, private events и реактивация клиентской базы.</p>
+          </article>
+          <article class="pillar">
+            <div class="num">02</div>
+            <h3>Trade network</h3>
+            <p>Дизайнеры, trade‑условия, образцы, подбор, спецификации и персональный concierge.</p>
+          </article>
+          <article class="pillar">
+            <div class="num">03</div>
+            <h3>Sales operations</h3>
+            <p>CRM, квалификация, быстрые сметы, follow‑up и возврат забытых предложений.</p>
+          </article>
+          <article class="pillar">
+            <div class="num">04</div>
+            <h3>Order operations</h3>
+            <p>Опции, сроки, логистика, монтаж, рекламации и цифровой паспорт комплектации.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s5" data-slide="05 / 12">
+      <div class="inner">
+        <p class="eyebrow">Выбор первой модели</p>
+        <h2>Начинать стоит с салона, а не с дизайн‑студии</h2>
+        <div class="choice-grid">
+          <article class="choice">
+            <div class="choice-label">Artis для дизайнеров</div>
+            <h3>Красивый managed service</h3>
+            <ul>
+              <li>Сильная боль основателя</li>
+              <li>Высокий ежемесячный чек</li>
+              <li>Но мощность студии быстро заканчивается</li>
+              <li>ROI маркетинга сложно атрибутировать</li>
+            </ul>
+            <div class="verdict">Хороший сервис.<br>Слабее как платформа.</div>
+          </article>
+          <article class="choice preferred">
+            <div class="choice-label">Рекомендуемый вход</div>
+            <h3>Growth OS для интерьерного салона</h3>
+            <ul>
+              <li>Один заказ способен окупить сервис</li>
+              <li>Маржа и транзакция видны в CRM</li>
+              <li>Дизайнер становится масштабируемым каналом</li>
+              <li>Появляется путь к комиссии и equity</li>
+            </ul>
+            <div class="verdict">Салон платит.<br>Дизайнер получает concierge.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s6" data-slide="06 / 12">
+      <div class="inner">
+        <p class="eyebrow">Как работает продукт</p>
+        <h2>Платформа ведёт заказ от интереса до рекомендации</h2>
+        <div class="flow">
+          <div class="flow-step"><small>01</small><h3>Спрос</h3><p>Контент, поиск, события, партнёры.</p></div>
+          <div class="flow-step"><small>02</small><h3>Квалификация</h3><p>Бюджет, стиль, объект, сроки.</p></div>
+          <div class="flow-step"><small>03</small><h3>Подбор</h3><p>Moodboard, коллекции, образцы.</p></div>
+          <div class="flow-step"><small>04</small><h3>Смета</h3><p>Опции, скидки, SLA ответа.</p></div>
+          <div class="flow-step"><small>05</small><h3>Заказ</h3><p>Оплата, производство, статусы.</p></div>
+          <div class="flow-step"><small>06</small><h3>Монтаж</h3><p>Логистика, приёмка, рекламации.</p></div>
+          <div class="flow-step"><small>07</small><h3>Повтор</h3><p>Фото проекта, referral, cross‑sell.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s7" data-slide="07 / 12">
+      <div class="inner">
+        <p class="eyebrow">Бизнес‑модель</p>
+        <h2>Монетизация углубляется вместе с контролем над транзакцией</h2>
+        <div class="economics">
+          <div class="payer">
+            <p>Основной плательщик</p>
+            <div class="big">Салон или локальный дилер</div>
+            <p>Дизайнер пользуется sourcing‑ и trade‑слоем бесплатно, потому что он создаёт спецификацию и приводит будущую выручку.</p>
+          </div>
+          <div class="revenue-stack">
+            <div class="revenue-row"><span>1</span><div><strong>Retainer</strong><em>Маркетинг и managed operations</em></div></div>
+            <div class="revenue-row"><span>2</span><div><strong>Performance fee</strong><em>Доля атрибутированной валовой прибыли</em></div></div>
+            <div class="revenue-row"><span>3</span><div><strong>Transaction layer</strong><em>Комиссия, SaaS или supplier fee</em></div></div>
+            <div class="revenue-row"><span>4</span><div><strong>Equity</strong><em>Доля в лучших локальных операторах</em></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s8" data-slide="08 / 12">
+      <div class="inner">
+        <p class="eyebrow">Почему это не просто агентство</p>
+        <h2>Каждая транзакция обучает следующий коммерческий цикл</h2>
+        <div class="flywheel">
+          <div class="wheel" aria-label="Маховик данных">
+            <div class="wheel-center">Trade<br>intelligence</div>
+            <div class="wheel-label wl1">Проекты и предпочтения дизайнеров</div>
+            <div class="wheel-label wl2">Конверсия смет и совместимость предметов</div>
+            <div class="wheel-label wl3">Реальные сроки, цены и рекламации</div>
+            <div class="wheel-label wl4">Каталоги, отделки и локальные права</div>
+          </div>
+          <div class="proof-list">
+            <div class="proof-item"><strong>15k+</strong><p>trade‑участников уже обслуживает Artemest; рынок принимает единый luxury‑sourcing слой.</p></div>
+            <div class="proof-item"><strong>120k+</strong><p>дизайнеров и архитекторов используют Material Bank как канал discovery и образцов.</p></div>
+            <div class="proof-item"><strong>$5B</strong><p>годовых заказов проходит через Studio Designer — workflow уже цифровой, но остаётся разорванным.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s9" data-slide="09 / 12">
+      <div class="inner">
+        <p class="eyebrow">Стартовая вертикаль</p>
+        <h2>Лучший вход — категории, которые нельзя купить без локального сервиса</h2>
+        <table class="category-table">
+          <thead>
+            <tr><th>Категория</th><th>Чек</th><th>Локальный moat</th><th>Повторяемость</th><th>Приоритет</th></tr>
+          </thead>
+          <tbody>
+            <tr class="recommend"><td><strong>Итальянские кухни и гардеробные</strong></td><td>Очень высокий</td><td>Обмер, проект, монтаж</td><td>Высокая</td><td class="score">★★★★★</td></tr>
+            <tr><td>Архитектурный свет</td><td>Высокий</td><td>Спецификация и комплектация</td><td>Высокая</td><td class="score">★★★★☆</td></tr>
+            <tr><td>Встроенная мебель</td><td>Высокий</td><td>Проектирование и производство</td><td>Высокая</td><td class="score">★★★★☆</td></tr>
+            <tr><td>Сантехника и поверхности</td><td>Средний / высокий</td><td>Образцы и технический подбор</td><td>Средняя</td><td class="score">★★★☆☆</td></tr>
+            <tr><td>Loose furniture</td><td>Высокий</td><td>Слабее: проще сравнить онлайн</td><td>Средняя</td><td class="score">★★☆☆☆</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="slide" id="s10" data-slide="10 / 12">
+      <div class="inner">
+        <p class="eyebrow">Путь к холдингу</p>
+        <h2>Сначала доказать рост, потом покупать лучшие узлы сети</h2>
+        <div class="timeline">
+          <article class="phase">
+            <div class="phase-no">01</div><h3>Managed service</h3>
+            <p>Один город, один салон, одна категория. Ставим demand engine, CRM и trade‑процесс.</p>
+          </article>
+          <article class="phase">
+            <div class="phase-no">02</div><h3>Trade network</h3>
+            <p>Подключаем неконкурирующие категории и создаём единую комплектацию для дизайнеров.</p>
+          </article>
+          <article class="phase">
+            <div class="phase-no">03</div><h3>Equity platform</h3>
+            <p>Входим в капитал лучших дилеров: общие маркетинг, данные, закупки и операционка.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s11" data-slide="11 / 12">
+      <div class="inner">
+        <p class="eyebrow">Первый тест</p>
+        <h2>За 12 недель можно проверить ценность без тяжёлой разработки</h2>
+        <div class="pilot-grid">
+          <div class="pilot-scope">
+            <ol>
+              <li>Выбрать один салон итальянских кухонь или гардеробных.</li>
+              <li>Оцифровать лиды, сметы, статусы и причины проигрыша.</li>
+              <li>Запустить trade‑программу и персональный concierge для дизайнеров.</li>
+              <li>Сделать контент и landing pages вокруг реальных сценариев покупки.</li>
+              <li>Ввести SLA расчёта и системный follow‑up открытых смет.</li>
+            </ol>
+          </div>
+          <div class="metrics">
+            <div class="metric"><strong>Time‑to‑quote</strong><span>Сколько времени проходит от запроса до расчёта</span></div>
+            <div class="metric"><strong>Quote → order</strong><span>Конверсия сметы в оплаченный заказ</span></div>
+            <div class="metric"><strong>Gross profit / lead</strong><span>Валовая прибыль на квалифицированный лид</span></div>
+            <div class="metric"><strong>Repeat designer GMV</strong><span>Повторные заказы активированных дизайнеров</span></div>
+            <div class="metric"><strong>Recovered pipeline</strong><span>Прибыль из возвращённых забытых смет</span></div>
+            <div class="metric"><strong>Order accuracy</strong><span>Ошибки, задержки и рекламации по заказам</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide closing" id="s12" data-slide="12 / 12">
+      <div class="inner">
+        <div>
+          <p class="eyebrow" style="color:#e7c68d">Рекомендация</p>
+          <h2>Строить не агентство для красивых брендов, а коммерческую инфраструктуру luxury‑интерьеров.</h2>
+          <p class="lead">Салон платит за рост. Дизайнер получает лучший workflow. Платформа накапливает данные, транзакции и право войти в капитал.</p>
+        </div>
+        <div class="closing-action">
+          <strong>Первый шаг</strong>
+          <p>Один город · один салон итальянских кухонь/гардеробных · одна 12‑недельная установка growth + trade + sales operations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide sources" id="sources" data-slide="SOURCES">
+      <div class="inner">
+        <p class="eyebrow">Источники и аналоги</p>
+        <h2>Модель опирается на уже работающие элементы рынка</h2>
+        <ul class="source-list">
+          <li><a href="https://artis.ai/">Artis</a> — бренд, digital‑присутствие и автоматизация координации вокруг творческой практики.</li>
+          <li><a href="https://www.modusalliance.com/">Modus</a> — technology, growth, back‑office и капитал как единая платформа для локальных фирм.</li>
+          <li><a href="https://artemest.com/en-ae/trade">Artemest Trade</a> — 15k+ trade‑участников, 50k+ продуктов, 1k производителей и 360° project support.</li>
+          <li><a href="https://www.materialbank.com/">Material Bank</a> — 650+ брендов, 120k+ дизайнеров и архитекторов, discovery, образцы и связь с brand reps.</li>
+          <li><a href="https://www.studiodesigner.com/about-studio-designer/">Studio Designer</a> — 20k+ пользователей и около $5 млрд годовых заказов в отраслевом workflow.</li>
+          <li><a href="https://pipedreams.com/">PipeDreams</a> — product, data, marketing и operations как общий слой над локальными компаниями.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const nav = document.querySelector('.nav');
+
+    slides.forEach((slide, index) => {
+      const dot = document.createElement('a');
+      dot.href = `#${slide.id}`;
+      dot.setAttribute('aria-label', `Слайд ${index + 1}`);
+      nav.appendChild(dot);
+    });
+
+    const dots = [...nav.querySelectorAll('a')];
+
+    const currentIndex = () => {
+      const midpoint = window.scrollY + window.innerHeight / 2;
+      let index = 0;
+      slides.forEach((slide, i) => {
+        if (slide.offsetTop <= midpoint) index = i;
+      });
+      return index;
+    };
+
+    const updateNav = () => {
+      const active = currentIndex();
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === active));
+    };
+
+    const go = (delta) => {
+      const target = Math.max(0, Math.min(slides.length - 1, currentIndex() + delta));
+      slides[target].scrollIntoView({ behavior: 'smooth' });
+    };
+
+    document.addEventListener('keydown', (event) => {
+      if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) {
+        event.preventDefault(); go(1);
+      }
+      if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) {
+        event.preventDefault(); go(-1);
+      }
+    });
+
+    window.addEventListener('scroll', updateNav, { passive: true });
+    window.addEventListener('resize', updateNav);
+    updateNav();
+  </script>
+</body>
+</html>
